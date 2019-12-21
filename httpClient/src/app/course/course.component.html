@@ -1,0 +1,80 @@
+
+  <div class="form-row align-items-center">
+    <div class="col-3 my-2">
+      <label class="sr-only" for="course">Curso:</label>
+      <input type="text" class="form-control form-control-sm" id="course" placeholder="Nombre del curso." [(ngModel)]="course.course">
+    </div>
+    <div class="col-auto my-2">
+      <div class="form-check">
+        <input class="form-check-input" checked="checked" disabled="disabled" type="checkbox" id="active" [(ngModel)]="course.active">
+        <label class="form-check-label" for="active">
+          ¿Activo?
+        </label>
+      </div>
+    </div>
+    <div class="col-auto my-2">
+      <button type="submit" class="btn btn-sm btn-success" (click)="courseAdd()">Crear</button>
+    </div>
+  </div>
+
+<div class="row">
+  <div class="col-6">
+    <table class="table table-striped table-hover table-sm">
+      <thead>
+        <tr>
+          <th>No.</th>
+          <th>Curso</th>
+          <th>Activo</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let course of courses; let rowNumber = index">
+          <td>{{rowNumber+1}}</td>
+          <td>{{course.course}}</td>
+          <td class="text-center">{{ course.active == '1' ? 'Si' : 'No'}}</td>
+          <td class="text-center">
+            <i class="far fa-edit" (click)="courseEdit(course)"></i> &nbsp;
+            <i class="far fa-trash-alt" (click)="courseDelete(course)"></i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="modalCourseEdit" tabindex="-1" role="dialog" aria-labelledby="modalCourseEditTitle"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalCourseEditTitle">Editar curso</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-row align-items-center">
+          <div class="col-auto my-2">
+            <label class="sr-only" for="course">Curso:</label>
+            <input type="text" class="form-control form-control-sm" id="course" placeholder="Nombre del curso." [(ngModel)]="course.course">
+          </div>
+          <div class="col-auto my-2">
+            <div class="form-check">
+              <input class="form-check-input" checked="{{ course.active == '1' ? 'checked' : '' }}" type="checkbox" id="active" [(ngModel)]="course.active">
+              <label class="form-check-label" for="active">
+                ¿Activo?
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-outline-danger" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-sm btn-success" (click)="courseUpdate()">Actualizar</button>
+      </div>
+    </div>
+  </div>
+</div>
