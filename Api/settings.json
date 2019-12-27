@@ -1,24 +1,24 @@
 {
     "NODE_ENV":"production",
     "development": {
-        "username": "root",
-        "password": null,
+        "username": "uEscuelaEnLinea",
+        "password": "Es**En**Li**123",
         "database": "EscuelaOnLine",
         "host": "localhost",
         "dialect": "mysql",
         "operatorsAliases": false
       },
       "test": {
-        "username": "root",
-        "password": null,
+        "username": "uEscuelaEnLinea",
+        "password": "Es**En**Li**123",
         "database": "EscuelaOnLine",
         "host": "localhost",
         "dialect": "mysql",
         "operatorsAliases": false
       },
       "production": {
-        "username": "root",
-        "password": null,
+        "username": "uEscuelaEnLinea",
+        "password": "Es**En**Li**123",
         "database": "EscuelaOnLine",
         "host": "localhost",
         "dialect": "mysql",

@@ -1,17 +1,17 @@
 
   <div class="form-row align-items-center">
+    <div class="col-1 my-2">
+      <label class="sr-only" for="year">Año:</label>
+      <input type="number" class="form-control form-control-sm" id="year" placeholder="Año del curso." [(ngModel)]="course.year">
+    </div>
     <div class="col-3 my-2">
       <label class="sr-only" for="course">Curso:</label>
       <input type="text" class="form-control form-control-sm" id="course" placeholder="Nombre del curso." [(ngModel)]="course.course">
-    </div>
-    <div class="col-auto my-2">
-      <div class="form-check">
-        <input class="form-check-input" checked="checked" disabled="disabled" type="checkbox" id="active" [(ngModel)]="course.active">
-        <label class="form-check-label" for="active">
-          ¿Activo?
-        </label>
-      </div>
-    </div>
+    </div>    
+    <div class="col-1 my-2">
+      <label class="sr-only" for="year">Orden:</label>
+      <input type="number" class="form-control form-control-sm" id="orden" placeholder="Orden de visualización." [(ngModel)]="course.order">
+    </div>     
     <div class="col-auto my-2">
       <button type="submit" class="btn btn-sm btn-success" (click)="courseAdd()">Crear</button>
     </div>
@@ -23,7 +23,9 @@
       <thead>
         <tr>
           <th>No.</th>
+          <th>Año</th>
           <th>Curso</th>
+          <th>Orden</th>
           <th>Activo</th>
           <th>Acciones</th>
         </tr>
@@ -31,7 +33,9 @@
       <tbody>
         <tr *ngFor="let course of courses; let rowNumber = index">
           <td>{{rowNumber+1}}</td>
+          <td>{{course.year}}</td>
           <td>{{course.course}}</td>
+          <td>{{course.order}}</td>
           <td class="text-center">{{ course.active == '1' ? 'Si' : 'No'}}</td>
           <td class="text-center">
             <i class="far fa-edit" (click)="courseEdit(course)"></i> &nbsp;
@@ -47,7 +51,7 @@
 
 <div class="modal fade" id="modalCourseEdit" tabindex="-1" role="dialog" aria-labelledby="modalCourseEditTitle"
   aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="modalCourseEditTitle">Editar curso</h5>
@@ -58,9 +62,17 @@
       <div class="modal-body">
         <div class="form-row align-items-center">
           <div class="col-auto my-2">
+            <label class="sr-only" for="year">Año:</label>
+            <input type="number" class="form-control form-control-sm" id="year" placeholder="Año del curso." [(ngModel)]="course.year">
+          </div>
+          <div class="col-auto my-2">
             <label class="sr-only" for="course">Curso:</label>
             <input type="text" class="form-control form-control-sm" id="course" placeholder="Nombre del curso." [(ngModel)]="course.course">
           </div>
+          <div class="col-auto my-2">
+            <label class="sr-only" for="year">Orden:</label>
+            <input type="number" class="form-control form-control-sm" id="orden" placeholder="Orden de visualización." [(ngModel)]="course.order">
+          </div>          
           <div class="col-auto my-2">
             <div class="form-check">
               <input class="form-check-input" checked="{{ course.active == '1' ? 'checked' : '' }}" type="checkbox" id="active" [(ngModel)]="course.active">

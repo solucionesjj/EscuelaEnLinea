@@ -5,7 +5,9 @@ const Course = database.Course;
 exports.create = (req, res) => {
   Course.create({
     course: req.body.course,
-    active: req.body.active
+    active: req.body.active,
+    year: req.body.year,
+    order: req.body.order
   }).then(course => {
     res.send(course);
   });
@@ -30,7 +32,9 @@ exports.update = (req, res) => {
   var id = req.params.id;
   Course.update({
     course: req.body.course,
-    active: req.body.active
+    active: req.body.active,
+    year: req.body.year,
+    order: req.body.order
   }, {
     where: {
       id: req.params.id

@@ -18,6 +18,8 @@ export class CourseComponent implements OnInit {
   ngOnInit() {
     this.course.course = null;
     this.course.active = true;
+    this.course.year = (new Date()).getFullYear();
+    this.course.order = 1;
     this.courseGet();
   }
 
@@ -44,6 +46,7 @@ export class CourseComponent implements OnInit {
     this.course.id = courseToUpdate.id;
     this.course.course = courseToUpdate.course;
     this.course.active = courseToUpdate.active;
+    this.course.order = courseToUpdate.order;
     $('#modalCourseEdit').modal('show');
   }
 
@@ -51,6 +54,7 @@ export class CourseComponent implements OnInit {
     this.course.id = null;
     this.course.course = null;
     this.course.active = 1;
+    this.course.order = 1;
     this.courseGet();    
     $('#modalCourseEdit').modal('hide');
   }

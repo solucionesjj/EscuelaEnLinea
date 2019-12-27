@@ -1,5 +1,7 @@
 const database = require('../models/index');
 const Area = database.Area;
+const Sequelize = require('sequelize');
+const TableHints = Sequelize.TableHints;
 
 // Post an Area
 exports.create = (req, res) => {
@@ -13,7 +15,10 @@ exports.create = (req, res) => {
 
 // FETCH all Areas
 exports.findAll = (req, res) => {
-  Area.findAll().then(area => {
+  Area.findAll({
+    tableHint: TableHints.NOLOCK,
+    order: [['area','ASC'],],
+  }).then(area => {
     res.send(area);
   });
 };

@@ -6,12 +6,14 @@ import { AppComponent } from './app.component';
 import { CourseComponent } from './course/course.component';
 import { FormsModule } from '@angular/forms';
 import { AreaComponent } from './area/area.component';
+import { MatterComponent } from './matter/matter.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CourseComponent,
-    AreaComponent
+    AreaComponent,
+    MatterComponent
   ],
   imports: [
     BrowserModule,
