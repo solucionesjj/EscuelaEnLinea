@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiclientService } from '../apiclient.service'
+import { ApiclientService } from '../apiclient.service';
+import { AreaService } from '../services/area.service';
 
 declare var $: any; //para poder usar los comandos con $ de jquery
 
@@ -13,7 +14,7 @@ export class AreaComponent implements OnInit {
   areas;
   area: any = {};
 
-  constructor(private http: ApiclientService) { }
+  constructor(private http: ApiclientService, private areaService: AreaService) { }
 
   ngOnInit() {
     this.area.area = null;
@@ -21,23 +22,19 @@ export class AreaComponent implements OnInit {
     this.areaGet();
   }
 
-
-
   async areaGet(): Promise<any> {
-    const result = await this.http.Get("area");
+    const result = await this.areaService.areaGet();
     this.areas = result;
   }
 
   async areaAdd(): Promise<any> {
-    if(this.area.area != '')
-    {
-    const result = await this.http.Post("area/create",this.area);
-    this.area.area = null;
-    console.log(result); 
-    this.areaGet();     
+    if (this.area.area != '') {
+      const result = await this.areaService.areaAdd(this.area);
+      this.area.area = null;
+      console.log(result);
+      this.areaGet();
     }
-    else
-    {
+    else {
       console.log("No se puede crear un area sin nombre.");
     }
   }
@@ -53,34 +50,29 @@ export class AreaComponent implements OnInit {
     this.area.id = null;
     this.area.area = null;
     this.area.order = 1;
-    this.areaGet();    
+    this.areaGet();
     $('#modalAreaEdit').modal('hide');
   }
 
   async areaUpdate(): Promise<any> {
-    if(this.area.area != '')
-    {
-    const result = await this.http.Put("area/"+this.area.id,this.area);
-    this.areaEditClose();
+    if (this.area.area != '') {
+      const result = await this.areaService.areaUpdate(this.area);
+      this.areaEditClose();
     }
-    else
-    {
+    else {
       console.log("No se puede actualizar un area sin nombre.");
     }
   }
 
   async areaDelete(areaToDelete): Promise<any> {
-    if(areaToDelete.id != '')
-    {
-      if(confirm('¿Desea eliminar el area: '+areaToDelete.area+'?'))
-      {
-      const result = await this.http.Delete("area/"+areaToDelete.id);
-      this.areaGet();         
+    if (areaToDelete.id != '') {
+      if (confirm('¿Desea eliminar el area: ' + areaToDelete.area + '?')) {
+        const result = await this.areaService.areaDelete(areaToDelete);
+        this.areaGet();
       }
 
     }
-    else
-    {
+    else {
       console.log("No se puede eliminar un area sin el correspondiente id.");
     }
   }
