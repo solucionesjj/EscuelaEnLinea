@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiclientService } from '../apiclient.service';
+import { ApiclientService } from '../services/apiclient.service';
 import { AreaService } from '../services/area.service';
 
 declare var $: any; //para poder usar los comandos con $ de jquery
