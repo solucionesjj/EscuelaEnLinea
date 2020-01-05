@@ -1,27 +1,4 @@
 {
-    "NODE_ENV":"production",
-    "development": {
-        "username": "uEscuelaEnLinea",
-        "password": "Es**En**Li**123",
-        "database": "EscuelaOnLine",
-        "host": "localhost",
-        "dialect": "mysql",
-        "operatorsAliases": false
-      },
-      "test": {
-        "username": "uEscuelaEnLinea",
-        "password": "Es**En**Li**123",
-        "database": "EscuelaOnLine",
-        "host": "localhost",
-        "dialect": "mysql",
-        "operatorsAliases": false
-      },
-      "production": {
-        "username": "uEscuelaEnLinea",
-        "password": "Es**En**Li**123",
-        "database": "EscuelaOnLine",
-        "host": "localhost",
-        "dialect": "mysql",
-        "operatorsAliases": false
-      }
+    "_NODE_ENV":"Posibles valores: development, test, production",
+    "NODE_ENV":"production"
 }

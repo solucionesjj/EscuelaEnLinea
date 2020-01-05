@@ -24,15 +24,13 @@ var middleware = function (req, res, next) {
 app.use(middleware);
 
 ////Routing
-var coursesRouting = require('./routes/course');
-var areasRouting = require('./routes/area');
+var crudRouting = require('./routes/crud');
+
+////Add routes to use
+app.use('/crud',crudRouting);
 
 ////Add images folder
 app.use('/images',express.static('images'));
-
-////Add routes to use
-app.use('/course',coursesRouting);
-app.use('/area',areasRouting);
 
 ////Welcome page
 var welcomePage =`

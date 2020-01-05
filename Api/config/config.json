@@ -1,24 +1,24 @@
 {
   "development": {
-    "username": "uEscuelaEnLinea",
-    "password": "Es**En**Li**123",
-    "database": "EscuelaOnLine",
+    "username": "uEscuelaEnLineaaaa",
+    "password": "uEscuelaEnLineaaaa",
+    "database": "EscuelaEnLineaaaa",
     "host": "localhost",
     "dialect": "mysql",
     "operatorsAliases": false
   },
   "test": {
     "username": "uEscuelaEnLinea",
-    "password": "Es**En**Li**123",
-    "database": "EscuelaOnLine",
+    "password": "uEscuelaEnLinea",
+    "database": "EscuelaEnLinea",
     "host": "localhost",
     "dialect": "mysql",
     "operatorsAliases": false
   },
   "production": {
     "username": "uEscuelaEnLinea",
-    "password": "Es**En**Li**123",
-    "database": "EscuelaOnLine",
+    "password": "uEscuelaEnLinea",
+    "database": "EscuelaEnLinea",
     "host": "localhost",
     "dialect": "mysql",
     "operatorsAliases": false

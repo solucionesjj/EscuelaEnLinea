@@ -1,9 +1,9 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from "src/environments/environment";
+import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 
 export class ApiclientService {
@@ -13,17 +13,16 @@ export class ApiclientService {
     this.baseUrl = environment.url;
   }
 
-  async Get(url: string): Promise<any> 
-    {
+  async Get(url: string): Promise<any> {
     return new Promise((resolve, reject) => {
       this.http.get(`${this.baseUrl}${url}`).subscribe(
         data => {
-          console.log(`Data From : ${this.baseUrl}${url}`, data);
+          // console.log(`Data From : ${this.baseUrl}${url}`, data);
           resolve(data);
         },
         error => {
           if (error.status === 401) {
-            console.log(`No autorizado : ${this.baseUrl}${url}`);
+            // console.log(`No autorizado : ${this.baseUrl}${url}`);
           } else {
             reject(error);
           }
@@ -36,11 +35,11 @@ export class ApiclientService {
     return new Promise((resolve, reject) => {
       this.http.post(`${this.baseUrl}${url}`, body).subscribe(
         data => {
-          console.log(`Data From : ${url} `, data);
+          // console.log(`Data From : ${url} `, data);
           resolve(data);
         },
         error => {
-          console.log(`Error From : ${url} `, error);
+          // console.log(`Error From : ${url} `, error);
           reject(error);
         }
       );
@@ -51,11 +50,11 @@ export class ApiclientService {
     return new Promise((resolve, reject) => {
       this.http.put(`${this.baseUrl}${url}`, body).subscribe(
         data => {
-          console.log(`Data From : ${this.baseUrl}${url} `, data);
+          // console.log(`Data From : ${this.baseUrl}${url} `, data);
           resolve(data);
         },
         error => {
-          console.log(`Error From : ${this.baseUrl}${url} `, error);
+          // console.log(`Error From : ${this.baseUrl}${url} `, error);
           reject(error);
         }
       );
@@ -66,7 +65,7 @@ export class ApiclientService {
     return new Promise((resolve, reject) => {
       this.http.delete(`${this.baseUrl}${url}`).subscribe(
         data => {
-          console.log(`Data From : ${url} `, data);
+          // console.log(`Data From : ${url} `, data);
           resolve(data);
         },
         error => {

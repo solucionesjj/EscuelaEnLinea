@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiclientService } from '../services/apiclient.service'
-
-declare var $: any; //para poder usar los comandos con $ de jquery
 
 @Component({
   selector: 'app-course',
@@ -11,80 +8,58 @@ declare var $: any; //para poder usar los comandos con $ de jquery
 
 export class CourseComponent implements OnInit {
 
-  courses;
-  course: any = {};
-  constructor(private http: ApiclientService) { }
+  configCrudComponent: any = {};
+
+  actualYear: number;
+
+  constructor() {
+
+    this.actualYear = (new Date()).getFullYear();
+
+    this.configCrudComponent = {
+      columns: [{
+        name: 'course',
+        title: 'Curso',
+        titleAlignment: 'center',
+        dataAlignment: 'left',
+        dataFormat: 'text',
+        placeHolder: 'Nombre del curso',
+        helpText: 'Nombre con el cual se identifica el curso.',
+        defaultValue: ''
+      },
+      {
+        name: 'year',
+        title: 'Año',
+        titleAlignment: 'center',
+        dataAlignment: 'center',
+        dataFormat: 'number',
+        placeHolder: 'Año en formato 0000',
+        helpText: 'Año al cual pertenece el curso.',
+        defaultValue: this.actualYear
+      },
+      {
+        name: 'order',
+        title: 'Orden',
+        titleAlignment: 'center',
+        dataAlignment: 'center',
+        dataFormat: 'number',
+        placeHolder: 'Orden del curso',
+        helpText: 'Orden con el cual se se visualiza el curso.',
+        defaultValue: ''
+      },
+      {
+        name: 'active',
+        title: 'Activo',
+        titleAlignment: 'center',
+        dataAlignment: 'center',
+        dataFormat: 'checkbox',
+        placeHolder: 'Si se encuentra activo o no.',
+        helpText: 'Si se encuentra activo o no. Si está inactivo no se visualiza.',
+        defaultValue: '1'
+      }]
+    };
+  }
 
   ngOnInit() {
-    this.course.course = null;
-    this.course.active = true;
-    this.course.year = (new Date()).getFullYear();
-    this.course.order = 1;
-    this.courseGet();
   }
-
-  async courseGet(): Promise<any> {
-    const result = await this.http.Get("course");
-    this.courses = result;
-  }
-
-  async courseAdd(): Promise<any> {
-    if(this.course.course != '')
-    {
-    const result = await this.http.Post("course/create",this.course);
-    this.course.course = null;
-    console.log(result); 
-    this.courseGet();     
-    }
-    else
-    {
-      console.log("No se puede crear un curso sin nombre.");
-    }
-  }
-
-  courseEdit(courseToUpdate) {
-    this.course.id = courseToUpdate.id;
-    this.course.course = courseToUpdate.course;
-    this.course.active = courseToUpdate.active;
-    this.course.order = courseToUpdate.order;
-    $('#modalCourseEdit').modal('show');
-  }
-
-  courseEditClose() {
-    this.course.id = null;
-    this.course.course = null;
-    this.course.active = 1;
-    this.course.order = 1;
-    this.courseGet();    
-    $('#modalCourseEdit').modal('hide');
-  }
-
-  async courseUpdate(): Promise<any> {
-    if(this.course.course != '')
-    {
-    const result = await this.http.Put("course/"+this.course.id,this.course);
-    this.courseEditClose();
-    }
-    else
-    {
-      console.log("No se puede actualizar un curso sin nombre.");
-    }
-  }
-
-  async courseDelete(courseToDelete): Promise<any> {
-    if(courseToDelete.id != '')
-    {
-      if(confirm('¿Desea eliminar el curso: '+courseToDelete.course+'?'))
-      {
-      const result = await this.http.Delete("course/"+courseToDelete.id);
-      this.courseGet();         
-      }
-
-    }
-    else
-    {
-      console.log("No se puede eliminar un curso sin el correspondiente id.");
-    }
-  }
-
 }
