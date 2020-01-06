@@ -34,8 +34,6 @@ export class CrudComponent implements OnInit, OnChanges {
     this.errorMessageAlert = false;
     $('.toast').toast({ autohide: true, delay: 3000 });
     $('.toast').toast('hide');
-    //console.log(this.columns);
-
   }
 
   ngOnChanges() {
@@ -125,13 +123,11 @@ export class CrudComponent implements OnInit, OnChanges {
     return Date();
   }
 
-  getValueFromArray(arrayObject: [], idToFind: string) {
+  getValueFromArray(arrayObject: any [], idToFind: string) {
     for (const row of arrayObject) {
       if (row.id === idToFind) {
         return row.value;
       }
     }
   }
-
-
 }
