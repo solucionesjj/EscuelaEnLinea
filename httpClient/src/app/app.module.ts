@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { AreaComponent } from './area/area.component';
 import { MatterComponent } from './matter/matter.component';
 import { CrudComponent } from './crud/crud.component';
+import { UserComponent } from './user/user.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { CrudComponent } from './crud/crud.component';
     CourseComponent,
     AreaComponent,
     MatterComponent,
-    CrudComponent
+    CrudComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,

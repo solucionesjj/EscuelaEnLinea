@@ -3,20 +3,25 @@ import { Routes, RouterModule } from '@angular/router';
 import { CourseComponent } from './course/course.component';
 import { AreaComponent } from './area/area.component';
 import { MatterComponent } from './matter/matter.component';
+import { UserComponent } from './user/user.component';
 
 
 const routes: Routes = [
   {
-    path:'course',
+    path: 'course',
     component: CourseComponent
   },
   {
-    path:'area',
+    path: 'area',
     component: AreaComponent
   },
   {
-    path:'matter',
+    path: 'matter',
     component: MatterComponent
+  },
+  {
+    path: 'user',
+    component: UserComponent
   },
 ];
 
