@@ -10,10 +10,18 @@ module.exports = {
       },
       matter: {
         type: Sequelize.STRING,
-        unique: 'UK_Matters'
+        unique: 'UK_Matters',
+        allowNull: false,
+        required: true
       },
       idArea: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        required: true,
+        references: {
+          model: 'Areas',
+          key: 'id'
+        }
       },
       createdAt: {
         allowNull: false,

@@ -19,6 +19,7 @@ export class CrudComponent implements OnInit, OnChanges {
   returnedMessage: string;
   errorMessageAlert: boolean;
   dateFormat: string;
+  formAction: string;
 
   @Input() model: string;
   @Input() configCrudComponent: any = {};
@@ -33,6 +34,8 @@ export class CrudComponent implements OnInit, OnChanges {
     this.errorMessageAlert = false;
     $('.toast').toast({ autohide: true, delay: 3000 });
     $('.toast').toast('hide');
+    //console.log(this.columns);
+
   }
 
   ngOnChanges() {
@@ -53,7 +56,7 @@ export class CrudComponent implements OnInit, OnChanges {
     if (result.result) {
       this.errorMessageAlert = false;
       this.returnedMessage = result.message;
-      $('#modalToAddRecord').modal('hide');
+      $('#modalForm').modal('hide');
       $('.toast').toast('show');
       this.get();
     } else {
@@ -69,7 +72,7 @@ export class CrudComponent implements OnInit, OnChanges {
     if (result.result) {
       this.errorMessageAlert = false;
       this.returnedMessage = result.message;
-      $('#modalToUpdateRecord').modal('hide');
+      $('#modalForm').modal('hide');
       $('.toast').toast('show');
       this.get();
     } else {
@@ -85,7 +88,7 @@ export class CrudComponent implements OnInit, OnChanges {
     if (result.result) {
       this.errorMessageAlert = false;
       this.returnedMessage = result.message;
-      $('#modalToDeleteRecord').modal('hide');
+      $('#modalForm').modal('hide');
       $('.toast').toast('show');
       this.get();
     } else {
@@ -95,21 +98,40 @@ export class CrudComponent implements OnInit, OnChanges {
   }
 
   prepareInsertForm() {
+    this.formAction = 'add';
     for (const control of this.controls) {
-      this.object[control.name] = control.defaultValue;
+      if (control.defaultValue !== '') {
+        this.object[control.name] = control.defaultValue;
+      }
     }
   }
 
   prepareUpdateForm(object: any) {
+    this.formAction = 'update';
     this.object = object;
-    console.log(object);
+  }
+
+  prepareDeleteForm(object: any) {
+    this.formAction = 'delete';
+    this.object = object;
+  }
+
+  clearReturnedMessage() {
+    this.errorMessageAlert = false;
+    this.returnedMessage = '';
   }
 
   getCurrentDate() {
     return Date();
   }
 
-  confirmDelete(object: any) {
-    this.object = object;
+  getValueFromArray(arrayObject: [], idToFind: string) {
+    for (const row of arrayObject) {
+      if (row.id === idToFind) {
+        return row.value;
+      }
+    }
   }
+
+
 }

@@ -1,8 +1,8 @@
 {
   "development": {
-    "username": "uEscuelaEnLineaaaa",
-    "password": "uEscuelaEnLineaaaa",
-    "database": "EscuelaEnLineaaaa",
+    "username": "uEscuelaEnLinea",
+    "password": "uEscuelaEnLinea",
+    "database": "EscuelaEnLinea",
     "host": "localhost",
     "dialect": "mysql",
     "operatorsAliases": false

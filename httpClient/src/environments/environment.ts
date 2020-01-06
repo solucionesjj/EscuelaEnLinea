@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  url: "http://localhost:8001/",
+  apiUrl: 'http://localhost:8001/',
   dateFormat: 'yyyy/MMM/dd hh:mm'
 };
 

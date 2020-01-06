@@ -10,51 +10,42 @@ export class ApiclientService {
   public baseUrl: string;
 
   constructor(public http: HttpClient) {
-    this.baseUrl = environment.url;
+    this.baseUrl = environment.apiUrl;
   }
 
   async Get(url: string): Promise<any> {
-    return new Promise((resolve, reject) => {
-      this.http.get(`${this.baseUrl}${url}`).subscribe(
-        data => {
-          // console.log(`Data From : ${this.baseUrl}${url}`, data);
-          resolve(data);
-        },
-        error => {
-          if (error.status === 401) {
-            // console.log(`No autorizado : ${this.baseUrl}${url}`);
-          } else {
+      return new Promise((resolve, reject) => {
+        this.http.get(`${this.baseUrl}${url}`).subscribe(
+          data => {
+            resolve(data);
+          },
+          error => {
             reject(error);
           }
-        }
-      );
-    });
+        );
+      });
   }
 
   async Post(url: string, body: any): Promise<any> {
-    return new Promise((resolve, reject) => {
-      this.http.post(`${this.baseUrl}${url}`, body).subscribe(
-        data => {
-          // console.log(`Data From : ${url} `, data);
-          resolve(data);
-        },
-        error => {
-          // console.log(`Error From : ${url} `, error);
-          reject(error);
-        }
-      );
-    });
+      return new Promise((resolve, reject) => {
+        this.http.post(`${this.baseUrl}${url}`, body).subscribe(
+          data => {
+            resolve(data);
+          },
+          error => {
+            reject(error);
+          }
+        );
+      });
   }
 
   async Put(url: string, body: any): Promise<any> {
     return new Promise((resolve, reject) => {
       this.http.put(`${this.baseUrl}${url}`, body).subscribe(
         data => {
-          // console.log(`Data From : ${this.baseUrl}${url} `, data);
           resolve(data);
         },
         error => {
-          // console.log(`Error From : ${this.baseUrl}${url} `, error);
           reject(error);
         }
       );
@@ -65,7 +56,6 @@ export class ApiclientService {
     return new Promise((resolve, reject) => {
       this.http.delete(`${this.baseUrl}${url}`).subscribe(
         data => {
-          // console.log(`Data From : ${url} `, data);
           resolve(data);
         },
         error => {

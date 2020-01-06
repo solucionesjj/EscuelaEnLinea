@@ -17,7 +17,7 @@ export class AreaComponent implements OnInit {
         title: 'Area',
         titleAlignment: 'center',
         dataAlignment: 'left',
-        dataFormat: 'text',
+        htmlInputType: 'text',
         placeHolder: 'Nombre del área',
         helpText: 'Nombre con el cual se identifica el área. Servirá para agrupar las materias.',
         defaultValue: ''
@@ -27,7 +27,7 @@ export class AreaComponent implements OnInit {
         title: 'Orden',
         titleAlignment: 'center',
         dataAlignment: 'center',
-        dataFormat: 'number',
+        htmlInputType: 'number',
         placeHolder: 'Orden de visualización',
         helpText: 'Orden de visualización al momento de realizar informes.',
         defaultValue: '1'

@@ -22,7 +22,7 @@ export class CourseComponent implements OnInit {
         title: 'Curso',
         titleAlignment: 'center',
         dataAlignment: 'left',
-        dataFormat: 'text',
+        htmlInputType: 'text',
         placeHolder: 'Nombre del curso',
         helpText: 'Nombre con el cual se identifica el curso.',
         defaultValue: ''
@@ -32,7 +32,7 @@ export class CourseComponent implements OnInit {
         title: 'Año',
         titleAlignment: 'center',
         dataAlignment: 'center',
-        dataFormat: 'number',
+        htmlInputType: 'number',
         placeHolder: 'Año en formato 0000',
         helpText: 'Año al cual pertenece el curso.',
         defaultValue: this.actualYear
@@ -42,17 +42,17 @@ export class CourseComponent implements OnInit {
         title: 'Orden',
         titleAlignment: 'center',
         dataAlignment: 'center',
-        dataFormat: 'number',
+        htmlInputType: 'number',
         placeHolder: 'Orden del curso',
         helpText: 'Orden con el cual se se visualiza el curso.',
-        defaultValue: ''
+        defaultValue: '1'
       },
       {
         name: 'active',
         title: 'Activo',
         titleAlignment: 'center',
         dataAlignment: 'center',
-        dataFormat: 'checkbox',
+        htmlInputType: 'checkbox',
         placeHolder: 'Si se encuentra activo o no.',
         helpText: 'Si se encuentra activo o no. Si está inactivo no se visualiza.',
         defaultValue: '1'
