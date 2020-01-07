@@ -9,6 +9,7 @@ import { AreaComponent } from './area/area.component';
 import { MatterComponent } from './matter/matter.component';
 import { CrudComponent } from './crud/crud.component';
 import { UserComponent } from './user/user.component';
+import { GroupComponent } from './group/group.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { UserComponent } from './user/user.component';
     AreaComponent,
     MatterComponent,
     CrudComponent,
-    UserComponent
+    UserComponent,
+    GroupComponent
   ],
   imports: [
     BrowserModule,

@@ -4,6 +4,7 @@ import { CourseComponent } from './course/course.component';
 import { AreaComponent } from './area/area.component';
 import { MatterComponent } from './matter/matter.component';
 import { UserComponent } from './user/user.component';
+import { GroupComponent } from './group/group.component';
 
 
 const routes: Routes = [
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path: 'user',
     component: UserComponent
+  },
+  {
+    path: 'group',
+    component: GroupComponent
   },
 ];
 
