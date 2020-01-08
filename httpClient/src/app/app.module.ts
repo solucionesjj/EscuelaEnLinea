@@ -10,6 +10,7 @@ import { MatterComponent } from './matter/matter.component';
 import { CrudComponent } from './crud/crud.component';
 import { UserComponent } from './user/user.component';
 import { GroupComponent } from './group/group.component';
+import { AcademicLoadComponent } from './academic-load/academic-load.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { GroupComponent } from './group/group.component';
     MatterComponent,
     CrudComponent,
     UserComponent,
-    GroupComponent
+    GroupComponent,
+    AcademicLoadComponent
   ],
   imports: [
     BrowserModule,

@@ -5,6 +5,7 @@ import { AreaComponent } from './area/area.component';
 import { MatterComponent } from './matter/matter.component';
 import { UserComponent } from './user/user.component';
 import { GroupComponent } from './group/group.component';
+import { AcademicLoadComponent } from './academic-load/academic-load.component';
 
 
 const routes: Routes = [
@@ -27,6 +28,10 @@ const routes: Routes = [
   {
     path: 'group',
     component: GroupComponent
+  },
+  {
+    path: 'academicLoad',
+    component: AcademicLoadComponent
   },
 ];
 
