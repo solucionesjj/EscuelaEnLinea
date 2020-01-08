@@ -99,6 +99,7 @@ export class CrudComponent implements OnInit, OnChanges {
   }
 
   prepareInsertForm() {
+    this.object = {};
     this.formAction = 'add';
     for (const control of this.controls) {
       if (control.defaultValue !== '') {

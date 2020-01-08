@@ -1,9 +1,12 @@
 <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
     <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">.:: Escuela En L&iacute;nea ::.</a>
-    <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+    <!-- <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search"> -->
     <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-            <a class="nav-link" href="#">Sign out</a>
+            <a class="nav-link" [routerLink]="['/signOut']">
+                Salir &nbsp;
+                <i class="fa fa-sign-out-alt" aria-hidden="true"></i>
+            </a>
         </li>
     </ul>
 </nav>
@@ -13,7 +16,7 @@
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
             <div class="sidebar-sticky">
                 <h6 class="d-flex align-items-center text-muted font-weight-bold">
-                    <i class="fa fa-cogs" aria-hidden="true" ></i>
+                    <i class="fa fa-cogs" aria-hidden="true"></i>
                     &nbsp; Sistema...
                 </h6>
                 <ul class="nav flex-column">
@@ -22,19 +25,19 @@
                             <i class="fa fa-users-cog" aria-hidden="true" style="width: 24px;"></i>
                             Grupos
                         </a>
-                    </li>                    
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" [routerLink]="['/user']" routerLinkActive="router-link-active">
                             <i class="fa fa-user" aria-hidden="true" style="width: 24px;"></i>
                             Usuarios
                         </a>
-                    </li>      
+                    </li>
                 </ul>
                 <h6 class="d-flex align-items-center text-muted font-weight-bold">
-                    <i class="fa fa-sliders" aria-hidden="true" ></i>
+                    <i class="fa fa-sliders" aria-hidden="true"></i>
                     &nbsp; Parámetros...
-                </h6>                
-                <ul class="nav flex-column"> 
+                </h6>
+                <ul class="nav flex-column">
                     <li class="nav-item">
                         <a class="nav-link" [routerLink]="['/course']" routerLinkActive="router-link-active">
                             <i class="fa fa-users" aria-hidden="true" style="width: 24px;"></i>
@@ -46,7 +49,7 @@
                             <i class="fa fa-object-group" aria-hidden="true" style="width: 24px;"></i>
                             Areas
                         </a>
-                    </li>                    
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" [routerLink]="['/matter']" routerLinkActive="router-link-active">
                             <i class="fa fa-book-open" aria-hidden="true" style="width: 24px;"></i>
@@ -101,7 +104,7 @@
                 </ul>
             </div>
         </nav>
-        <div  style="margin-top: 56px; margin-left: 16px;">
+        <div style="margin-top: 56px; margin-left: 16px; " class="container">
             <router-outlet></router-outlet>
         </div>
     </div>

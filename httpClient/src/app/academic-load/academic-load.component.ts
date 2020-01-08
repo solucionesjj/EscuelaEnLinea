@@ -33,7 +33,7 @@ export class AcademicLoadComponent implements OnInit {
           catalog: this.courseCatalog
         },
         {
-          name: 'idMateria',
+          name: 'idMatter',
           title: 'Materia',
           titleAlignment: 'center',
           dataAlignment: 'left',
@@ -58,7 +58,7 @@ export class AcademicLoadComponent implements OnInit {
           name: 'hoursPerWeek',
           title: 'Horas por semana',
           titleAlignment: 'center',
-          dataAlignment: 'left',
+          dataAlignment: 'center',
           htmlInputType: 'number',
           placeHolder: 'Cantidad de horas.',
           helpText: 'Coloque la cantidad de horas o intensidad por semana.',
