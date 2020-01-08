@@ -22,6 +22,9 @@ export class CrudComponent implements OnInit, OnChanges {
   formAction: string;
 
   @Input() model: string;
+  @Input() canAdd: boolean;
+  @Input() canDelete: boolean;
+  @Input() canUpdate: boolean;
   @Input() configCrudComponent: any = {};
 
   constructor(private crudService: CrudService) {

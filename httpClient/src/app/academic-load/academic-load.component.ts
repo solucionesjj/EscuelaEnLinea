@@ -68,19 +68,21 @@ export class AcademicLoadComponent implements OnInit {
     };
   }
 
+  // TODO Ordenar el listado por el orden del curso
   async getCourseList() {
     this.crudService.model = 'Course';
     const result = await this.crudService.get();
     for (const row of result.data) {
-      this.courseCatalog.push({id: row.id, value: row.course});
+      this.courseCatalog.push({ id: row.id, value: row.course });
     }
   }
-
+  // TODO Pendiente colocar el nombre del área
+  // TODO ordenar por área y luego por materia
   async getMatterList() {
     this.crudService.model = 'Matter';
     const result = await this.crudService.get();
     for (const row of result.data) {
-      this.matterCatalog.push({id: row.id, value: row.matter});
+      this.matterCatalog.push({ id: row.id, value: row.matter });
     }
   }
 
@@ -89,7 +91,7 @@ export class AcademicLoadComponent implements OnInit {
     this.crudService.model = 'User';
     const result = await this.crudService.get();
     for (const row of result.data) {
-      this.teacherCatalog.push({id: row.id, value: row.name + ' ' + row.surname});
+      this.teacherCatalog.push({ id: row.id, value: row.name + ' ' + row.surname });
     }
   }
 
