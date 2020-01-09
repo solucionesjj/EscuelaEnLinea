@@ -11,6 +11,8 @@ import { CrudComponent } from './crud/crud.component';
 import { UserComponent } from './user/user.component';
 import { GroupComponent } from './group/group.component';
 import { AcademicLoadComponent } from './academic-load/academic-load.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
+import { LayoutComponent } from './layout/layout.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { AcademicLoadComponent } from './academic-load/academic-load.component';
     CrudComponent,
     UserComponent,
     GroupComponent,
-    AcademicLoadComponent
+    AcademicLoadComponent,
+    LandingPageComponent,
+    LayoutComponent
   ],
   imports: [
     BrowserModule,

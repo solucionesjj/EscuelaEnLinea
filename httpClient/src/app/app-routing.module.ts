@@ -6,33 +6,56 @@ import { MatterComponent } from './matter/matter.component';
 import { UserComponent } from './user/user.component';
 import { GroupComponent } from './group/group.component';
 import { AcademicLoadComponent } from './academic-load/academic-load.component';
+import { LandingPageComponent } from './landing-page/landing-page.component';
+import { LayoutComponent } from './layout/layout.component';
 
-
+// TODO https://codeburst.io/using-angular-route-guard-for-securing-routes-eabf5b86b4d1
 const routes: Routes = [
   {
-    path: 'course',
-    component: CourseComponent
+    path: '',
+    redirectTo: 'landingpage',
+    pathMatch: 'full'
   },
   {
-    path: 'area',
-    component: AreaComponent
+    path: 'landingpage',
+    component: LandingPageComponent,
   },
   {
-    path: 'matter',
-    component: MatterComponent
-  },
-  {
-    path: 'user',
-    component: UserComponent
-  },
-  {
-    path: 'group',
-    component: GroupComponent
-  },
-  {
-    path: 'academicLoad',
-    component: AcademicLoadComponent
-  },
+    path: 'app',
+    component: LayoutComponent,
+    children:[
+      {
+        path: '',
+        redirectTo: 'course',
+        pathMatch: 'full'
+      },  
+      {
+        path: 'course',
+        component: CourseComponent,
+        
+      },
+      {
+        path: 'area',
+        component: AreaComponent
+      },
+      {
+        path: 'matter',
+        component: MatterComponent
+      },
+      {
+        path: 'user',
+        component: UserComponent
+      },
+      {
+        path: 'group',
+        component: GroupComponent
+      },
+      {
+        path: 'academicLoad',
+        component: AcademicLoadComponent
+      }
+    ]
+  }
 ];
 
 @NgModule({
