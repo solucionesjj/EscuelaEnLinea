@@ -1,0 +1,23 @@
+.backgroundImage {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: -2;
+    top: 0px;
+    left: 0px;
+    background-image: url('../../assets/dessert.jpg');
+    background-size: cover;
+}
+
+.backgroundImage::after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: -1;
+    opacity: 0.3;
+    top: 0px;
+    background-color: black;
+    left: 0px;
+}

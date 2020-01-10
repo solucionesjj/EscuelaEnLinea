@@ -9,6 +9,8 @@ import { AcademicLoadComponent } from './academic-load/academic-load.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { LayoutComponent } from './layout/layout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { AuthGuardService } from './services/auth-guard.service';
 
 // TODO https://codeburst.io/using-angular-route-guard-for-securing-routes-eabf5b86b4d1
 const routes: Routes = [
@@ -19,7 +21,7 @@ const routes: Routes = [
   },
   {
     path: 'landingpage',
-    component: LandingPageComponent,
+    component: LandingPageComponent
   },
   {
     path: 'app',
@@ -28,38 +30,50 @@ const routes: Routes = [
       {
         path: '',
         redirectTo: 'dashboard',
-        pathMatch: 'full'
+        pathMatch: 'full',
+        canActivate: [AuthGuardService]
       },
       {
         path: 'dashboard',
         component: DashboardComponent,
+        canActivate: [AuthGuardService]
       },
       {
         path: 'course',
         component: CourseComponent,
+        canActivate: [AuthGuardService]
       },
       {
         path: 'area',
-        component: AreaComponent
+        component: AreaComponent,
+        canActivate: [AuthGuardService]
       },
       {
         path: 'matter',
-        component: MatterComponent
+        component: MatterComponent,
+        canActivate: [AuthGuardService]
       },
       {
         path: 'user',
-        component: UserComponent
+        component: UserComponent,
+        canActivate: [AuthGuardService]
       },
       {
         path: 'group',
-        component: GroupComponent
+        component: GroupComponent,
+        canActivate: [AuthGuardService]
       },
       {
         path: 'academicLoad',
-        component: AcademicLoadComponent
+        component: AcademicLoadComponent,
+        canActivate: [AuthGuardService]
       }
     ]
-  }
+  },
+  {
+    path: '**',
+    component: PageNotFoundComponent
+  },
 ];
 
 @NgModule({
