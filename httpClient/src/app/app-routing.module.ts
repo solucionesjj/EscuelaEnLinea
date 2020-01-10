@@ -8,6 +8,7 @@ import { GroupComponent } from './group/group.component';
 import { AcademicLoadComponent } from './academic-load/academic-load.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { LayoutComponent } from './layout/layout.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 // TODO https://codeburst.io/using-angular-route-guard-for-securing-routes-eabf5b86b4d1
 const routes: Routes = [
@@ -23,16 +24,19 @@ const routes: Routes = [
   {
     path: 'app',
     component: LayoutComponent,
-    children:[
+    children: [
       {
         path: '',
-        redirectTo: 'course',
+        redirectTo: 'dashboard',
         pathMatch: 'full'
-      },  
+      },
+      {
+        path: 'dashboard',
+        component: DashboardComponent,
+      },
       {
         path: 'course',
         component: CourseComponent,
-        
       },
       {
         path: 'area',

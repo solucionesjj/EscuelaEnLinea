@@ -13,6 +13,8 @@ import { GroupComponent } from './group/group.component';
 import { AcademicLoadComponent } from './academic-load/academic-load.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { LayoutComponent } from './layout/layout.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { LayoutComponent } from './layout/layout.component';
     GroupComponent,
     AcademicLoadComponent,
     LandingPageComponent,
-    LayoutComponent
+    LayoutComponent,
+    DashboardComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
