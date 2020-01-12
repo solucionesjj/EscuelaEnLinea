@@ -9,7 +9,19 @@ import { Router } from '@angular/router';
 })
 export class LayoutComponent implements OnInit {
   title = '.:: EscualeOnLine ::.';
-  constructor(private authService: AuthService, private router: Router) { }
+
+  menuItemTextVisible = true;
+
+  constructor(private authService: AuthService, private router: Router) { 
+  }
+
+  changeMenuItemTextVisible () {
+    if(this.menuItemTextVisible) {
+      this.menuItemTextVisible = false;
+    } else {
+      this.menuItemTextVisible = true;
+    }
+  }
 
   goToLanding() {
     this.router.navigate(['landingpage']);
