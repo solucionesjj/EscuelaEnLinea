@@ -4,7 +4,31 @@ exports.get = async (req, res) => {
     const model = req.query.model;
     const result =
         await database[model]
-            .findAll(req.body)
+            .findAll()
+            .then(
+                function (result) {
+                    res.send({
+                        result: true,
+                        data: result,
+                        message: 'Registros consultados exitosamente.'
+                    })
+                })
+            .catch(
+                function (commandError) {
+                    res.send({
+                        result: false,
+                        data: null,
+                        message: 'Error al consultar el registro. ' + commandError
+                    })
+                });
+}
+
+exports.getSearch = async (req, res) => {
+    const model = req.query.model;
+    const searchCriteria = JSON.parse(req.query.searchCriteria);
+    const result =
+        await database[model]
+            .findAll(searchCriteria)
             .then(
                 function (result) {
                     res.send({

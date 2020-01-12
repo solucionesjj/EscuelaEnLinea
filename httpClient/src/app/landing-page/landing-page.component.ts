@@ -17,7 +17,6 @@ export class LandingPageComponent {
 
   signInWithGoogle(): void {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then((GoogleLoginProviderResult) => this.goToApp());
-    console.log('LandingPageComponent - signIn');
   }
 
   goToApp() {

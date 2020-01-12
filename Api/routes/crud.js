@@ -9,6 +9,9 @@ router.post('/',bodyParser, crudController.add);
 // Retrieve all records
 router.get('/', crudController.get);
 
+// Retrieve specific records
+router.get('/search', crudController.getSearch);
+
 // Update a record 
 router.put('/',bodyParser, crudController.update);
 

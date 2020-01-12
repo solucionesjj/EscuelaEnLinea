@@ -14,6 +14,11 @@ export class CrudService {
     return result;
   }
 
+  async getSearch(searchCriteria: string): Promise<any> {
+    const result = await this.http.Get('crud/search?model=' + this.model + '&searchCriteria=' + searchCriteria);
+    return result;
+  }
+
   async add(object): Promise<any> {
     const result = await this.http.Post('crud?model=' + this.model, object);
     return result;

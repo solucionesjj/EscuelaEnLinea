@@ -12,7 +12,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AuthGuardService } from './services/auth-guard.service';
 
-// TODO https://codeburst.io/using-angular-route-guard-for-securing-routes-eabf5b86b4d1
 const routes: Routes = [
   {
     path: '',

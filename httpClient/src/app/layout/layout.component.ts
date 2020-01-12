@@ -12,15 +12,19 @@ export class LayoutComponent implements OnInit {
 
   menuItemTextVisible = true;
 
-  constructor(private authService: AuthService, private router: Router) { 
+  constructor(private authService: AuthService, private router: Router) {
   }
 
-  changeMenuItemTextVisible () {
-    if(this.menuItemTextVisible) {
+  changeMenuItemTextVisible() {
+    if (this.menuItemTextVisible) {
       this.menuItemTextVisible = false;
     } else {
       this.menuItemTextVisible = true;
     }
+  }
+
+  ngOnInit() {
+
   }
 
   goToLanding() {
