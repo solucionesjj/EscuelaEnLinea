@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'angularx-social-login';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-layout',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LayoutComponent implements OnInit {
   title = '.:: EscualeOnLine ::.';
-  constructor() { }
+  constructor(private authService: AuthService, private router: Router) { }
 
-  ngOnInit() {
+  goToLanding() {
+    this.router.navigate(['landingpage']);
   }
 
+  signOut(): void {
+    this.authService.signOut().then((signOutResult) => this.goToLanding());
+  }
 }

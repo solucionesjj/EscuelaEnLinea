@@ -15,6 +15,24 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { LayoutComponent } from './layout/layout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider } from 'angularx-social-login';
+
+// TODO definir scope para consultas a Google.
+// const googleLoginOptions: LoginOpt = {
+//   scope: 'profile email'
+// };
+// https://github.com/google/google-api-javascript-client#gapiauth2clientconfig
+
+const config = new AuthServiceConfig([
+  {
+    id: GoogleLoginProvider.PROVIDER_ID,
+    provider: new GoogleLoginProvider('910568189242-k4evb88o5r24v6d40egt2kdd6qci3daa.apps.googleusercontent.com')
+  }
+]);
+
+export function provideConfig() {
+  return config;
+}
 
 @NgModule({
   declarations: [
@@ -35,9 +53,15 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    SocialLoginModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: AuthServiceConfig,
+      useFactory: provideConfig
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

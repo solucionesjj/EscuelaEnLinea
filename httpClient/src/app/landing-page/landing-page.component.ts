@@ -1,38 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthServiceService } from '../services/auth-service.service';
+import { Component, OnInit, OnChanges } from '@angular/core';
+import { GoogleLoginProvider, AuthService, SocialUser } from 'angularx-social-login';
 import { Router } from '@angular/router';
+import { AuthServiceService } from '../services/auth-service.service';
 
 @Component({
   selector: 'app-landing-page',
   templateUrl: './landing-page.component.html',
   styleUrls: ['./landing-page.component.css']
 })
-export class LandingPageComponent implements OnInit {
+export class LandingPageComponent {
 
+  title = '.:: Bienvenidos ::.';
 
-  GoogleAuth: any = {};
-
-  constructor(private authService: AuthServiceService, private _router: Router) {
-
+  constructor(private router: Router, private authService: AuthService) {
   }
 
-  ngOnInit() {
+  signInWithGoogle(): void {
+    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then((GoogleLoginProviderResult) => this.goToApp());
+    console.log('LandingPageComponent - signIn');
   }
 
-
-  logIn() {
-    this.authService.logIn();
-  }
-
-  logOut() {
-    this.authService.logOut();
-  }
-
-  getUser() {
-    this.authService.getUser();
-  }
-
-  goCourse() {
-    this._router.navigate(['app/course']);
+  goToApp() {
+    this.router.navigate(['app']);
   }
 }

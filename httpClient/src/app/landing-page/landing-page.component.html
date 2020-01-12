@@ -1,13 +1,17 @@
-<div class="backgroundImage">
+<div class="backgroundImage"></div>
+<div  style="left:10%; top: 16px; position: absolute;">
+  <div class="text-center" style="width: 450px; margin-bottom: 16px;">
+    <h1 class="text-white font-weight-bold ">Escuela en línea</h1>
+  </div>
+  <div class="card" style="width: 450px;">
+    <img src="../../assets/childrens.jpg" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title text-center">Ingrese mediante su cuenta de Google</h5>
+      <p class="card-text text-center">Escuela en línea es un sistema para el registro control y administración de información
+        escolar creado por Crenova S.A.S, Bogotá - Colombia.</p>
+        <div class="class text-center">
+          <button (click)="signInWithGoogle()" type="button" class="btn btn-primary">Ingresar</button>
+        </div>
+    </div>
+  </div>
 </div>
-<button (click)="logIn()" style="margin-left: 25px">Sign In/Authorize</button>
-<button (click)="logOut()" style="margin-left: 25px">Sign Out/Authorize</button>
-<button (click)="getUser()" style="margin-left: 25px">Get User</button>
-
-
-<button (click)="goCourse()" style="margin-left: 25px">Course</button>
-<button id="revoke-access-button" (click)="revokeAccess()" style="display: none; margin-left: 25px">Revoke
-    access</button>
-
-<div id="auth-status" style="display: inline; padding-left: 25px"></div>
-<hr>
