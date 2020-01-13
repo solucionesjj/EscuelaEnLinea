@@ -22,7 +22,8 @@ export class LoadUsersComponent implements OnInit {
     'identificationDocument',
     'birthday',
     'identificationDocumentExpeditionSite',
-    'nationality'
+    'nationality',
+    'nicolas'
   ];
 
   constructor(private crudService: CrudService) {
@@ -35,19 +36,25 @@ export class LoadUsersComponent implements OnInit {
   loadData() {
     if (this.recordsData.length > 0) {
       this.columnsPerRow = this.recordsData[0].length;
-      this.records = this.recordsData.split('\n').map((row: any) => row.split('\t').map((record) => [{
-        email: record[0],
-        name: record[1],
-        surname: record[2],
-        active: record[3],
-        gender: record[4],
-        identificationDocumentType: record[5],
-        identificationDocument: record[6],
-        birthday: record[7],
-        identificationDocumentExpeditionSite: record[8],
-        nationality: record[9]
-      }]));
+      this.records =
+        this.recordsData.split('\n')
+          .map((row: any, rowId: number) => {
+            const recordArray = row.split('\t');
+            var recordObject = {};
+            let cell = 0;
+            for (const column of this.columns) {
+              recordObject[column] = recordArray[cell];
+              cell++;
+            }
+            return recordObject;
+          });
+
       console.log(this.records);
+
+      console.log(this.records.filter(function (item: any) { return item.active == 1 }));
+
+      //https://medium.com/@joomiguelcunha/learn-map-filter-and-reduce-in-javascript-ea59009593c4
+
     }
   }
 }
