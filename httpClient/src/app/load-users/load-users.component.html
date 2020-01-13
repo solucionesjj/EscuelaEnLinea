@@ -1,0 +1,41 @@
+<h4>Almacenamiento masivo de información</h4>
+Copie y pegue desde excel con el siguiente formato:
+<br>
+<ul>
+    <li>Email: Debe ser el correo de Gmail, sirve para autorizar los usuarios.</li>
+    <li>Nombres</li>
+    <li>Apellidos</li>
+    <li>Activo: 1 o 0 para si o no respectivamente</li>
+    <li>Genero: Femenino, Masculino, Otro</li>
+    <li>Tipo de identificación: Cédula, Tarjeta de identidad, Pasaporte, Cédula de extrangería</li>
+    <li>Identificación</li>
+    <li>Fecha de nacimiento: En formato: dd/mm/yyyy</li>
+    <li>Ciudad de nacimiento</li>
+    <li>País de nacimiento</li>
+</ul>
+<p class="text-muted"><b>Nota:</b> los datos no deben tener titulos/encabezados.</p>
+<div class="form-group">
+  <label for="recordsData">Pegue los datos a continuación...</label>
+  <textarea class="form-control text-muted" name="recordsData" id="recordsData" [(ngModel)]="recordsData" (input)="loadData()" rows="4"></textarea>
+</div>
+
+let rowNumber = index
+
+<div *ngIf="recordsData.length > 0">
+<table class="table">
+  <thead>
+    <tr>
+      <th>Registro</th>
+      <th *ngFor="let column of columns" >{{column}}</th>
+      <th>Resultado</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of recordsData; let rowNumber = index">
+      <td>{{rowNumber+1}}</td>
+      <!-- <td **ngFor="let column of columns">{{row[column]}}</td> -->
+      <td></td>
+    </tr>   
+  </tbody>
+</table>
+</div>

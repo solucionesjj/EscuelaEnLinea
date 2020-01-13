@@ -11,11 +11,13 @@ import { LayoutComponent } from './layout/layout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AuthGuardService } from './services/auth-guard.service';
+import { LoadUsersComponent } from './load-users/load-users.component';
 
 const routes: Routes = [
   {
     path: '',
     redirectTo: 'landingpage',
+    //redirectTo: 'app/loadusers',
     pathMatch: 'full'
   },
   {
@@ -55,6 +57,11 @@ const routes: Routes = [
       {
         path: 'user',
         component: UserComponent,
+        canActivate: [AuthGuardService]
+      },
+      {
+        path: 'loadusers',
+        component: LoadUsersComponent,
         canActivate: [AuthGuardService]
       },
       {

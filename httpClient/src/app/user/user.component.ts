@@ -17,9 +17,11 @@ export class UserComponent implements OnInit {
 
     this.catalogIdentificationTypes = [
       { id: 'Cédula', value: 'Cedula' },
-      { id: 'Tarjeta de identidad', value: 'Tarjeta de identidad' },
+      { id: 'Cédula de extrangería', value: 'Cedula de extrangería' },
+      { id: 'Número único de identificación personal', value: 'Número único de identificación personal' },
       { id: 'Pasaporte', value: 'Pasaporte' },
-      { id: 'Cédula de extrangería', value: 'Cedula de extrangería' }
+      { id: 'Regisro civil', value: 'Regisro civil' },
+      { id: 'Tarjeta de identidad', value: 'Tarjeta de identidad' }
     ];
 
     this.catalogGender = [

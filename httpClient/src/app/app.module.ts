@@ -16,6 +16,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider } from 'angularx-social-login';
+import { LoadUsersComponent } from './load-users/load-users.component';
 
 // TODO definir scope para consultas a Google.
 // const googleLoginOptions: LoginOpt = {
@@ -47,7 +48,8 @@ export function provideConfig() {
     LandingPageComponent,
     LayoutComponent,
     DashboardComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    LoadUsersComponent
   ],
   imports: [
     BrowserModule,

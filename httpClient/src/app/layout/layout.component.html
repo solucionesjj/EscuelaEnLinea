@@ -36,6 +36,12 @@
                             <div class="d-inline" *ngIf="menuItemTextVisible">Usuarios</div>                        
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['loadusers']" routerLinkActive="router-link-active">
+                            <i class="fa fa-user" aria-hidden="true" style="width: 24px;"></i>
+                            <div class="d-inline" *ngIf="menuItemTextVisible">Cargar usuarios</div>                        
+                        </a>
+                    </li>                    
                 </ul>
                 <h6 class="d-flex align-items-center text-muted font-weight-bold">
                     <i class="fa fa-sliders-h" aria-hidden="true"></i>
