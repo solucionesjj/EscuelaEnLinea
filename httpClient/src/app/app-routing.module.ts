@@ -13,12 +13,13 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { AuthGuardService } from './services/auth-guard.service';
 import { LoadUsersComponent } from './load-users/load-users.component';
 import { ParameterComponent } from './parameter/parameter.component';
+import { UserGroupComponent } from './user-group/user-group.component';
 
 const routes: Routes = [
   {
     path: '',
     //redirectTo: 'landingpage',
-    redirectTo: 'app/parameter',
+    redirectTo: 'app/usergroup',
     pathMatch: 'full'
   },
   {
@@ -78,6 +79,12 @@ const routes: Routes = [
       {
         path: 'parameter',
         component: ParameterComponent,
+        //canActivate: [AuthGuardService]
+      }
+      ,
+      {
+        path: 'usergroup',
+        component: UserGroupComponent,
         //canActivate: [AuthGuardService]
       }
     ]

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { CrudService } from '../services/crud.service';
 import { environment } from 'src/environments/environment';
+import { FilterPipe} from '../pipes/filter.pipe';
 
 declare var $: any;
 // $ es para poder usar los comandos de jquery
@@ -13,6 +14,7 @@ declare var $: any;
 
 export class CrudComponent implements OnInit, OnChanges {
   objects: any = [];
+  allObjects: any = [];
   object: any = {};
   columns: any = {};
   controls: any = {};
@@ -47,7 +49,8 @@ export class CrudComponent implements OnInit, OnChanges {
   async get() {
     this.crudService.model = this.model;
     const result = await this.crudService.get();
-    this.objects = result.data;
+    this.allObjects = result.data;
+    this.objects = this.allObjects;
   }
 
   async add() {
