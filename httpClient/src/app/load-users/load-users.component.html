@@ -2,40 +2,39 @@
 Copie y pegue desde excel con el siguiente formato:
 <br>
 <ul>
-    <li>Email: Debe ser el correo de Gmail, sirve para autorizar los usuarios.</li>
-    <li>Nombres</li>
-    <li>Apellidos</li>
-    <li>Activo: 1 o 0 para si o no respectivamente</li>
-    <li>Genero: Femenino, Masculino, Otro</li>
-    <li>Tipo de identificación: Cédula, Tarjeta de identidad, Pasaporte, Cédula de extrangería</li>
-    <li>Identificación</li>
-    <li>Fecha de nacimiento: En formato: dd/mm/yyyy</li>
-    <li>Ciudad de nacimiento</li>
-    <li>País de nacimiento</li>
+  <li class="text-primary" >Email: Debe ser el correo de Gmail, sirve para autorizar los usuarios. Llave única.</li>
+  <li>Nombres</li>
+  <li>Apellidos</li>
+  <li>Activo: 1 o 0 para si o no respectivamente</li>
+  <li>Genero: Femenino, Masculino, Otro</li>
+  <li>Tipo de identificación: Cédula, Tarjeta de identidad, Pasaporte, Cédula de extrangería</li>
+  <li>Identificación</li>
+  <li>Fecha de nacimiento: En formato: mm/dd/yyyy</li>
+  <li>Ciudad de nacimiento</li>
+  <li>País de nacimiento</li>
 </ul>
 <p class="text-muted"><b>Nota:</b> los datos no deben tener titulos/encabezados.</p>
 <div class="form-group">
   <label for="recordsData">Pegue los datos a continuación...</label>
-  <textarea class="form-control text-muted" name="recordsData" id="recordsData" [(ngModel)]="recordsData" (input)="loadData()" rows="4"></textarea>
+  <textarea class="form-control text-muted" name="recordsData" id="recordsData" [(ngModel)]="recordsData"
+    (input)="loadData()" rows="2"></textarea>
 </div>
-
-let rowNumber = index
-
-<div *ngIf="recordsData.length > 0">
-<table class="table">
-  <thead>
-    <tr>
-      <th>Registro</th>
-      <th *ngFor="let column of columns" >{{column}}</th>
-      <th>Resultado</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let row of recordsData; let rowNumber = index">
-      <td>{{rowNumber+1}}</td>
-      <!-- <td **ngFor="let column of columns">{{row[column]}}</td> -->
-      <td></td>
-    </tr>   
-  </tbody>
-</table>
+<div *ngIf="records.length > 0">
+  <button (click)="saveData()" type="button" class="btn btn-success" style="margin-bottom: 10px;">{{loadedDataMessage}}. Cargar información a la base de datos.</button>
+  <table class="table table-striped table-hover table-small table-responsive">
+    <thead>
+      <tr>
+        <th>Registro</th>
+        <th>Resultado</th>
+        <th *ngFor="let column of columns">{{column}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of records; let rowNumber = index">
+        <td>{{rowNumber+1}}</td>
+        <td class="text-{{(row['Resultado'] != 'Correcto' ? 'danger':'success') }}">{{row['Resultado']}}</td>
+        <td *ngFor="let column of columns">{{row[column]}}</td>        
+      </tr>
+    </tbody>
+  </table>
 </div>
