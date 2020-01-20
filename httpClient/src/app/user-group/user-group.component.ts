@@ -10,10 +10,13 @@ export class UserGroupComponent implements OnInit {
 
   userList: any = [];
   groupList: any = [];
+  userGroups: any = [];
+  idSelectedUser: number;
 
   constructor(private crudService: CrudService) {
     this.getUsers();
     this.getGroups();
+    this.idSelectedUser = 0;
   }
 
   async getUsers() {
@@ -24,8 +27,8 @@ export class UserGroupComponent implements OnInit {
     } 
   }
 
-  loadGroups(email: string) {
-    console.log(email);
+  loadGroups(idUser: number) {
+    this.idSelectedUser = idUser;
   }
 
   async getGroups() {
@@ -33,6 +36,22 @@ export class UserGroupComponent implements OnInit {
     const result = await this.crudService.get();
     if (result.result) {
       this.groupList = result.data;
+    } 
+  }
+
+  async setGroupToUser() {
+    // this.crudService.model = 'UserGroup';
+    // const result = await this.crudService.put();
+    // if (result.result) {
+    //   this.userGroups = result.data;
+    // }    
+  }
+
+  async getUserGroups() {
+    this.crudService.model = 'UserGroup';
+    const result = await this.crudService.get();
+    if (result.result) {
+      this.userGroups = result.data;
     } 
   }
 

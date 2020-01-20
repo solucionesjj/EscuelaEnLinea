@@ -14,31 +14,31 @@
                 <div class="input-group-prepend">
                     <span class="input-group-text bg-gradient-primary text-white form-control">Buscar:</span>
                 </div>
-                <input type=" text " [(ngModel)]="filterText " class="form-control " name="filterText " id="filterText " aria-describedby="helpId " placeholder="Escriba un criterio de búsqueda... ">
+                <input type="text" [(ngModel)]="filterText" class="form-control" name="filterText" id="filterText" aria-describedby="helpId" placeholder="Escriba un criterio de búsqueda...">
             </div>
         </div>
     </div>
-    <table class="table table-striped table-hover table-sm w-auto " style="margin-top: 10px; ">
-        <thead class="thead-dark ">
+    <table class="table table-striped table-hover table-sm w-auto" style="margin-top: 10px;">
+        <thead class="thead-dark">
             <tr>
-                <th class="text-center pl-4 pr-4 ">No.</th>
-                <th class="text-{{column.titleAlignment}} pl-4 pr-4 " *ngFor="let column of columns ">{{column.title}}
+                <th class="text-center pl-4 pr-4">No.</th>
+                <th class="text-{{column.titleAlignment}} pl-4 pr-4" *ngFor="let column of columns">{{column.title}}
                 </th>
-                <th class="text-center pl-4 pr-4 ">Acciones</th>
+                <th class="text-center pl-4 pr-4">Acciones</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let row of objects | filter : filterText ; let rowNumber = index ">
-                <td class="text-center ">{{rowNumber+1}}</td>
-                <td class="text-{{column.dataAlignment}} " *ngFor="let column of columns ">
+            <tr *ngFor="let row of objects | filter : filterText ; let rowNumber = index">
+                <td class="text-center">{{rowNumber+1}}</td>
+                <td class="text-{{column.dataAlignment}}" *ngFor="let column of columns">
                     {{(column.htmlInputType !== 'select' ? row[column.name] : getValueFromArray(column.catalog,row[column.name]))}}
                 </td>
-                <td class="text-center ">
-                    <button type="button " class="btn btn-sm btn-warning " data-toggle="modal " data-target="#modalForm " [disabled]="!canUpdate " (click)="prepareUpdateForm(row) ">
-                        <i class="fas fa-edit " aria-hidden="true "></i>
+                <td class="text-center">
+                    <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modalForm" [disabled]="!canUpdate" (click)="prepareUpdateForm(row)">
+                        <i class="fas fa-edit" aria-hidden="true"></i>
                     </button> &nbsp;
-                    <button class="btn btn-sm btn-danger " data-target="#modalForm " data-toggle="modal " [disabled]="!canDelete " (click)="prepareDeleteForm(row) ">
-                        <i class="fas fa-trash-alt " aria-hidden="true "></i>
+                    <button class="btn btn-sm btn-danger" data-target="#modalForm" data-toggle="modal" [disabled]="!canDelete" (click)="prepareDeleteForm(row)">
+                        <i class="fas fa-trash-alt" aria-hidden="true"></i>
                     </button>
                 </td>
             </tr>
@@ -46,7 +46,7 @@
         <tfoot>
             <tr>
                 <td>&nbsp;</td>
-                <td *ngFor="let column of columns ">
+                <td *ngFor="let column of columns">
                     &nbsp;
                 </td>
                 <td>&nbsp;</td>
@@ -54,112 +54,110 @@
         </tfoot>
     </table>
 
-
-
     <!-- Modal to add record -->
-    <div class="modal fade " id="modalForm " data-backdrop="static " tabindex="-1 " role="dialog " aria-labelledby="modalForm " aria-hidden="true ">
-        <div class="modal-dialog " role="document ">
-            <div class="modal-content ">
-                <div class="modal-header ">
-                    <ng-container [ngSwitch]="formAction ">
-                        <ng-container *ngSwitchCase=" 'add' ">
-                            <h5 class="modal-title text-primary font-weight-bold " id="modalFormTitle ">Agregar registro...
+    <div class="modal fade" id="modalForm" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="modalForm" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <ng-container [ngSwitch]="formAction">
+                        <ng-container *ngSwitchCase="'add'">
+                            <h5 class="modal-title text-primary font-weight-bold" id="modalFormTitle">Agregar registro...
                             </h5>
                         </ng-container>
-                        <ng-container *ngSwitchCase=" 'update' ">
-                            <h5 class="modal-title text-warning font-weight-bold " id="modalToUpdateRecordTitle ">Actualizar registro...
+                        <ng-container *ngSwitchCase="'update'">
+                            <h5 class="modal-title text-warning font-weight-bold" id="modalToUpdateRecordTitle">Actualizar registro...
                             </h5>
                         </ng-container>
-                        <ng-container *ngSwitchCase=" 'delete' ">
-                            <h5 class="modal-title text-danger font-weight-bold " id="modalToDeleteRecordTitle ">Eliminar registro...
+                        <ng-container *ngSwitchCase="'delete'">
+                            <h5 class="modal-title text-danger font-weight-bold" id="modalToDeleteRecordTitle">Eliminar registro...
                             </h5>
                         </ng-container>
                     </ng-container>
-                    <button type="button " class="close " data-dismiss="modal " aria-label="Close ">
-                    <span aria-hidden="true ">&times;</span>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
                 </button>
                 </div>
-                <div class="modal-body ">
-                    <ng-container *ngFor="let control of controls ">
+                <div class="modal-body">
+                    <ng-container *ngFor="let control of controls">
 
-                        <ng-container [ngSwitch]="control.htmlInputType ">
+                        <ng-container [ngSwitch]="control.htmlInputType">
 
-                            <ng-container *ngSwitchCase=" 'select' ">
-                                <div class="form-group ">
-                                    <label for="{{control.name}} ">{{control.title}}</label>
-                                    <select class="form-control " id="{{control.name}} " name="{{control.name}} " [(ngModel)]="object[control.name] " [disabled]="(formAction==='delete' ? true: false ) ">
-                                    <option *ngFor="let item of control.catalog " value="{{item.id}} ">{{item.value}}
+                            <ng-container *ngSwitchCase="'select'">
+                                <div class="form-group">
+                                    <label for="{{control.name}}">{{control.title}}</label>
+                                    <select class="form-control" id="{{control.name}}" name="{{control.name}}" [(ngModel)]="object[control.name]" [disabled]="(formAction==='delete' ? true: false )">
+                                    <option *ngFor="let item of control.catalog" value="{{item.id}}">{{item.value}}
                                     </option>
                                 </select>
-                                    <small class="form-text text-muted ">{{control.helpText}}</small>
+                                    <small class="form-text text-muted">{{control.helpText}}</small>
                                 </div>
                             </ng-container>
 
-                            <ng-container *ngSwitchCase=" 'text' ">
-                                <div class="form-group ">
-                                    <label for="{{control.name}} ">{{control.title}}</label>
-                                    <input type="{{control.htmlInputType}} " class="form-control " name="{{control.name}} " id="{{control.name}} " [(ngModel)]="object[control.name] " placeholder="{{control.placeHolder}} " [readonly]="(formAction==='delete'
-                        ? true: false ) ">
-                                    <small class="form-text text-muted ">{{control.helpText}}</small>
+                            <ng-container *ngSwitchCase="'text'">
+                                <div class="form-group">
+                                    <label for="{{control.name}}">{{control.title}}</label>
+                                    <input type="{{control.htmlInputType}}" class="form-control" name="{{control.name}}" id="{{control.name}}" [(ngModel)]="object[control.name]" placeholder="{{control.placeHolder}}" [readonly]="(formAction==='delete'
+                        ? true: false )">
+                                    <small class="form-text text-muted">{{control.helpText}}</small>
                                 </div>
                             </ng-container>
 
-                            <ng-container *ngSwitchCase=" 'number' ">
-                                <div class="form-group ">
-                                    <label for="{{control.name}} ">{{control.title}}</label>
-                                    <input type="{{control.htmlInputType}} " class="form-control " name="{{control.name}} " id="{{control.name}} " [(ngModel)]="object[control.name] " style="width: 50%; " placeholder="{{control.placeHolder}}
-                        " [readonly]="(formAction==='delete' ? true: false ) ">
-                                    <small class="form-text text-muted ">{{control.helpText}}</small>
+                            <ng-container *ngSwitchCase="'number'">
+                                <div class="form-group">
+                                    <label for="{{control.name}}">{{control.title}}</label>
+                                    <input type="{{control.htmlInputType}}" class="form-control" name="{{control.name}}" id="{{control.name}}" [(ngModel)]="object[control.name]" style="width: 50%;" placeholder="{{control.placeHolder}}
+                       " [readonly]="(formAction==='delete' ? true: false )">
+                                    <small class="form-text text-muted">{{control.helpText}}</small>
                                 </div>
                             </ng-container>
 
-                            <ng-container *ngSwitchCase=" 'checkbox' ">
-                                <div class="form-group ">
-                                    <label for="{{control.name}} ">{{control.title}}</label>
+                            <ng-container *ngSwitchCase="'checkbox'">
+                                <div class="form-group">
+                                    <label for="{{control.name}}">{{control.title}}</label>
 
-                                    <input *ngIf="(control.defaultValue==='1' ? true : false) " type="{{control.htmlInputType}} " class="form-control " name="{{control.name}} " id="{{control.name}} " [(ngModel)]="object[control.name] " style="width:
-                        10%; " placeholder="{{control.placeHolder}} " ng-true-value="1 " ng-false-value="0 " [readonly]="(formAction==='delete' ? true: false ) " checked="checked ">
+                                    <input *ngIf="(control.defaultValue==='1' ? true : false)" type="{{control.htmlInputType}}" class="form-control" name="{{control.name}}" id="{{control.name}}" [(ngModel)]="object[control.name]" style="width:
+                        10%;" placeholder="{{control.placeHolder}}" ng-true-value="1" ng-false-value="0" [readonly]="(formAction==='delete' ? true: false )" checked="checked">
 
-                                    <input *ngIf="(control.defaultValue !=='1' ? true : false) " type="{{control.htmlInputType}} " class="form-control " name="{{control.name}} " id="{{control.name}} " [(ngModel)]="object[control.name] " style="width:
-                        10%; " [readonly]="(formAction==='delete' ? true: false ) " placeholder="{{control.placeHolder}} " ng-true-value="1 " ng-false-value="0 ">
+                                    <input *ngIf="(control.defaultValue !=='1' ? true : false)" type="{{control.htmlInputType}}" class="form-control" name="{{control.name}}" id="{{control.name}}" [(ngModel)]="object[control.name]" style="width:
+                        10%;" [readonly]="(formAction==='delete' ? true: false )" placeholder="{{control.placeHolder}}" ng-true-value="1" ng-false-value="0">
 
-                                    <small class="form-text text-muted ">{{control.helpText}}</small>
+                                    <small class="form-text text-muted">{{control.helpText}}</small>
                                 </div>
                             </ng-container>
 
                             <ng-container *ngSwitchDefault>
-                                <div class="form-group ">
-                                    <label for="{{control.name}} ">{{control.title}}</label>
-                                    <input type="{{control.htmlInputType}} " class="form-control " name="{{control.name}} " id="{{control.name}} " [(ngModel)]="object[control.name] " [readonly]="(formAction==='delete' ? true: false ) " placeholder="{{control.placeHolder}} ">
-                                    <small class="form-text text-muted ">{{control.helpText}} (Default input type)</small>
+                                <div class="form-group">
+                                    <label for="{{control.name}}">{{control.title}}</label>
+                                    <input type="{{control.htmlInputType}}" class="form-control" name="{{control.name}}" id="{{control.name}}" [(ngModel)]="object[control.name]" [readonly]="(formAction==='delete' ? true: false )" placeholder="{{control.placeHolder}}">
+                                    <small class="form-text text-muted">{{control.helpText}} (Default input type)</small>
                                 </div>
                             </ng-container>
 
                         </ng-container>
                     </ng-container>
-                    <div class="alert alert-danger " role="alert " *ngIf="errorMessageAlert ">
+                    <div class="alert alert-danger" role="alert" *ngIf="errorMessageAlert">
                         {{returnedMessage}}
                     </div>
                 </div>
 
-                <div class="modal-footer ">
-                    <button type="button " class="btn btn-sm btn-secondary " data-dismiss="modal " (click)="clearReturnedMessage() ">
-                    <i class="fa fa-arrow-left " aria-hidden="true "></i>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal" (click)="clearReturnedMessage()">
+                    <i class="fa fa-arrow-left" aria-hidden="true"></i>
                     Volver</button>
-                    <ng-container [ngSwitch]="formAction ">
-                        <ng-container *ngSwitchCase=" 'add' ">
-                            <button type="button " (click)="add() " class="btn btn-sm btn-primary " [disabled]="!canAdd ">
-                            <i class="fa fa-plus " aria-hidden="true "></i>
+                    <ng-container [ngSwitch]="formAction">
+                        <ng-container *ngSwitchCase="'add'">
+                            <button type="button" (click)="add()" class="btn btn-sm btn-primary" [disabled]="!canAdd">
+                            <i class="fa fa-plus" aria-hidden="true"></i>
                             Agregar</button>
                         </ng-container>
-                        <ng-container *ngSwitchCase=" 'update' ">
-                            <button type="button " (click)="update() " class="btn btn-sm btn-warning " [disabled]="!canUpdate ">
-                            <i class="fa fa-edit " aria-hidden="true "></i>
+                        <ng-container *ngSwitchCase="'update'">
+                            <button type="button" (click)="update()" class="btn btn-sm btn-warning" [disabled]="!canUpdate">
+                            <i class="fa fa-edit" aria-hidden="true"></i>
                             Actualizar</button>
                         </ng-container>
-                        <ng-container *ngSwitchCase=" 'delete' ">
-                            <button type="button " (click)="delete() " class="btn btn-sm btn-danger " [disabled]="!canDelete ">
-                            <i class="fa fa-trash-alt " aria-hidden="true "></i>
+                        <ng-container *ngSwitchCase="'delete'">
+                            <button type="button" (click)="delete()" class="btn btn-sm btn-danger" [disabled]="!canDelete">
+                            <i class="fa fa-trash-alt" aria-hidden="true"></i>
                             Eliminar</button>
                         </ng-container>
                     </ng-container>
@@ -168,17 +166,17 @@
         </div>
     </div>
 </div>
-<div class="toast border border-warning " role="alert " aria-live="assertive " aria-atomic="true " style="position: absolute; top: 56px; right: 16px;z-index: 1000; ">
-    <div class="toast " role="alert " aria-live="assertive " aria-atomic="true ">
-        <div class="toast-header " style="opacity: 1;background-color: white; ">
-            <i class="fa fa-info-circle mr-2 text-success " aria-hidden="true "></i>
-            <strong class="mr-auto ">Correcto</strong>
+<div class="toast border border-warning" role="alert" aria-live="assertive" aria-atomic="true" style="position: absolute; top: 56px; right: 16px;z-index: 1000;">
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header" style="opacity: 1;background-color: white;">
+            <i class="fa fa-info-circle mr-2 text-success" aria-hidden="true"></i>
+            <strong class="mr-auto">Correcto</strong>
             <small>{{ getCurrentDate() | date:dateFormat }} </small>
-            <button type="button " class="ml-2 mb-1 close " data-dismiss="toast " aria-label="Close ">
-                <span aria-hidden="true ">&times;</span>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <div class="toast-body font-weight-bolder " style="opacity: 1; background-color: white; ">
+        <div class="toast-body font-weight-bolder" style="opacity: 1; background-color: white;">
             {{returnedMessage}}
         </div>
     </div>
