@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CrudService } from '../services/crud.service';
-
+declare var $: any;
 @Component({
   selector: 'app-user-group',
   templateUrl: './user-group.component.html',
@@ -24,11 +24,14 @@ export class UserGroupComponent implements OnInit {
     const result = await this.crudService.get();
     if (result.result) {
       this.userList = result.data;
-    } 
+    }
   }
 
-  loadGroups(idUser: number) {
+  loadGroups(idUser: number, item: any) {
     this.idSelectedUser = idUser;
+    $('#divUsersList>a.active').removeClass('active');
+    $(item).addClass('active');
+    this.getUserGroups();
   }
 
   async getGroups() {
@@ -36,23 +39,44 @@ export class UserGroupComponent implements OnInit {
     const result = await this.crudService.get();
     if (result.result) {
       this.groupList = result.data;
-    } 
+    }
   }
 
-  async setGroupToUser() {
-    // this.crudService.model = 'UserGroup';
-    // const result = await this.crudService.put();
-    // if (result.result) {
-    //   this.userGroups = result.data;
-    // }    
+  async setGroupToUser(group: any) {
+    console.log(group);
+    if (group.idUserGroup === 0) {
+      const object: any = { idGroup: group.id, idUser: this.idSelectedUser };
+      this.crudService.model = 'UserGroup';
+      const result = await this.crudService.add(object);
+      if (result.result) {
+        this.userGroups = result.data;
+      }
+    } else {
+      const object: any = { id: group.idUserGroup };
+      this.crudService.model = 'UserGroup';
+      const result = await this.crudService.delete(object);
+      if (result.result) {
+        this.userGroups = result.data;
+      }
+    }
+    this.getUserGroups();
   }
 
   async getUserGroups() {
     this.crudService.model = 'UserGroup';
-    const result = await this.crudService.get();
+    const searchCriteria = `{"where": {"idUser":"` + this.idSelectedUser + `"}}`;
+    const result = await this.crudService.getSearch(searchCriteria);
     if (result.result) {
       this.userGroups = result.data;
-    } 
+      this.groupList.forEach(groupParametrized => {
+        const userGroupEvaluated = this.userGroups.filter(f => f.idGroup === groupParametrized.id);
+        if (userGroupEvaluated.length > 0) {
+          groupParametrized['idUserGroup'] = userGroupEvaluated[0].id;
+        } else {
+          groupParametrized['idUserGroup'] = 0;
+        }
+      });
+    }
   }
 
   ngOnInit() {
