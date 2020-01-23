@@ -11,7 +11,9 @@ export class UserGroupComponent implements OnInit {
   userList: any = [];
   groupList: any = [];
   userGroups: any = [];
+  groupUsers: any = [];
   idSelectedUser: number;
+  idSelectedGroup: number;
 
   constructor(private crudService: CrudService) {
     this.getUsers();
@@ -34,6 +36,13 @@ export class UserGroupComponent implements OnInit {
     this.getUserGroups();
   }
 
+  loadUsers(idGoup: number, item: any) {
+    this.idSelectedGroup = idGoup;
+    $('#divGroupsList>a.active').removeClass('active');
+    $(item).addClass('active');
+    this.getGroupUsers();
+  }
+
   async getGroups() {
     this.crudService.model = 'Group';
     const result = await this.crudService.get();
@@ -42,8 +51,26 @@ export class UserGroupComponent implements OnInit {
     }
   }
 
+  async setUserToGroup(user: any) {
+    if (user.idUserGroup === 0) {
+      const object: any = { idUser: user.id, idGroup: this.idSelectedGroup };
+      this.crudService.model = 'UserGroup';
+      const result = await this.crudService.add(object);
+      if (result.result) {
+        this.groupUsers = result.data;
+      }
+    } else {
+      const object: any = { id: user.idUserGroup };
+      this.crudService.model = 'UserGroup';
+      const result = await this.crudService.delete(object);
+      if (result.result) {
+        this.groupUsers = result.data;
+      }
+    }
+    this.getGroupUsers();
+  }
+
   async setGroupToUser(group: any) {
-    console.log(group);
     if (group.idUserGroup === 0) {
       const object: any = { idGroup: group.id, idUser: this.idSelectedUser };
       this.crudService.model = 'UserGroup';
@@ -74,6 +101,24 @@ export class UserGroupComponent implements OnInit {
           groupParametrized['idUserGroup'] = userGroupEvaluated[0].id;
         } else {
           groupParametrized['idUserGroup'] = 0;
+        }
+      });
+    }
+  }
+
+
+  async getGroupUsers() {
+    this.crudService.model = 'UserGroup';
+    const searchCriteria = `{"where": {"idGroup":"` + this.idSelectedGroup + `"}}`;
+    const result = await this.crudService.getSearch(searchCriteria);
+    if (result.result) {
+      this.groupUsers = result.data;
+      this.userList.forEach(userParametrized => {
+        const groupUserEvaluated = this.groupUsers.filter(f => f.idUser === userParametrized.id);
+        if (groupUserEvaluated.length > 0) {
+          userParametrized['idUserGroup'] = groupUserEvaluated[0].id;
+        } else {
+          userParametrized['idUserGroup'] = 0;
         }
       });
     }
