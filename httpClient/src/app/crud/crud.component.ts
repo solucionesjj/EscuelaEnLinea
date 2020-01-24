@@ -1,7 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { CrudService } from '../services/crud.service';
 import { environment } from 'src/environments/environment';
-import { FilterPipe} from '../pipes/filter.pipe';
+import { FilterPipe } from '../pipes/filter.pipe';
+import { Router } from '@angular/router';
 
 declare var $: any;
 // $ es para poder usar los comandos de jquery
@@ -27,9 +28,10 @@ export class CrudComponent implements OnInit, OnChanges {
   @Input() canAdd: boolean;
   @Input() canDelete: boolean;
   @Input() canUpdate: boolean;
+  @Input() canView: boolean;
   @Input() configCrudComponent: any = {};
 
-  constructor(private crudService: CrudService) {
+  constructor(private crudService: CrudService, private router: Router) {
   }
 
   ngOnInit() {
@@ -101,6 +103,10 @@ export class CrudComponent implements OnInit, OnChanges {
     }
   }
 
+  goToDetails(id: integer) {
+    this.router.navigateByUrl(this.router.url + '/details/' + id);
+  }
+
   prepareInsertForm() {
     this.object = {};
     this.formAction = 'add';
@@ -130,7 +136,7 @@ export class CrudComponent implements OnInit, OnChanges {
     return Date();
   }
 
-  getValueFromArray(arrayObject: any [], idToFind: string) {
+  getValueFromArray(arrayObject: any[], idToFind: string) {
     for (const row of arrayObject) {
       if (row.id === idToFind) {
         return row.value;

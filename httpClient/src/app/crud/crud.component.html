@@ -34,6 +34,9 @@
                     {{(column.htmlInputType !== 'select' ? row[column.name] : getValueFromArray(column.catalog,row[column.name]))}}
                 </td>
                 <td class="text-center">
+                    <button type="button" class="btn btn-sm btn-primary" [disabled]="!canView" (click)="goToDetails(row.id)">
+                        <i class="fas fa-search" aria-hidden="true"></i>
+                    </button> &nbsp;
                     <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#modalForm" [disabled]="!canUpdate" (click)="prepareUpdateForm(row)">
                         <i class="fas fa-edit" aria-hidden="true"></i>
                     </button> &nbsp;
@@ -79,6 +82,12 @@
                 </div>
                 <div class="modal-body">
                     <ng-container *ngFor="let control of controls">
+
+
+
+
+
+
 
                         <ng-container [ngSwitch]="control.htmlInputType">
 
@@ -132,6 +141,13 @@
                                     <small class="form-text text-muted">{{control.helpText}} (Default input type)</small>
                                 </div>
                             </ng-container>
+
+
+
+
+
+
+
 
                         </ng-container>
                     </ng-container>

@@ -14,6 +14,7 @@ import { AuthGuardService } from './services/auth-guard.service';
 import { LoadUsersComponent } from './load-users/load-users.component';
 import { ParameterComponent } from './parameter/parameter.component';
 import { UserGroupComponent } from './user-group/user-group.component';
+import { DetailsComponent } from './user/details/details.component';
 
 const routes: Routes = [
   {
@@ -60,6 +61,13 @@ const routes: Routes = [
         path: 'user',
         component: UserComponent,
         //canActivate: [AuthGuardService]
+        children: [
+          {
+            path: 'details/:id',
+            component: DetailsComponent,
+            //canActivate: [AuthGuardService]
+          }
+        ]
       },
       {
         path: 'loadusers',

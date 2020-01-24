@@ -12,6 +12,7 @@ export class UserComponent implements OnInit {
   catalogIdentificationTypes: any = [];
   catalogGender: any = [];
   catalogNationality: any = [];
+  catalogRh: any = [];
 
   constructor() {
 
@@ -28,6 +29,18 @@ export class UserComponent implements OnInit {
       { id: 'Femenino', value: 'Femenino' },
       { id: 'Masculino', value: 'Masculino' },
       { id: 'Otro', value: 'Otro' }
+    ];
+
+    this.catalogRh = [
+      { id: '', value: '' },
+      { id: 'A+', value: 'A+' },
+      { id: 'A-', value: 'A-' },
+      { id: 'B+', value: 'B+' },
+      { id: 'B-', value: 'B-' },
+      { id: 'O+', value: 'O+' },
+      { id: 'O-', value: 'O-' },
+      { id: 'AB+', value: 'AB+' },
+      { id: 'AB-', value: 'AB-' }
     ];
 
     this.catalogNationality = [
@@ -118,7 +131,7 @@ export class UserComponent implements OnInit {
           name: 'nationality',
           title: 'Nacionalidad',
           titleAlignment: 'center',
-          dataAlignment: 'left',
+          dataAlignment: 'center',
           htmlInputType: 'select',
           placeHolder: 'Nacionalidad',
           helpText: 'Escriba el nombre del país.',
@@ -126,16 +139,61 @@ export class UserComponent implements OnInit {
           catalog: this.catalogNationality
         },
         {
+          name: 'telephoneOne',
+          title: 'Teléfono 1',
+          titleAlignment: 'center',
+          dataAlignment: 'center',
+          htmlInputType: 'text',
+          placeHolder: 'Número telefónico',
+          helpText: 'Colocar número telefónico.',
+          defaultValue: '',
+          catalog: null
+        },
+        {
+          name: 'telephoneTwo',
+          title: 'Teléfono 2',
+          titleAlignment: 'center',
+          dataAlignment: 'center',
+          htmlInputType: 'text',
+          placeHolder: 'Número telefónico alternativo',
+          helpText: 'Colocar número telefónico alternativo.',
+          defaultValue: '',
+          catalog: null
+        },
+        {
+          name: 'address',
+          title: 'Dirección',
+          titleAlignment: 'center',
+          dataAlignment: 'left',
+          htmlInputType: 'text',
+          placeHolder: 'Dirección de vivienda',
+          helpText: 'Colocar la dirección donde vive.',
+          defaultValue: '',
+          catalog: null
+        },
+        {
+          name: 'rh',
+          title: 'RH',
+          titleAlignment: 'center',
+          dataAlignment: 'center',
+          htmlInputType: 'select',
+          placeHolder: 'Tipo de sangre',
+          helpText: 'Seleccione el tipo de sangre.',
+          defaultValue: '',
+          catalog: this.catalogRh
+        },
+        {
           name: 'active',
           title: 'Activo',
           titleAlignment: 'center',
-          dataAlignment: 'left',
+          dataAlignment: 'center',
           htmlInputType: 'checkbox',
           placeHolder: 'Si está activo o no',
           helpText: 'Si el usuario se creará activo o no.',
           defaultValue: '1',
           catalog: null
-        }]
+        }
+      ]
     };
   }
 

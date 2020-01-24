@@ -23,12 +23,6 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             required: true
         },
-        googleId: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            required: true,
-            defaultValue: 'Sin id.'
-        },
         surname: DataTypes.STRING,
         birthday: DataTypes.DATEONLY,
         identificationDocument: {
