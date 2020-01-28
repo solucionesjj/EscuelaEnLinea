@@ -19,8 +19,8 @@ import { UserDetailsComponent } from './user/user-details/user-details.component
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'landingpage',
-    //redirectTo: 'app/user',
+    //redirectTo: 'landingpage',
+    redirectTo: 'app/user',
     pathMatch: 'full'
   },
   {
@@ -35,63 +35,63 @@ const routes: Routes = [
         path: '',
         redirectTo: 'dashboard',
         pathMatch: 'full',
-        canActivate: [AuthGuardService]
+        // canActivate: [AuthGuardService]
       },
       {
         path: 'dashboard',
         component: DashboardComponent,
-        canActivate: [AuthGuardService]
+        // canActivate: [AuthGuardService]
       },
       {
         path: 'course',
         component: CourseComponent,
-        canActivate: [AuthGuardService]
+        // canActivate: [AuthGuardService]
       },
       {
         path: 'area',
         component: AreaComponent,
-        canActivate: [AuthGuardService]
+        // canActivate: [AuthGuardService]
       },
       {
         path: 'matter',
         component: MatterComponent,
-        canActivate: [AuthGuardService]
+        // canActivate: [AuthGuardService]
       },
       {
         path: 'user',
         component: UserComponent,
-        canActivate: [AuthGuardService]
+        // canActivate: [AuthGuardService]
       },
       {
         path: 'userdetails/:id',
         component: UserDetailsComponent,
-        canActivate: [AuthGuardService]
+        // canActivate: [AuthGuardService]
       },
       {
         path: 'loadusers',
         component: LoadUsersComponent,
-        canActivate: [AuthGuardService]
+        // canActivate: [AuthGuardService]
       },
       {
         path: 'group',
         component: GroupComponent,
-        canActivate: [AuthGuardService]
+        // canActivate: [AuthGuardService]
       },
       {
         path: 'academicLoad',
         component: AcademicLoadComponent,
-        canActivate: [AuthGuardService]
+        // canActivate: [AuthGuardService]
       },
       {
         path: 'parameter',
         component: ParameterComponent,
-        canActivate: [AuthGuardService]
+        // canActivate: [AuthGuardService]
       }
       ,
       {
         path: 'usergroup',
         component: UserGroupComponent,
-        canActivate: [AuthGuardService]
+        // canActivate: [AuthGuardService]
       }
     ]
   },

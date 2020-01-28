@@ -15,7 +15,7 @@ export class UserDetailsComponent implements OnInit {
   idSelectedUser: string;
   idselectedFather: number;
   idselectedMother: number;
-  foundUsers: any = {};
+  foundUsers: any = [];
   searchType: string;
   searchCriteria: string;
 
@@ -27,11 +27,10 @@ export class UserDetailsComponent implements OnInit {
       this.crudService.model = 'User';
       const query = `select id,name, surname, identificationDocument, identificationDocumentType from Users where lower(name) like lower('%` + this.searchCriteria + `%') or lower(surname) like lower('%` + this.searchCriteria + `%') or identificationDocument = lower('%` + this.searchCriteria + `%')`;
       const result = await this.crudService.getDynamicQuery(query);
-      console.log(result.data);
-
+      console.log(result.data[0]);
       if (result.result) {
         if (result.data.length > 0) {
-          this.user = result.data[0];
+          this.foundUsers = result.data;
         } else {
           console.log('No se encontraron datos.');
         }

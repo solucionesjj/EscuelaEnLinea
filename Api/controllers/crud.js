@@ -1,5 +1,5 @@
 const database = require('../models/index');
-const sequelize = require('sequelize');
+//const sequelize = require('sequelize');
 
 exports.get = async(req, res) => {
     const model = req.query.model;
@@ -28,13 +28,15 @@ exports.getDynamicQuery = async(req, res) => {
     const model = req.query.model;
     const dynamicQuery = unescape(req.query.query);
     const result =
-        await sequelize
-        .query(dynamicQuery, { type: sequelize.QueryTypes.SELECT })
+        //await database
+        await database.sequelize
+        //.query(dynamicQuery, { type: sequelize.QueryTypes.SELECT })
+        .query(dynamicQuery)
         .then(
             function(result) {
                 res.send({
                     result: true,
-                    data: result,
+                    data: result[0],
                     message: 'Registros consultados exitosamente.'
                 })
             })

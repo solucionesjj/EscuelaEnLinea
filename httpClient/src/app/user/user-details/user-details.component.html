@@ -84,7 +84,7 @@
                     <small id="helpId" class="form-text text-muted">Escriba más de 3 caracteres. Puede colocar parte de la identificación o parte del nombre o los apellidos, etc.</small>
                 </div>
 
-                <ul>
+                <ul style="height: 80px;">
                     <li *ngFor="let user of foundUsers">
                         {{user.name}} {{user.surname}} <small>{{user.identificationDocument}}</small>
                     </li>
