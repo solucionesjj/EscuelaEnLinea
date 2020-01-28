@@ -2,23 +2,26 @@ const { Sequelize, Model, DataTypes } = require('sequelize');
 var express = require('express')
 var http = require('http')
 const cors = require("cors");
+var compression = require('compression');
 var app = express()
-app.use(cors());
+app.use(compression()); // Enable compression for all request and responses.
+var helmet = require('helmet'); // enable protection for vulnerbilities
+app.use(cors()); // Restrict access for only authorized sources
 app.options("*", cors());
 
 var applicationSettings = require('app-settings')('settings.json');
 process.env.NODE_ENV = applicationSettings.NODE_ENV;
 
-var middleware = function (req, res, next) {
-  const dataReq = {
-      user: req.headers.username,
-      pass: req.headers.password,
-      type: req.method,
-      url: req.url,
-      data: req.body
-  };
-  console.log("Data Request", dataReq);
-  next();
+var middleware = function(req, res, next) {
+    const dataReq = {
+        user: req.headers.username,
+        pass: req.headers.password,
+        type: req.method,
+        url: req.url,
+        data: req.body
+    };
+    console.log("Data Request", dataReq);
+    next();
 };
 
 app.use(middleware);
@@ -27,13 +30,13 @@ app.use(middleware);
 var crudRouting = require('./routes/crud');
 
 ////Add routes to use
-app.use('/crud',crudRouting);
+app.use('/crud', crudRouting);
 
 ////Add images folder
-app.use('/images',express.static('images'));
+app.use('/images', express.static('images'));
 
 ////Welcome page
-var welcomePage =`
+var welcomePage = `
 <!doctype html>
 <html lang="en">
 <head>
@@ -52,12 +55,9 @@ Te encuentras en el punto de incio de la API EscuelaEnLinea!!!
 </html>
 `;
 app.get('/', (req, res) => {
-  res.status(200).send(welcomePage)
+    res.status(200).send(welcomePage)
 });
 
-http.createServer(app).listen(8001, () => {
-  console.log('Server has start at localhost on port 8001: http://localhost:8001');
+http.createServer(app).listen(38001, () => {
+    console.log('Server has start at localhost on port 38001: http://localhost:38001');
 });
-
-
-

@@ -20,7 +20,7 @@ import { LoadUsersComponent } from './load-users/load-users.component';
 import { ParameterComponent } from './parameter/parameter.component';
 import { FilterPipe } from './pipes/filter.pipe';
 import { UserGroupComponent } from './user-group/user-group.component';
-import { DetailsComponent } from './user/details/details.component';
+import { UserDetailsComponent } from './user/user-details/user-details.component';
 
 // TODO definir scope para consultas a Google.
 // const googleLoginOptions: LoginOpt = {
@@ -57,7 +57,7 @@ export function provideConfig() {
     ParameterComponent,
     FilterPipe,
     UserGroupComponent,
-    DetailsComponent
+    UserDetailsComponent
   ],
   imports: [
     BrowserModule,

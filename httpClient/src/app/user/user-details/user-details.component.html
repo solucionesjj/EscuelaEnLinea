@@ -1,0 +1,102 @@
+<div class="p-1">
+    <div class="row">
+        <div class="col-12">
+            <h4>Datos del usuario...</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <small>Nombres</small>
+            <h5>{{user.name}}</h5>
+
+            <small>Apellidos</small>
+            <h5>{{user.surname}}</h5>
+
+            <small>Correo</small>
+            <h5>{{user.email}}</h5>
+
+            <small>Genero</small>
+            <h5>{{user.gender}}</h5>
+
+            <small>Rh</small>
+            <h5>{{user.rh}}</h5>
+        </div>
+
+        <div class="col-4">
+            <small>Nacimiento</small>
+            <h5>{{user.birthday | date:"yyyy/MMM/dd"}}</h5>
+
+            <small>Tipo de identificación</small>
+            <h5>{{user.identificationDocumentType}}</h5>
+
+            <small>Identificación</small>
+            <h5>{{user.identificationDocument}}</h5>
+
+            <small>Lugar de expedición</small>
+            <h5>{{user.identificationDocumentExpeditionSite}}</h5>
+
+            <small>Nacionalidad</small>
+            <h5>{{user.nationality}}</h5>
+        </div>
+        <div class="col-4">
+            <small>Teléfono 1</small>
+            <h5>{{user.telephoneOne}}</h5>
+
+            <small>Teléfono 2</small>
+            <h5>{{user.telephoneTwo}}</h5>
+
+            <small>Dirección</small>
+            <h5>{{user.address}}</h5>
+
+            <small>Estado</small>
+            <h5>{{user.active == 1? 'Activo' : 'Inactivo'}}</h5>
+        </div>
+    </div>
+</div>
+
+<small>Padre</small>
+<h5>{{user.idFather}}</h5>
+
+<small>Madre</small>
+<h5>{{user.idMother}}</h5>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modelId">
+  Launch
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Buscar usuario...</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-body">
+
+
+                <div class="form-group">
+                    <label for="">Buscar por identificación o nombre</label>
+                    <input type="text" class="form-control" (input)="findUsers()" name="searchCriteria" id="searchCriteria" [(ngModel)]="searchCriteria" aria-describedby="helpId" placeholder="Coloque el riterio de búsqueda...">
+                    <small id="helpId" class="form-text text-muted">Escriba más de 3 caracteres. Puede colocar parte de la identificación o parte del nombre o los apellidos, etc.</small>
+                </div>
+
+                <ul>
+                    <li *ngFor="let user of foundUsers">
+                        {{user.name}} {{user.surname}} <small>{{user.identificationDocument}}</small>
+                    </li>
+                </ul>
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>

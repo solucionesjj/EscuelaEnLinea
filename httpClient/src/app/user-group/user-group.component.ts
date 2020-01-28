@@ -14,6 +14,7 @@ export class UserGroupComponent implements OnInit {
   groupUsers: any = [];
   idSelectedUser: number;
   idSelectedGroup: number;
+  filterText: string;
 
   constructor(private crudService: CrudService) {
     this.getUsers();

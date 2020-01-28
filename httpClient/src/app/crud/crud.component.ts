@@ -23,12 +23,14 @@ export class CrudComponent implements OnInit, OnChanges {
   errorMessageAlert: boolean;
   dateFormat: string;
   formAction: string;
+  filterText: string;
 
   @Input() model: string;
   @Input() canAdd: boolean;
   @Input() canDelete: boolean;
   @Input() canUpdate: boolean;
   @Input() canView: boolean;
+  @Input() viewUrl: string;
   @Input() configCrudComponent: any = {};
 
   constructor(private crudService: CrudService, private router: Router) {
@@ -103,8 +105,8 @@ export class CrudComponent implements OnInit, OnChanges {
     }
   }
 
-  goToDetails(id: integer) {
-    this.router.navigateByUrl(this.router.url + '/details/' + id);
+  goToDetails(id: number) {
+    this.router.navigateByUrl(this.viewUrl + '/' + id);
   }
 
   prepareInsertForm() {

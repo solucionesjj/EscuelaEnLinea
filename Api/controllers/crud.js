@@ -1,58 +1,84 @@
 const database = require('../models/index');
+const sequelize = require('sequelize');
 
-exports.get = async (req, res) => {
+exports.get = async(req, res) => {
     const model = req.query.model;
     const result =
         await database[model]
-            .findAll()
-            .then(
-                function (result) {
-                    res.send({
-                        result: true,
-                        data: result,
-                        message: 'Registros consultados exitosamente.'
-                    })
+        .findAll()
+        .then(
+            function(result) {
+                res.send({
+                    result: true,
+                    data: result,
+                    message: 'Registros consultados exitosamente.'
                 })
-            .catch(
-                function (commandError) {
-                    res.send({
-                        result: false,
-                        data: null,
-                        message: 'Error al consultar el registro. ' + commandError
-                    })
-                });
+            })
+        .catch(
+            function(commandError) {
+                res.send({
+                    result: false,
+                    data: null,
+                    message: 'Error al consultar el registro. ' + commandError
+                })
+            });
 }
 
-exports.getSearch = async (req, res) => {
+exports.getDynamicQuery = async(req, res) => {
+    const model = req.query.model;
+    const dynamicQuery = unescape(req.query.query);
+    const result =
+        await sequelize
+        .query(dynamicQuery, { type: sequelize.QueryTypes.SELECT })
+        .then(
+            function(result) {
+                res.send({
+                    result: true,
+                    data: result,
+                    message: 'Registros consultados exitosamente.'
+                })
+            })
+        .catch(
+            function(commandError) {
+                res.send({
+                    result: false,
+                    data: null,
+                    message: 'Error al consultar el registro. ' + commandError
+                })
+            });
+}
+
+
+exports.getSearch = async(req, res) => {
     const model = req.query.model;
     const searchCriteria = JSON.parse(req.query.searchCriteria);
     const result =
         await database[model]
-            .findAll(searchCriteria)
-            .then(
-                function (result) {
-                    res.send({
-                        result: true,
-                        data: result,
-                        message: 'Registros consultados exitosamente.'
-                    })
+        .findAll(searchCriteria)
+        .then(
+            function(result) {
+                res.send({
+                    result: true,
+                    data: result,
+                    message: 'Registros consultados exitosamente.'
                 })
-            .catch(
-                function (commandError) {
-                    res.send({
-                        result: false,
-                        data: null,
-                        message: 'Error al consultar el registro. ' + commandError
-                    })
-                });
+            })
+        .catch(
+            function(commandError) {
+                res.send({
+                    result: false,
+                    data: null,
+                    message: 'Error al consultar el registro. ' + commandError
+                })
+            });
 }
 
-exports.add = async (req, res) => {
+exports.add = async(req, res) => {
     const model = req.query.model;
     const result = await database[model]
         .create(req.body)
         .then(
-            function (result) {
+            function(result) {
                 res.send({
                     result: true,
                     data: result,
@@ -60,7 +86,7 @@ exports.add = async (req, res) => {
                 })
             })
         .catch(
-            function (commandError) {
+            function(commandError) {
                 res.send({
                     result: false,
                     data: null,
@@ -69,13 +95,13 @@ exports.add = async (req, res) => {
             });
 }
 
-exports.update = async (req, res) => {
+exports.update = async(req, res) => {
     const model = req.query.model;
     const id = req.query.id;
     const result = await database[model]
         .update(req.body, { where: { id: id } })
         .then(
-            function (result) {
+            function(result) {
                 res.send({
                     result: true,
                     data: result,
@@ -83,7 +109,7 @@ exports.update = async (req, res) => {
                 })
             })
         .catch(
-            function (commandError) {
+            function(commandError) {
                 res.send({
                     result: false,
                     data: null,
@@ -92,13 +118,13 @@ exports.update = async (req, res) => {
             });
 }
 
-exports.delete = async (req, res) => {
+exports.delete = async(req, res) => {
     const model = req.query.model;
     const id = req.query.id;
     const result = await database[model]
         .destroy({ where: { id: id } })
         .then(
-            function (result) {
+            function(result) {
                 res.send({
                     result: true,
                     data: result,
@@ -106,7 +132,7 @@ exports.delete = async (req, res) => {
                 })
             })
         .catch(
-            function (commandError) {
+            function(commandError) {
                 res.send({
                     result: false,
                     data: null,
@@ -114,14 +140,3 @@ exports.delete = async (req, res) => {
                 })
             });
 };
-
-/*
-// Find an Area by Id
-exports.findByPk = (req, res) => {
-    Area.findByPk(req.params.id).then(area => {
-      res.send(area);
-    })
-  };
-*/
-
-
