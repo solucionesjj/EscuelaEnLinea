@@ -21,6 +21,16 @@ module.exports = (sequelize, DataTypes) => {
       required: true,
       allowNull: false
     },
+    period: {
+      type: DataTypes.INTEGER,
+      required: true,
+      allowNull: false
+    },
+    weight: {
+      type: DataTypes.INTEGER,
+      required: true,
+      allowNull: false
+    },
     description: {
       type: DataTypes.STRING,
       defaultValue: 'Sin descripción.'
