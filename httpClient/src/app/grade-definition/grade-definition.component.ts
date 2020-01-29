@@ -16,14 +16,17 @@ export class GradeDefinitionComponent implements OnInit {
   note: any = {};
   configCrudComponent: any = {};
   whereComponent: string;
+  periodCatalog: any = [];
+  periodActualValue: string;
+  selectedPeriod: string;
 
   constructor(private route: ActivatedRoute, private crudService: CrudService) {
   }
 
-
-
   ngOnInit() {
     this.idAcademicLoad = this.route.snapshot.paramMap.get('id');
+
+    this.getActualPeriod();
 
     this.configCrudComponent = {
       columns: [{
@@ -35,17 +38,6 @@ export class GradeDefinitionComponent implements OnInit {
         placeHolder: 'idAcademicLoad',
         helpText: 'idAcademicLoad',
         defaultValue: this.idAcademicLoad,
-        catalog: null
-      },
-      {
-        name: 'dueDate',
-        title: 'Fecha finalizacion',
-        titleAlignment: 'center',
-        dataAlignment: 'center',
-        htmlInputType: 'date',
-        placeHolder: 'Fecha de finalización de la nota.',
-        helpText: 'Fecha de finalización de la nota.',
-        defaultValue: '',
         catalog: null
       },
       {
@@ -69,7 +61,40 @@ export class GradeDefinitionComponent implements OnInit {
         helpText: 'Descripción de la nota.',
         defaultValue: '',
         catalog: null
-      }
+      },
+      {
+        name: 'dueDate',
+        title: 'Fecha finalizacion',
+        titleAlignment: 'center',
+        dataAlignment: 'center',
+        htmlInputType: 'date',
+        placeHolder: 'Fecha de finalización de la nota.',
+        helpText: 'Fecha de finalización de la nota.',
+        defaultValue: '',
+        catalog: null
+      },
+      {
+        name: 'period',
+        title: 'Periodo',
+        titleAlignment: 'center',
+        dataAlignment: 'center',
+        htmlInputType: 'select',
+        placeHolder: 'Periodo donde estará vigente la nota.',
+        helpText: 'Periodo donde estará vigente la nota.',
+        defaultValue: this.periodActualValue,
+        catalog: this.periodCatalog
+      },
+      {
+        name: 'weight',
+        title: 'Peso evaluativo',
+        titleAlignment: 'center',
+        dataAlignment: 'center',
+        htmlInputType: 'number',
+        placeHolder: 'Peso de la nota.',
+        helpText: 'Coloque un valor de 1 a 100 teniendo en cuenta que todas las notas deben sumar 100.',
+        defaultValue: '25',
+        catalog: null
+      },
       ]
     };
 
@@ -78,9 +103,27 @@ export class GradeDefinitionComponent implements OnInit {
     this.lodaAcademicLoadInfo();
   }
 
+  async getActualPeriod() {
+    this.periodCatalog.push({ id: '', value: '' });
+    this.crudService.model = 'Parameter';
+    const query = `select value from Parameters where parameter = 'periodoActual' limit 0, 1`;
+    const result = await this.crudService.getDynamicQuery(query);
+    if (result.result) {
+      if (result.data.length > 0) {
+        for (const row of result.data) {
+          this.periodCatalog.push({ id: row.value, value: row.value });
+          this.periodActualValue = row.value;
+        }
+      } else {
+        console.log('No se encontraron datos.');
+      }
+    } else {
+      console.log(result.message);
+    }
+  }
+
 
   async lodaAcademicLoadInfo() {
-
     const query = `select Courses.course, Areas.area, Matters.matter, Users.name,Users.surname, AcademicLoads.hoursPerWeek 
 from AcademicLoads  
 inner join Courses 
@@ -104,4 +147,13 @@ where AcademicLoads.id = `+ this.idAcademicLoad;
       console.log(result.message);
     }
   }
+
+  filter() {
+    if (this.selectedPeriod === '0') {
+      this.whereComponent = `{"where":{"idAcademicLoad":"` + this.idAcademicLoad + `"}}`;
+    } else {
+      this.whereComponent = `{"where":{"idAcademicLoad":"` + this.idAcademicLoad + `","period":"` + this.selectedPeriod + `"}}`;
+    }
+  }
+
 }

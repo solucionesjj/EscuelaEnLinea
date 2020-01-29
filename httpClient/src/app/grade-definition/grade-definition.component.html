@@ -25,36 +25,28 @@
 </div>
 <br>
 <h5>Notas definidas para esta carga académica...</h5>
-<app-crud model="GradeDefinition" [canAdd]="true" [canDelete]="true" [canUpdate]="true" [canView]="false" viewUrl=""
-    [where]="whereComponent" [configCrudComponent]="configCrudComponent"></app-crud>
-
-<hr>
-<h5>Agregar nota...</h5>
 <div class="row">
-    <div class="col-3">
-        <div class="form-group">
-            <label for="noteDueDate">Fecha final</label>
-            <input type="date" class="form-control" name="noteDueDate" id="noteDueDate" aria-describedby="helpId"
-                [(ngModel)]="note.dueDate" placeholder="Fecha de finalización de la nota.">
-            <small id="helpId" class="form-text text-muted">Fecha de finalización de la nota.</small>
-        </div>
+    <div class="col-2">
+<div class="form-group">
+  <label for="">Periodo</label>
+  <select class="form-control" name="selectedPeriod" id="selectedPeriod" [(ngModel)]="selectedPeriod">
+    <option value="0">Todos</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+  </select>
+</div>        
     </div>
-    <div class="col-3">
-        <div class="form-group">
-            <label for="noteNote">Nota</label>
-            <input type="text" class="form-control" name="noteNote" id="noteNote" aria-describedby="helpId"
-                [(ngModel)]="note.Note" placeholder="Coloque un título para la nota.">
-            <small id="helpId" class="form-text text-muted">Coloque un título para la nota.</small>
-        </div>
-    </div>
-    <div class="col-3">
-        <div class="form-group">
-            <label for="noteDescription">Descripción</label>
-            <textarea class="form-control" name="noteDescription" id="noteDescription" [(ngModel)]="note.Description"
-                rows="3"></textarea>
-        </div>
-    </div>
-    <div class="col-3">
-        <button type="button" class="btn btn-success" (click)="saveNote()">Crear</button>
+    <div class="col-2">
+        <div class="form-group ">
+            <label for="">&nbsp;</label>
+        <button type="button" class="btn btn-success form-control" (click)="filter()">Filtrar</button>
+    </div> 
     </div>
 </div>
+
+
+
+<app-crud model="GradeDefinition" [canAdd]="true" [canDelete]="true" [canUpdate]="true" [canView]="false" viewUrl=""
+    [where]="whereComponent" [configCrudComponent]="configCrudComponent"></app-crud>

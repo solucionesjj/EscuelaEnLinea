@@ -13,6 +13,8 @@ export class AcademicLoadComponent implements OnInit {
   courseCatalog: any = [];
   matterCatalog: any = [];
   teacherCatalog: any = [];
+  selectedTeacher: string;
+  whereComponent: string;
 
   constructor(private crudService: CrudService) {
     this.getCourseList();
@@ -89,9 +91,23 @@ export class AcademicLoadComponent implements OnInit {
   // TODO Pendiente listar solo usuarios tipo Profesor
   async getTeacherList() {
     this.crudService.model = 'User';
-    const result = await this.crudService.get();
+    const query = `select Users.id, Users.name, Users.surname 
+                  from UserGroups 
+                  inner join Users on Users.id = UserGroups.idUser 
+                  inner join Groups on Groups.id = UserGroups.idGroup 
+                  where Groups.group = 'Profesor'`;
+    const result = await this.crudService.getDynamicQuery(query);
+    this.teacherCatalog.push({ id: '', value: 'Todos' });
     for (const row of result.data) {
       this.teacherCatalog.push({ id: row.id, value: row.name + ' ' + row.surname });
+    }
+  }
+
+  filter() {
+    if (this.selectedTeacher === '') {
+      this.whereComponent = ``;
+    } else {
+      this.whereComponent = `{"where":{"idTeacher":"` + this.selectedTeacher + `"}}`;
     }
   }
 

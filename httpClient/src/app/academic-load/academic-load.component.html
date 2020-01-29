@@ -1,6 +1,24 @@
+<h5>Carga académica...</h5>
+<div class="row">
+    <div class="col-4">
+<div class="form-group">
+  <label for="">Profesor</label>
+  <select class="form-control" name="selectedTeacher" id="selectedTeacher" [(ngModel)]="selectedTeacher">
+    <option value="{{teacher.id}}" *ngFor="let teacher of teacherCatalog">{{teacher.value}}</option>
+  </select>
+</div>        
+    </div>
+    <div class="col-2">
+        <div class="form-group ">
+            <label for="">&nbsp;</label>
+        <button type="button" class="btn btn-success form-control" (click)="filter()">Filtrar</button>
+    </div> 
+    </div>
+</div>
 <app-crud model="AcademicLoad" 
 [canAdd]="true" 
 [canDelete]="true" 
 [canUpdate]="true" 
 [canView]="true" viewUrl="app/gradedefinition" 
+[where]="whereComponent"
 [configCrudComponent]="configCrudComponent"></app-crud>
