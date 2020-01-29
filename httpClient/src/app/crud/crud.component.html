@@ -37,10 +37,13 @@
                     {{(column.htmlInputType !== 'select' ? row[column.name] : getValueFromArray(column.catalog,row[column.name]))}}
                 </td>
                 <td class="text-center">
+<<<<<<< Updated upstream
                     <button type="button" class="btn btn-sm btn-primary" *ngIf="action.show"
                         (click)="clickDefaultAction(row)" [title]="action.title">
                         <i class="fas fa-{{action.icon}}" aria-hidden="true"></i>
                     </button> &nbsp;
+=======
+>>>>>>> Stashed changes
                     <button type="button" class="btn btn-sm btn-primary" [disabled]="!canView"
                         (click)="goToDetails(row.id)">
                         <i class="fas fa-search" aria-hidden="true"></i>
@@ -66,6 +69,7 @@
             </tr>
         </tfoot>
     </table>
+<<<<<<< Updated upstream
 </div>
 <!-- Modal to add record -->
 <div class="modal fade" id="modalForm" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="modalForm"
@@ -134,6 +138,77 @@
                                 <input type="{{control.htmlInputType}}" class="form-control" name="{{control.name}}"
                                     id="{{control.name}}" [(ngModel)]="object[control.name]" style="width: 50%;"
                                     placeholder="{{control.placeHolder}}
+=======
+
+    <!-- Modal to add record -->
+    <div class="modal fade" id="modalForm" data-backdrop="static" tabindex="-1" role="dialog"
+        aria-labelledby="modalForm" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <ng-container [ngSwitch]="formAction">
+                        <ng-container *ngSwitchCase="'add'">
+                            <h5 class="modal-title text-primary font-weight-bold" id="modalFormTitle">Agregar
+                                registro...
+                            </h5>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'update'">
+                            <h5 class="modal-title text-warning font-weight-bold" id="modalToUpdateRecordTitle">
+                                Actualizar registro...
+                            </h5>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'delete'">
+                            <h5 class="modal-title text-danger font-weight-bold" id="modalToDeleteRecordTitle">Eliminar
+                                registro...
+                            </h5>
+                        </ng-container>
+                    </ng-container>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ng-container *ngFor="let control of controls">
+
+
+
+
+
+
+
+                        <ng-container [ngSwitch]="control.htmlInputType">
+
+                            <ng-container *ngSwitchCase="'select'">
+                                <div class="form-group">
+                                    <label for="{{control.name}}">{{control.title}}</label>
+                                    <select class="form-control" id="{{control.name}}" name="{{control.name}}"
+                                        [(ngModel)]="object[control.name]"
+                                        [disabled]="(formAction==='delete' ? true: false )">
+                                        <option *ngFor="let item of control.catalog" value="{{item.id}}">{{item.value}}
+                                        </option>
+                                    </select>
+                                    <small class="form-text text-muted">{{control.helpText}}</small>
+                                </div>
+                            </ng-container>
+
+                            <ng-container *ngSwitchCase="'text'">
+                                <div class="form-group">
+                                    <label for="{{control.name}}">{{control.title}}</label>
+                                    <input type="{{control.htmlInputType}}" class="form-control" name="{{control.name}}"
+                                        id="{{control.name}}" [(ngModel)]="object[control.name]"
+                                        placeholder="{{control.placeHolder}}" [readonly]="(formAction==='delete'
+                        ? true: false )">
+                                    <small class="form-text text-muted">{{control.helpText}}</small>
+                                </div>
+                            </ng-container>
+
+                            <ng-container *ngSwitchCase="'number'">
+                                <div class="form-group">
+                                    <label for="{{control.name}}">{{control.title}}</label>
+                                    <input type="{{control.htmlInputType}}" class="form-control" name="{{control.name}}"
+                                        id="{{control.name}}" [(ngModel)]="object[control.name]" style="width: 50%;"
+                                        placeholder="{{control.placeHolder}}
+>>>>>>> Stashed changes
                        " [readonly]="(formAction==='delete' ? true: false )">
                                 <small class="form-text text-muted">{{control.helpText}}</small>
                             </div>
@@ -143,6 +218,7 @@
                             <div class="form-group">
                                 <label for="{{control.name}}">{{control.title}}</label>
 
+<<<<<<< Updated upstream
                                 <input *ngIf="(control.defaultValue==='1' ? true : false)"
                                     type="{{control.htmlInputType}}" class="form-control" name="{{control.name}}"
                                     id="{{control.name}}" [(ngModel)]="object[control.name]" style="width:
@@ -154,11 +230,25 @@
                                     id="{{control.name}}" [(ngModel)]="object[control.name]" style="width:
                         10%;" [readonly]="(formAction==='delete' ? true: false )" placeholder="{{control.placeHolder}}"
                                     ng-true-value="1" ng-false-value="0">
+=======
+                                    <input *ngIf="(control.defaultValue==='1' ? true : false)"
+                                        type="{{control.htmlInputType}}" class="form-control" name="{{control.name}}"
+                                        id="{{control.name}}" [(ngModel)]="object[control.name]" style="width:
+                        10%;" placeholder="{{control.placeHolder}}" ng-true-value="1" ng-false-value="0"
+                                        [readonly]="(formAction==='delete' ? true: false )" checked="checked">
+
+                                    <input *ngIf="(control.defaultValue !=='1' ? true : false)"
+                                        type="{{control.htmlInputType}}" class="form-control" name="{{control.name}}"
+                                        id="{{control.name}}" [(ngModel)]="object[control.name]" style="width:
+                        10%;" [readonly]="(formAction==='delete' ? true: false )" placeholder="{{control.placeHolder}}"
+                                        ng-true-value="1" ng-false-value="0">
+>>>>>>> Stashed changes
 
                                 <small class="form-text text-muted">{{control.helpText}}</small>
                             </div>
                         </ng-container>
 
+<<<<<<< Updated upstream
                         <ng-container *ngSwitchDefault>
                             <div class="form-group">
                                 <label for="{{control.name}}">{{control.title}}</label>
@@ -170,6 +260,31 @@
                                     type)</small>
                             </div>
                         </ng-container>
+=======
+                            <ng-container *ngSwitchCase="'date'">
+                                <div class="form-group">
+                                    <label for="{{control.name}}">{{control.title}}</label>
+                                    <input type="{{control.htmlInputType}}" class="form-control" name="{{control.name}}"
+                                        id="{{control.name}}" [(ngModel)]="object[control.name]"
+                                        placeholder="{{control.placeHolder}}"
+                                        [readonly]="(formAction==='delete' ? true: false )">
+                                    <small class="form-text text-muted">{{control.helpText}}</small>
+                                </div>
+                            </ng-container>
+
+
+                            <ng-container *ngSwitchDefault>
+                                <div class="form-group">
+                                    <label for="{{control.name}}">{{control.title}}</label>
+                                    <input type="{{control.htmlInputType}}" class="form-control" name="{{control.name}}"
+                                        id="{{control.name}}" [(ngModel)]="object[control.name]"
+                                        [readonly]="(formAction==='delete' ? true: false )"
+                                        placeholder="{{control.placeHolder}}">
+                                    <small class="form-text text-muted">{{control.helpText}} (Default input
+                                        type)</small>
+                                </div>
+                            </ng-container>
+>>>>>>> Stashed changes
 
 
 
@@ -185,6 +300,7 @@
                 </div>
             </div>
 
+<<<<<<< Updated upstream
             <div class="modal-footer">
                 <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal"
                     (click)="clearReturnedMessage()">
@@ -205,6 +321,31 @@
                         <button type="button" (click)="delete()" class="btn btn-sm btn-danger" [disabled]="!canDelete">
                             <i class="fa fa-trash-alt" aria-hidden="true"></i>
                             Eliminar</button>
+=======
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal"
+                        (click)="clearReturnedMessage()">
+                        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                        Volver</button>
+                    <ng-container [ngSwitch]="formAction">
+                        <ng-container *ngSwitchCase="'add'">
+                            <button type="button" (click)="add()" class="btn btn-sm btn-primary" [disabled]="!canAdd">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                                Agregar</button>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'update'">
+                            <button type="button" (click)="update()" class="btn btn-sm btn-warning"
+                                [disabled]="!canUpdate">
+                                <i class="fa fa-edit" aria-hidden="true"></i>
+                                Actualizar</button>
+                        </ng-container>
+                        <ng-container *ngSwitchCase="'delete'">
+                            <button type="button" (click)="delete()" class="btn btn-sm btn-danger"
+                                [disabled]="!canDelete">
+                                <i class="fa fa-trash-alt" aria-hidden="true"></i>
+                                Eliminar</button>
+                        </ng-container>
+>>>>>>> Stashed changes
                     </ng-container>
                 </ng-container>
             </div>

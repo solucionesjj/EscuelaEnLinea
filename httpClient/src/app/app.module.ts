@@ -22,6 +22,7 @@ import { ParameterComponent } from './parameter/parameter.component';
 import { FilterPipe } from './pipes/filter.pipe';
 import { UserGroupComponent } from './user-group/user-group.component';
 import { UserDetailsComponent } from './user/user-details/user-details.component';
+import { GradeDefinitionComponent } from './grade-definition/grade-definition.component';
 
 // TODO definir scope para consultas a Google.
 // const googleLoginOptions: LoginOpt = {
@@ -58,7 +59,7 @@ export function provideConfig() {
     ParameterComponent,
     FilterPipe,
     UserGroupComponent,
-    UserDetailsComponent,
+    GradeDefinitionComponent
     UserMatriculationComponent
   ],
   imports: [

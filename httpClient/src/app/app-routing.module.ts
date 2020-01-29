@@ -16,6 +16,7 @@ import { LoadUsersComponent } from './load-users/load-users.component';
 import { ParameterComponent } from './parameter/parameter.component';
 import { UserGroupComponent } from './user-group/user-group.component';
 import { UserDetailsComponent } from './user/user-details/user-details.component';
+import { GradeDefinitionComponent } from './grade-definition/grade-definition.component';
 
 const routes: Routes = [
   {
@@ -86,6 +87,11 @@ const routes: Routes = [
       {
         path: 'academicLoad',
         component: AcademicLoadComponent,
+        // canActivate: [AuthGuardService]
+      },
+      {
+        path: 'gradedefinition/:id',
+        component: GradeDefinitionComponent,
         // canActivate: [AuthGuardService]
       },
       {

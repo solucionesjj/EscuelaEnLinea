@@ -1,0 +1,53 @@
+<h5>Carga académica...</h5>
+<div class="row">
+    <div class="col-2">
+        <small class="text-center">Curso</small>
+        <h6>{{academicLoadSelected.course}}</h6>
+    </div>
+    <div class="col-2">
+        <small class="text-center">Área</small>
+        <h6>{{academicLoadSelected.area}}</h6>
+    </div>
+    <div class="col-2">
+        <small class="text-center">Materia</small>
+        <h6>{{academicLoadSelected.matter}}</h6>
+    </div>
+    <div class="col-2">
+        <small class="text-center">Profesor</small>
+        <h6>{{academicLoadSelected.name}} {{academicLoadSelected.surname}}</h6>
+    </div>
+    <div class="col-2">
+        <small class="text-center">Horas por semana</small>
+        <h6 class="text-center">{{academicLoadSelected.hoursPerWeek}}</h6>
+    </div>
+</div>
+<hr>
+<h5>Agregar nota...</h5>
+<div class="row">
+    <div class="col-3">
+        <div class="form-group">
+            <label for="noteDueDate">Fecha final</label>
+            <input type="date" class="form-control" name="noteDueDate" id="noteDueDate" aria-describedby="helpId"
+                [(ngModel)]="note.dueDate" placeholder="Fecha de finalización de la nota.">
+            <small id="helpId" class="form-text text-muted">Fecha de finalización de la nota.</small>
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="form-group">
+            <label for="noteNote">Nota</label>
+            <input type="text" class="form-control" name="noteNote" id="noteNote" aria-describedby="helpId"
+                [(ngModel)]="note.Note" placeholder="Coloque un título para la nota.">
+            <small id="helpId" class="form-text text-muted">Coloque un título para la nota.</small>
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="form-group">
+            <label for="noteDescription">Descripción</label>
+            <textarea class="form-control" name="noteDescription" id="noteDescription" [(ngModel)]="note.Description"
+                rows="3"></textarea>
+        </div>
+    </div>
+    <div class="col-3">
+<button type="button" class="btn btn-success" (click)="saveNote()">Crear</button>
+    </div>
+</div>
