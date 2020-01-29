@@ -14,6 +14,8 @@ export class GradeDefinitionComponent implements OnInit {
   academicLoadSelected: any = {};
   academicLoadNotes
   note: any = {};
+  configCrudComponent: any = {};
+  whereComponent: string;
 
   constructor(private route: ActivatedRoute, private crudService: CrudService) {
   }
@@ -22,13 +24,60 @@ export class GradeDefinitionComponent implements OnInit {
 
   ngOnInit() {
     this.idAcademicLoad = this.route.snapshot.paramMap.get('id');
-    this.lodaAcademicLoadInfo();
-    this.loadAcademicLoadNotes();
-  }
-  
-  async loadAcademicLoadNotes() {
 
+    this.configCrudComponent = {
+      columns: [{
+        name: 'idAcademicLoad',
+        title: 'idAcademicLoad',
+        titleAlignment: 'center',
+        dataAlignment: 'left',
+        htmlInputType: 'hidden',
+        placeHolder: 'idAcademicLoad',
+        helpText: 'idAcademicLoad',
+        defaultValue: this.idAcademicLoad,
+        catalog: null
+      },
+      {
+        name: 'dueDate',
+        title: 'Fecha finalizacion',
+        titleAlignment: 'center',
+        dataAlignment: 'center',
+        htmlInputType: 'date',
+        placeHolder: 'Fecha de finalización de la nota.',
+        helpText: 'Fecha de finalización de la nota.',
+        defaultValue: '',
+        catalog: null
+      },
+      {
+        name: 'grade',
+        title: 'Nota',
+        titleAlignment: 'center',
+        dataAlignment: 'left',
+        htmlInputType: 'text',
+        placeHolder: 'Título para la nota.',
+        helpText: 'Título para la nota.',
+        defaultValue: '',
+        catalog: null
+      },
+      {
+        name: 'description',
+        title: 'Descripción',
+        titleAlignment: 'center',
+        dataAlignment: 'left',
+        htmlInputType: 'text',
+        placeHolder: 'Descripción de la nota.',
+        helpText: 'Descripción de la nota.',
+        defaultValue: '',
+        catalog: null
+      }
+      ]
+    };
+
+    this.whereComponent = `{"where":{"idAcademicLoad":"` + this.idAcademicLoad + `"}}`;
+
+    this.lodaAcademicLoadInfo();
   }
+
 
   async lodaAcademicLoadInfo() {
 
@@ -55,35 +104,4 @@ where AcademicLoads.id = `+ this.idAcademicLoad;
       console.log(result.message);
     }
   }
-
-
-  /*
-    idAcademicLoad: {
-      type: DataTypes.INTEGER,
-      required: true,
-      allowNull: false,
-      references: {
-        model: 'AcademicLoad',
-        key: 'id'
-      }
-    },
-    dueDate: {
-      type: DataTypes.DATEONLY,
-      required: true,
-      allowNull: false,
-      defaultValue: DataTypes.NOW
-    },
-    grade: {
-      type: DataTypes.STRING,
-      required: true,
-      allowNull: false
-    },
-    description: {
-      type: DataTypes.STRING,
-      defaultValue: 'Sin descripción.'
-    }
-  
-  */
-
-
 }

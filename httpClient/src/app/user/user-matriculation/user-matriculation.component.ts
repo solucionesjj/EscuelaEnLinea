@@ -13,21 +13,36 @@ export class UserMatriculationComponent implements OnInit {
   configCrudComponent: any = {};
   idStudent: any = '';
   coursesCatalog: any = [];
+  whereComponent: string;
+  selectedStudentInfo: any = {};
 
   constructor(private route: ActivatedRoute, private crudService: CrudService) {
-
     this.idStudent = this.route.snapshot.paramMap.get('id');
-
-
   }
 
   ngOnInit() {
     this.getCoursesCatalog();
+    this.loadStudentInfo();
+  }
+  async loadStudentInfo() {
+    const query = `select name, surname, identificationDocumentType, identificationDocument, gender, birthday from Users where Users.id = `+ this.idStudent;
+    this.crudService.model = 'AcademicLoad';
+    const result = await this.crudService.getDynamicQuery(query);
+    if (result.result) {
+      if (result.data.length > 0) {
+        this.selectedStudentInfo = result.data[0];
+      } else {
+        console.log('No se encontraron datos.');
+      }
+    } else {
+      console.log(result.message);
+    }
   }
 
   // Metodo para configurar los atributos del componente Crud para las matriculas.
 
   setCrudAttributes() {
+    this.whereComponent = `{"where":{"idStudent":"`+this.idStudent+`"}}`;
     this.configCrudComponent = {
       columns: [{
         name: 'date',
@@ -44,7 +59,7 @@ export class UserMatriculationComponent implements OnInit {
         title: 'Folio',
         titleAlignment: 'center',
         dataAlignment: 'right',
-        htmlInputType: 'number',
+        htmlInputType: 'text',
         placeHolder: 'Número del folio',
         helpText: 'Número asociado al folio de la matrícula.',
         defaultValue: ''
@@ -54,7 +69,7 @@ export class UserMatriculationComponent implements OnInit {
         title: 'Número de Matrícula',
         titleAlignment: 'center',
         dataAlignment: 'right',
-        htmlInputType: 'number',
+        htmlInputType: 'text',
         placeHolder: 'Número de la matrícula.',
         helpText: 'Número asociado a la matrícula.',
         defaultValue: ''

@@ -21,6 +21,16 @@
         <h6 class="text-center">{{academicLoadSelected.hoursPerWeek}}</h6>
     </div>
 </div>
+
+<app-crud model="GradeDefinition" 
+[canAdd]="true" 
+[canDelete]="true" 
+[canUpdate]="true" 
+[canView]="false" 
+viewUrl=""
+[where]="whereComponent"
+[configCrudComponent]="configCrudComponent"></app-crud>
+
 <hr>
 <h5>Agregar nota...</h5>
 <div class="row">

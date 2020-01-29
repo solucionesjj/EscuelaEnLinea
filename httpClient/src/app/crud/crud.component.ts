@@ -31,6 +31,7 @@ export class CrudComponent implements OnInit, OnChanges {
   @Input() canUpdate: boolean;
   @Input() canView: boolean;
   @Input() viewUrl: string;
+  @Input() where: string;
   @Input() configCrudComponent: any = {};
   // Nuevo Parametro que permite ejecutar una funciona especifica desde el componente padre.
   @Input() action: any = {};
@@ -55,7 +56,12 @@ export class CrudComponent implements OnInit, OnChanges {
 
   async get() {
     this.crudService.model = this.model;
-    const result = await this.crudService.get();
+    let result: any;
+    if (this.where) {
+      result = await this.crudService.getSearch(this.where);
+    } else {
+      result = await this.crudService.get();
+    }
     this.allObjects = result.data;
     this.objects = this.allObjects;
   }

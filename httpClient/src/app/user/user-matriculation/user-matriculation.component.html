@@ -1,6 +1,30 @@
+<h5>Información de matrículas...</h5>
+<div style="border: solid; border-color: slateblue; border-width: 1px; " class="p-1 rounded">
+<div class="row">
+    <div class="col-3">
+        <small>Nombre</small>
+        <h6 class="text-center">{{selectedStudentInfo.name}} {{selectedStudentInfo.surname}}</h6>
+    </div>
+    <div class="col-3">
+        <small>Identificación</small>
+        <h6 class="text-center">{{selectedStudentInfo.identificationDocument}}</h6>
+        <p class="text-center"><small>{{selectedStudentInfo.identificationDocumentType}}</small></p> 
+    </div>
+    <div class="col-3">
+        <small>Genero</small>
+        <h6 class="text-center">{{selectedStudentInfo.gender}}</h6>
+    </div>
+    <div class="col-3">
+        <small>Nacimiento</small>
+        <h6 class="text-center">{{selectedStudentInfo.birthday | date: 'yyyy/MMM/dd' }}</h6>
+    </div>
+</div>
+</div>
+
+
 <div class="p-2" *ngIf="configCrudComponent.columns">
     <app-crud model="Matriculation" [canAdd]="true" [canDelete]="false" [canUpdate]="false" [canView]="false"
-        [configCrudComponent]="configCrudComponent" [action]="{show : true,icon : 'print',title : 'IMPRIMIR'}"
-        (clickAction)="selectMatriculation($event)">
+        [where]="whereComponent" [action]="{show : true,icon : 'print',title : 'IMPRIMIR'}"
+        (clickAction)="selectMatriculation($event)" [configCrudComponent]="configCrudComponent">
     </app-crud>
 </div>
