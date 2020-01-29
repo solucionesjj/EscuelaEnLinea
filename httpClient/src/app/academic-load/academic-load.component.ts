@@ -91,11 +91,7 @@ export class AcademicLoadComponent implements OnInit {
   // TODO Pendiente listar solo usuarios tipo Profesor
   async getTeacherList() {
     this.crudService.model = 'User';
-    const query = `select Users.id, Users.name, Users.surname 
-                  from UserGroups 
-                  inner join Users on Users.id = UserGroups.idUser 
-                  inner join Groups on Groups.id = UserGroups.idGroup 
-                  where Groups.group = 'Profesor'`;
+    const query = `select Users.id, Users.name, Users.surname from UserGroups inner join Users on Users.id = UserGroups.idUser inner join Groups on Groups.id = UserGroups.idGroup where Groups.group = 'Profesor'`;
     const result = await this.crudService.getDynamicQuery(query);
     this.teacherCatalog.push({ id: '', value: 'Todos' });
     for (const row of result.data) {

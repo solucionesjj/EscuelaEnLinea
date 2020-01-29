@@ -1,5 +1,5 @@
 const database = require('../models/index');
-//const sequelize = require('sequelize');
+const sequelize = require('sequelize');
 
 exports.get = async(req, res) => {
     const model = req.query.model;
@@ -31,7 +31,7 @@ exports.getDynamicQuery = async(req, res) => {
         //await database
         await database.sequelize
         //.query(dynamicQuery, { type: sequelize.QueryTypes.SELECT })
-        .query(dynamicQuery)
+        .query(dynamicQuery, { type: sequelize.QueryTypes.SELECT })
         .then(
             function(result) {
                 res.send({
