@@ -1,55 +1,52 @@
-<div class="p-1">
-    <div class="row">
-        <div class="col-12">
-            <h4>Datos del usuario...</h4>
-        </div>
-    </div>
+<h5>Datos del usuario...</h5>
+
+<div style="border: solid; border-color: slateblue; border-width: 1px; " class="p-1 rounded">
     <div class="row">
         <div class="col-4">
             <small>Nombres</small>
-            <h5>{{user.name}}</h5>
+            <h6>{{user.name}}</h6>
 
             <small>Apellidos</small>
-            <h5>{{user.surname}}</h5>
+            <h6>{{user.surname}}</h6>
 
             <small>Correo</small>
-            <h5>{{user.email}}</h5>
+            <h6>{{user.email}}</h6>
 
             <small>Genero</small>
-            <h5>{{user.gender}}</h5>
+            <h6>{{user.gender}}</h6>
 
             <small>Rh</small>
-            <h5>{{user.rh}}</h5>
+            <h6>{{user.rh}}</h6>
         </div>
 
         <div class="col-4">
             <small>Nacimiento</small>
-            <h5>{{user.birthday | date:"yyyy/MMM/dd"}}</h5>
+            <h6>{{user.birthday | date:"yyyy/MMM/dd"}}</h6>
 
             <small>Tipo de identificación</small>
-            <h5>{{user.identificationDocumentType}}</h5>
+            <h6>{{user.identificationDocumentType}}</h6>
 
             <small>Identificación</small>
-            <h5>{{user.identificationDocument}}</h5>
+            <h6>{{user.identificationDocument}}</h6>
 
             <small>Lugar de expedición</small>
-            <h5>{{user.identificationDocumentExpeditionSite}}</h5>
+            <h6>{{user.identificationDocumentExpeditionSite}}</h6>
 
             <small>Nacionalidad</small>
-            <h5>{{user.nationality}}</h5>
+            <h6>{{user.nationality}}</h6>
         </div>
         <div class="col-4">
             <small>Teléfono 1</small>
-            <h5>{{user.telephoneOne}}</h5>
+            <h6>{{user.telephoneOne}}</h6>
 
             <small>Teléfono 2</small>
-            <h5>{{user.telephoneTwo}}</h5>
+            <h6>{{user.telephoneTwo}}</h6>
 
             <small>Dirección</small>
-            <h5>{{user.address}}</h5>
+            <h6>{{user.address}}</h6>
 
             <small>Estado</small>
-            <h5>{{user.active == 1? 'Activo' : 'Inactivo'}}</h5>
+            <h6>{{user.active == 1? 'Activo' : 'Inactivo'}}</h6>
         </div>
     </div>
 </div>
