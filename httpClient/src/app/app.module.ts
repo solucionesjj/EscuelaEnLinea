@@ -59,8 +59,9 @@ export function provideConfig() {
     ParameterComponent,
     FilterPipe,
     UserGroupComponent,
-    GradeDefinitionComponent
-    UserMatriculationComponent
+    GradeDefinitionComponent,
+    UserMatriculationComponent,
+    UserDetailsComponent
   ],
   imports: [
     BrowserModule,
