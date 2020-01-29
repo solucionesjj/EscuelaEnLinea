@@ -62,7 +62,11 @@
 
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modelId">
-  Launch
+    Launch
+</button>
+
+<button class="btn-warning btn ml-2" [routerLink]="['/app/usermatriculation/' + user.id]">
+    Registro de Matricula
 </button>
 
 <!-- Modal -->
@@ -72,16 +76,19 @@
             <div class="modal-header">
                 <h5 class="modal-title">Buscar usuario...</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
 
 
                 <div class="form-group">
                     <label for="">Buscar por identificación o nombre</label>
-                    <input type="text" class="form-control" (input)="findUsers()" name="searchCriteria" id="searchCriteria" [(ngModel)]="searchCriteria" aria-describedby="helpId" placeholder="Coloque el riterio de búsqueda...">
-                    <small id="helpId" class="form-text text-muted">Escriba más de 3 caracteres. Puede colocar parte de la identificación o parte del nombre o los apellidos, etc.</small>
+                    <input type="text" class="form-control" (input)="findUsers()" name="searchCriteria"
+                        id="searchCriteria" [(ngModel)]="searchCriteria" aria-describedby="helpId"
+                        placeholder="Coloque el riterio de búsqueda...">
+                    <small id="helpId" class="form-text text-muted">Escriba más de 3 caracteres. Puede colocar parte de
+                        la identificación o parte del nombre o los apellidos, etc.</small>
                 </div>
 
                 <ul style="height: 80px;">

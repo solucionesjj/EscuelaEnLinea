@@ -32,6 +32,9 @@ export class CrudComponent implements OnInit, OnChanges {
   @Input() canView: boolean;
   @Input() viewUrl: string;
   @Input() configCrudComponent: any = {};
+  // Nuevo Parametro que permite ejecutar una funciona especifica desde el componente padre.
+  @Input() action: any = {};
+  @Output() clickAction = new EventEmitter<any>();
 
   constructor(private crudService: CrudService, private router: Router) {
   }
@@ -144,5 +147,11 @@ export class CrudComponent implements OnInit, OnChanges {
         return row.value;
       }
     }
+  }
+
+
+  // Funcionar para activar el llamado al padre.
+  clickDefaultAction(model: any) {
+    this.clickAction.emit(model);
   }
 }

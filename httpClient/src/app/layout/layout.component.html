@@ -1,36 +1,36 @@
-<div class="container-scroller">
-    <!-- partial:partials/_navbar.html -->
-    <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-        <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-            <a class="navbar-brand brand-logo" [routerLink]="['dashboard']">.:: Escuela en línea ::.</a>
-            <a class="navbar-brand brand-logo-mini" [routerLink]="['dashboard']">::EEL::</a>
-        </div>
-        <div class="navbar-menu-wrapper d-flex align-items-stretch">
-            <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
-          <span class="mdi mdi-menu"></span>
+<!-- partial:partials/_navbar.html -->
+<nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row tick-shadow">
+    <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center ">
+        <a class="navbar-brand brand-logo" [routerLink]="['dashboard']">.:: Escuela en línea ::.</a>
+        <a class="navbar-brand brand-logo-mini" [routerLink]="['dashboard']">::EEL::</a>
+    </div>
+    <div class="navbar-menu-wrapper d-flex align-items-stretch ">
+        <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+            <span class="mdi mdi-menu"></span>
         </button>
-            <ul class="navbar-nav navbar-nav-right">
-                <li class="nav-item d-none d-lg-block full-screen-link">
-                    <a class="nav-link">
-                        <i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
-                    </a>
-                </li>
-                <li class="nav-item nav-logout d-none d-lg-block">
-                    <a class="nav-link" (click)="signOut()">
-                        <i class="mdi mdi-power"></i>
-                    </a>
-                </li>
-            </ul>
-            <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
-          <span class="mdi mdi-menu"></span>
+        <ul class="navbar-nav navbar-nav-right">
+            <li class="nav-item d-none d-lg-block full-screen-link">
+                <a class="nav-link">
+                    <i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
+                </a>
+            </li>
+            <li class="nav-item nav-logout d-none d-lg-block">
+                <a class="nav-link" (click)="signOut()">
+                    <i class="mdi mdi-power"></i>
+                </a>
+            </li>
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
+            data-toggle="offcanvas">
+            <span class="mdi mdi-menu"></span>
         </button>
-        </div>
-    </nav>
+    </div>
+</nav>
 
-    <div class="container-fluid page-body-wrapper">
-        <nav class="sidebar sidebar-offcanvas" id="sidebar">
-            <ul class="nav">
-                <!-- <li class="nav-item nav-profile">
+<div class="container-fluid page-body-wrapper px-0">
+    <nav class="sidebar sidebar-offcanvas light-shadow" id="sidebar">
+        <ul class="nav">
+            <!-- <li class="nav-item nav-profile">
                     <a href="#" class="nav-link">
                         <div class="nav-profile-image">
                             <img src="assets/images/faces/face1.jpg" alt="profile">
@@ -45,91 +45,93 @@
                 </li> -->
 
 
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="collapse" href="#ui-sistema" aria-expanded="true" aria-controls="ui-sistema">
-                        <span class="menu-title">Sistema...</span>
-                        <i class="menu-arrow"></i>
-                        <i class="mdi mdi-console menu-icon"></i>
-                    </a>
-                    <div class="collapse" id="ui-sistema">
-                        <ul class="nav flex-column sub-menu">
-                            <li class="nav-item">
-                                <a class="nav-link" [routerLink]="['group']" routerLinkActive="active">
-                                    <span class="menu-title">Grupos</span>
-                                    <i class="mdi mdi-account-multiple-plus menu-icon"></i>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" [routerLink]="['user']" routerLinkActive="active">
-                                    <span class="menu-title">Usuarios</span>
-                                    <i class="mdi mdi-account-plus menu-icon"></i>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" [routerLink]="['usergroup']" routerLinkActive="active">
-                                    <span class="menu-title">Privilegios</span>
-                                    <i class="mdi mdi-account-key menu-icon"></i>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" [routerLink]="['loadusers']" routerLinkActive="active">
-                                    <span class="menu-title">Cargar Usuarios</span>
-                                    <i class="mdi mdi-account-switch menu-icon"></i>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" [routerLink]="['parameter']" routerLinkActive="active">
-                                    <span class="menu-title">Parámetros generales</span>
-                                    <i class="mdi mdi-settings menu-icon"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
+            <li class="nav-item px-2">
+                <a class="nav-link" data-toggle="collapse" href="#ui-sistema" aria-expanded="true"
+                    aria-controls="ui-sistema">
+                    <span class="menu-title">Sistema...</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-console menu-icon"></i>
+                </a>
+                <div class="collapse" id="ui-sistema">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item">
+                            <a class="nav-link" [routerLink]="['group']" routerLinkActive="active">
+                                <span class="menu-title">Grupos</span>
+                                <i class="mdi mdi-account-multiple-plus menu-icon"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [routerLink]="['user']" routerLinkActive="active">
+                                <span class="menu-title">Usuarios</span>
+                                <i class="mdi mdi-account-plus menu-icon"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [routerLink]="['usergroup']" routerLinkActive="active">
+                                <span class="menu-title">Privilegios</span>
+                                <i class="mdi mdi-account-key menu-icon"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [routerLink]="['loadusers']" routerLinkActive="active">
+                                <span class="menu-title">Cargar Usuarios</span>
+                                <i class="mdi mdi-account-switch menu-icon"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [routerLink]="['parameter']" routerLinkActive="active">
+                                <span class="menu-title">Parámetros generales</span>
+                                <i class="mdi mdi-settings menu-icon"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
 
 
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="collapse" href="#ui-parametros" aria-expanded="true" aria-controls="ui-parametros">
-                        <span class="menu-title">Parámetros...</span>
-                        <i class="menu-arrow"></i>
-                        <i class="mdi mdi-settings menu-icon"></i>
-                    </a>
-                    <div class="collapse" id="ui-parametros">
-                        <ul class="nav flex-column sub-menu">
-                            <li class="nav-item">
-                                <a class="nav-link" [routerLink]="['course']" routerLinkActive="active">
-                                    <span class="menu-title">Cursos</span>
-                                    <i class="mdi mdi-account-multiple menu-icon"></i>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" [routerLink]="['area']" routerLinkActive="active">
-                                    <span class="menu-title">Areas</span>
-                                    <i class="mdi mdi-group menu-icon"></i>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" [routerLink]="['matter']" routerLinkActive="active">
-                                    <span class="menu-title">Materias</span>
-                                    <i class="mdi mdi-book-open-page-variant menu-icon"></i>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" [routerLink]="['academicLoad']" routerLinkActive="active">
-                                    <span class="menu-title">Carga Académica</span>
-                                    <i class="mdi mdi-briefcase-check menu-icon"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-            </ul>
-        </nav>
-        <!-- partial -->
-        <div class="main-panel">
-            <div class="content-wrapper">
-                <router-outlet></router-outlet>
-            </div>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-parametros" aria-expanded="true"
+                    aria-controls="ui-parametros">
+                    <span class="menu-title">Parámetros...</span>
+                    <i class="menu-arrow"></i>
+                    <i class="mdi mdi-settings menu-icon"></i>
+                </a>
+                <div class="collapse" id="ui-parametros">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item">
+                            <a class="nav-link" [routerLink]="['course']" routerLinkActive="active">
+                                <span class="menu-title">Cursos</span>
+                                <i class="mdi mdi-account-multiple menu-icon"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [routerLink]="['area']" routerLinkActive="active">
+                                <span class="menu-title">Areas</span>
+                                <i class="mdi mdi-group menu-icon"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [routerLink]="['matter']" routerLinkActive="active">
+                                <span class="menu-title">Materias</span>
+                                <i class="mdi mdi-book-open-page-variant menu-icon"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [routerLink]="['academicLoad']" routerLinkActive="active">
+                                <span class="menu-title">Carga Académica</span>
+                                <i class="mdi mdi-briefcase-check menu-icon"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </nav>
+    <!-- partial -->
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <router-outlet></router-outlet>
         </div>
     </div>
-    <footer></footer>
+</div>
+<footer></footer>

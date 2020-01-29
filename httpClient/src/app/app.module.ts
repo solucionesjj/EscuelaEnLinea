@@ -1,3 +1,4 @@
+import { UserMatriculationComponent } from './user/user-matriculation/user-matriculation.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
@@ -57,7 +58,8 @@ export function provideConfig() {
     ParameterComponent,
     FilterPipe,
     UserGroupComponent,
-    UserDetailsComponent
+    UserDetailsComponent,
+    UserMatriculationComponent
   ],
   imports: [
     BrowserModule,

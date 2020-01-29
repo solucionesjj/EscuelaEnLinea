@@ -1,3 +1,4 @@
+import { UserMatriculationComponent } from './user/user-matriculation/user-matriculation.component';
 import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CourseComponent } from './course/course.component';
@@ -19,7 +20,7 @@ import { UserDetailsComponent } from './user/user-details/user-details.component
 const routes: Routes = [
   {
     path: '',
-    //redirectTo: 'landingpage',
+    // redirectTo: 'landingpage',
     redirectTo: 'app/user',
     pathMatch: 'full'
   },
@@ -65,6 +66,11 @@ const routes: Routes = [
       {
         path: 'userdetails/:id',
         component: UserDetailsComponent,
+        // canActivate: [AuthGuardService]
+      },
+      {
+        path: 'usermatriculation/:id',
+        component: UserMatriculationComponent,
         // canActivate: [AuthGuardService]
       },
       {

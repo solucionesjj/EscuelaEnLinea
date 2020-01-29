@@ -1,0 +1,6 @@
+<div class="p-2" *ngIf="configCrudComponent.columns">
+    <app-crud model="Matriculation" [canAdd]="true" [canDelete]="false" [canUpdate]="false" [canView]="false"
+        [configCrudComponent]="configCrudComponent" [action]="{show : true,icon : 'print',title : 'IMPRIMIR'}"
+        (clickAction)="selectMatriculation($event)">
+    </app-crud>
+</div>

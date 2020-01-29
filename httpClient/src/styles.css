@@ -1,6 +1,31 @@
 body,
 html {
-    height: 100%;
-    margin: auto;
-    overflow: hidden;
+  height: 100%;
+  margin: auto;
+  overflow: hidden;
+}
+
+/*
+    Estilo que permite cambiar la forma y el color del Scroll Bar en el navegador.
+*/
+
+/* width */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #e1e1e1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }

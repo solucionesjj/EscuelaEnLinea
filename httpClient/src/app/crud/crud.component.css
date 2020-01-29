@@ -1,0 +1,9 @@
+.search-container {
+  height: 40px;
+}
+
+.table-container {
+  height: calc(100% - 40px);
+  overflow: auto;
+}
+
