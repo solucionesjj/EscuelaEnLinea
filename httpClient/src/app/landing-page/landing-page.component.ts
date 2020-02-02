@@ -54,6 +54,7 @@ export class LandingPageComponent implements OnInit {
               photoUrl: this.user.photoUrl,
               firstName: this.user.firstName,
               lastName: this.user.lastName,
+              email: this.user.email,
               valid: (new Date).toLocaleDateString()
             };
           }

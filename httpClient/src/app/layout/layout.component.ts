@@ -7,11 +7,15 @@ import { Router } from '@angular/router';
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.css']
 })
-export class LayoutComponent {
+export class LayoutComponent implements OnInit {
   title = '.:: EscualeOnLine ::.';
-
+  user: any = {};
   constructor(private authService: AuthService, private router: Router) {
   }
+
+ngOnInit () {
+  this.user = JSON.parse(localStorage.getItem('userInfo'));
+}
 
   signOut(): void {
     this.authService.signOut(true);
