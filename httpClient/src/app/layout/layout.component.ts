@@ -7,31 +7,18 @@ import { Router } from '@angular/router';
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.css']
 })
-export class LayoutComponent implements OnInit {
+export class LayoutComponent {
   title = '.:: EscualeOnLine ::.';
-
-  menuItemTextVisible = true;
 
   constructor(private authService: AuthService, private router: Router) {
   }
 
-  changeMenuItemTextVisible() {
-    if (this.menuItemTextVisible) {
-      this.menuItemTextVisible = false;
-    } else {
-      this.menuItemTextVisible = true;
-    }
-  }
-
-  ngOnInit() {
-
+  signOut(): void {
+    this.authService.signOut(true);
+    this.goToLanding();
   }
 
   goToLanding() {
     this.router.navigate(['landingpage']);
-  }
-
-  signOut(): void {
-    this.authService.signOut().then((signOutResult) => this.goToLanding());
   }
 }

@@ -1,6 +1,4 @@
-import { Injectable, OnChanges } from '@angular/core';
-import { SocialUser, AuthService } from 'angularx-social-login';
-import { CrudService } from './crud.service';
+import { Injectable, OnInit } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -8,44 +6,18 @@ import { CrudService } from './crud.service';
 
 export class AuthServiceService {
 
-  user: SocialUser;
-  loggedIn: boolean;
-  autorized: boolean;
-
-  constructor(private authService: AuthService, private crudService: CrudService) {
-    this.loggedIn = false;
-    this.autorized = false;
+  constructor() {
   }
 
-  authState() {
-    this.authService.authState.subscribe((user) => {
-      this.user = user;
-      if (user != null) {
-        this.loggedIn = true;
-      } else {
-        this.loggedIn = false;
-      }
-    });
-  }
-
-  async isAutorized() {
-    this.crudService.model = 'User';
-    const searchCriteria = `{"where": {"email":"` + this.user.email + `"}}`;
-    const result = await this.crudService.getSearch(searchCriteria);
-    if (result.data) {
-      this.autorized = true;
-    } else {
-      this.autorized = false;
-    }
-  }
-
-  isAuthenticated() {
-    this.authState();
-    if (this.loggedIn) {
-      this.isAutorized();
-      if (this.autorized) {
+  isAutorized() {
+    let userInfo: any = {};
+    userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    const currentDate = (new Date).toLocaleDateString();
+    if (userInfo) {
+      if (userInfo.valid === currentDate) {
         return true;
       } else {
+        localStorage.removeItem('userInfo');
         return false;
       }
     } else {

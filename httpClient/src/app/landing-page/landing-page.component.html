@@ -1,17 +1,52 @@
 <div class="backgroundImage"></div>
-<div style="left:10%; top: 16px; position: absolute;">
-    <div class="text-center" style="width: 450px; margin-bottom: 16px;">
-        <h1 class="text-white font-weight-bold ">Escuela en línea</h1>
+<div style="left:10%; top: 8px; position: absolute;">
+    <div class="text-center" style="width: 400px; margin-bottom: 16px;">
+        <h2 class="text-white font-weight-bold ">Escuela en línea</h2>
     </div>
-    <div class="card" style="width: 450px;">
+    <div class="card" style="width: 400px;">
         <img src="assets/childrens.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
+        <div class="card-body p-2">
             <h5 class="card-title text-center">Ingrese mediante su cuenta de Google</h5>
-            <p class="card-text text-center">Escuela en línea es un sistema para el registro control y administración de información escolar creado por Crenova S.A.S, Bogotá - Colombia.</p>
-            <p class="text-danger text-center font-italic small font-weight-bold">Recuerde que su correo electrónico debe estar previamente <u>autorizado</u>.</p>
-            <div class="class text-center">
-                <button (click)="signInWithGoogle()" type="button" class="btn btn-primary">Ingresar</button>
-            </div>
+
+            <ng-container *ngIf="(user)">
+                <div class="card border-dark mb-3">
+                    <div class="card-header text-center p-1">{{user.firstName}} {{user.lastName}}</div>
+                    <div class="card-body text-dark text-center p-1">
+                        <h5 class="card-title"></h5>
+                        <p class="card-text"> <img src="{{user.photoUrl}}" class="rounded"> <br>
+                            {{user.email}}
+                        </p>
+                    </div>
+                    <div class="card-footer bg-transparent border-success">
+                        <div class="class text-center">
+                            <ng-container *ngIf="(!autorized)">
+                                <div class="alert alert-warning p-1" role="alert">
+                                    No se encuentra autorizado. Por favor informe a la institución indicando su correo
+                                    electrónico.
+                                </div>
+                            </ng-container>
+                            <button (click)="signOut()" type="button" class="btn btn-danger">Salir</button>
+                            &nbsp;&nbsp;
+                            <ng-container *ngIf="(autorized)">
+                                <button (click)="goToApp()" type="button" class="btn btn-success">Continuar</button>
+                            </ng-container>
+
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="(!user)">
+                <div class="class text-center">
+                    <button (click)="signIn()" type="button" class="btn btn-primary">Ingresar</button>
+                </div>
+            </ng-container>
+
+            <p class="card-text text-center">Escuela en línea es un sistema para el registro control y administración de
+                información escolar creado por Crenova S.A.S, Bogotá - Colombia.</p>
+            <p class="text-danger text-center font-italic small font-weight-bold">Recuerde que su correo electrónico
+                debe estar previamente <u>autorizado</u>.</p>
+
         </div>
     </div>
 </div>
