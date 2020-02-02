@@ -83,7 +83,7 @@ export class AcademicLoadComponent implements OnInit {
   async getMatterList() {
     this.crudService.model = 'Matter';
     const result = await this.crudService.get();
-    for (const row of result.data) {
+    for (const row of [result.data]) {
       this.matterCatalog.push({ id: row.id, value: row.matter });
     }
   }
@@ -94,7 +94,7 @@ export class AcademicLoadComponent implements OnInit {
     const query = `select Users.id, Users.name, Users.surname from UserGroups inner join Users on Users.id = UserGroups.idUser inner join Groups on Groups.id = UserGroups.idGroup where Groups.group = 'Profesor'`;
     const result = await this.crudService.getDynamicQuery(query);
     this.teacherCatalog.push({ id: '', value: 'Todos' });
-    for (const row of result.data) {
+    for (const row of [result.data]) {
       this.teacherCatalog.push({ id: row.id, value: row.name + ' ' + row.surname });
     }
   }

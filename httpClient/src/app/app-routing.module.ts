@@ -21,8 +21,7 @@ import { GradeDefinitionComponent } from './grade-definition/grade-definition.co
 const routes: Routes = [
   {
     path: '',
-    // redirectTo: 'landingpage',
-    redirectTo: 'app/user',
+    redirectTo: 'landingpage',
     pathMatch: 'full'
   },
   {

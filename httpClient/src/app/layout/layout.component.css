@@ -10,7 +10,7 @@
 a.nav-link {
   padding-right: 10px !important;
   border-radius: 5px;
-  padding-left: 5px;
+  padding-left: 10px !important;
 }
 .nav .nav-item .nav-link:hover * {
   color: #fff !important;
