@@ -110,7 +110,7 @@ export class GradeDefinitionComponent implements OnInit {
     const result = await this.crudService.getDynamicQuery(query);
     if (result.result) {
       if (result.data) {
-        for (const row of [result.data]) {
+        for (const row of result.data) {
           this.periodCatalog.push({ id: row.value, value: row.value });
           this.periodActualValue = row.value;
         }
@@ -139,7 +139,7 @@ where AcademicLoads.id = `+ this.idAcademicLoad;
     const result = await this.crudService.getDynamicQuery(query);
     if (result.result) {
       if (result.data) {
-        this.academicLoadSelected = result.data;
+        this.academicLoadSelected = result.data[0];
       } else {
         console.log('No se encontraron datos.');
       }

@@ -149,7 +149,7 @@ export class CrudComponent implements OnInit, OnChanges {
 
   getValueFromArray(arrayObject: any[], idToFind: string) {
     for (const row of arrayObject) {
-      if (row.id === idToFind) {
+      if (row.id == idToFind) {
         return row.value;
       }
     }

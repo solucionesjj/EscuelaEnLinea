@@ -28,15 +28,13 @@ exports.getDynamicQuery = async(req, res) => {
     const model = req.query.model;
     const dynamicQuery = unescape(req.query.query);
     const result =
-        //await database
         await database.sequelize
-        //.query(dynamicQuery, { type: sequelize.QueryTypes.SELECT })
         .query(dynamicQuery, { type: sequelize.QueryTypes.SELECT })
         .then(
             function(result) {
                 res.send({
                     result: true,
-                    data: result[0],
+                    data: result,
                     message: 'Registros consultados exitosamente.'
                 })
             })

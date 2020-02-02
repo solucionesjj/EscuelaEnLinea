@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CrudService } from '../services/crud.service';
+import { TeacherService } from '../services/teacher.service';
 
 @Component({
   selector: 'app-academic-load',
@@ -16,7 +17,7 @@ export class AcademicLoadComponent implements OnInit {
   selectedTeacher: string;
   whereComponent: string;
 
-  constructor(private crudService: CrudService) {
+  constructor(private crudService: CrudService, private teacherService: TeacherService) {
     this.getCourseList();
     this.getMatterList();
     this.getTeacherList();
@@ -83,20 +84,14 @@ export class AcademicLoadComponent implements OnInit {
   async getMatterList() {
     this.crudService.model = 'Matter';
     const result = await this.crudService.get();
-    for (const row of [result.data]) {
+    for (const row of result.data) {
       this.matterCatalog.push({ id: row.id, value: row.matter });
     }
   }
 
   // TODO Pendiente listar solo usuarios tipo Profesor
   async getTeacherList() {
-    this.crudService.model = 'User';
-    const query = `select Users.id, Users.name, Users.surname from UserGroups inner join Users on Users.id = UserGroups.idUser inner join Groups on Groups.id = UserGroups.idGroup where Groups.group = 'Profesor'`;
-    const result = await this.crudService.getDynamicQuery(query);
-    this.teacherCatalog.push({ id: '', value: 'Todos' });
-    for (const row of [result.data]) {
-      this.teacherCatalog.push({ id: row.id, value: row.name + ' ' + row.surname });
-    }
+    this.teacherCatalog = this.teacherService.get();
   }
 
   filter() {
