@@ -102,6 +102,10 @@ export class AcademicLoadComponent implements OnInit {
     }
   }
 
+  recordOfGrades (eventInfo:any) {
+
+  }
+
   ngOnInit() {
   }
 }

@@ -95,7 +95,7 @@ const routes: Routes = [
         canActivate: [AuthGuardService]
       },
       {
-        path: 'recordofgrades',
+        path: 'recordofgrades/:id',
         component: RecordOfGradesComponent,
         canActivate: [AuthGuardService]
       },

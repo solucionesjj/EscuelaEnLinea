@@ -21,4 +21,7 @@
 [canUpdate]="true" 
 [canView]="true" viewUrl="app/gradedefinition" 
 [where]="whereComponent"
+[action]="{show : true,icon : 'clipboard-check',title : 'Calificar'}"
+        (clickAction)="recordOfGrades($event)"
 [configCrudComponent]="configCrudComponent"></app-crud>
+

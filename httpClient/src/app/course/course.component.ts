@@ -12,6 +12,7 @@ export class CourseComponent implements OnInit {
 
   actualYear: number;
 
+  // TODO Agregar director del curso, el director es un profesor
   constructor() {
 
     this.actualYear = (new Date()).getFullYear();
