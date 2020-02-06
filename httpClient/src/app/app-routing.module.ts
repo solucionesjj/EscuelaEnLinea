@@ -17,12 +17,12 @@ import { ParameterComponent } from './parameter/parameter.component';
 import { UserGroupComponent } from './user-group/user-group.component';
 import { UserDetailsComponent } from './user/user-details/user-details.component';
 import { GradeDefinitionComponent } from './grade-definition/grade-definition.component';
+import { RecordOfGradesComponent } from './record-of-grades/record-of-grades.component';
 
 const routes: Routes = [
   {
     path: '',
-    // redirectTo: 'landingpage',
-    redirectTo: 'app/user',
+    redirectTo: 'landingpage',
     pathMatch: 'full'
   },
   {
@@ -92,6 +92,11 @@ const routes: Routes = [
       {
         path: 'gradedefinition/:id',
         component: GradeDefinitionComponent,
+        canActivate: [AuthGuardService]
+      },
+      {
+        path: 'recordofgrades/:id',
+        component: RecordOfGradesComponent,
         canActivate: [AuthGuardService]
       },
       {

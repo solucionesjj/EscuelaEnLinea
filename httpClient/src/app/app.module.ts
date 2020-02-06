@@ -23,6 +23,7 @@ import { FilterPipe } from './pipes/filter.pipe';
 import { UserGroupComponent } from './user-group/user-group.component';
 import { UserDetailsComponent } from './user/user-details/user-details.component';
 import { GradeDefinitionComponent } from './grade-definition/grade-definition.component';
+import { RecordOfGradesComponent } from './record-of-grades/record-of-grades.component';
 
 // TODO definir scope para consultas a Google.
 // const googleLoginOptions: LoginOpt = {
@@ -30,14 +31,13 @@ import { GradeDefinitionComponent } from './grade-definition/grade-definition.co
 // };
 // https://github.com/google/google-api-javascript-client#gapiauth2clientconfig
 
-const config = new AuthServiceConfig([
-  {
-    id: GoogleLoginProvider.PROVIDER_ID,
-    provider: new GoogleLoginProvider('910568189242-k4evb88o5r24v6d40egt2kdd6qci3daa.apps.googleusercontent.com')
-  }
-]);
-
 export function provideConfig() {
+  const config = new AuthServiceConfig([
+    {
+      id: GoogleLoginProvider.PROVIDER_ID,
+      provider: new GoogleLoginProvider('910568189242-k4evb88o5r24v6d40egt2kdd6qci3daa.apps.googleusercontent.com')
+    }
+  ]);
   return config;
 }
 
@@ -61,7 +61,8 @@ export function provideConfig() {
     UserGroupComponent,
     GradeDefinitionComponent,
     UserMatriculationComponent,
-    UserDetailsComponent
+    UserDetailsComponent,
+    RecordOfGradesComponent
   ],
   imports: [
     BrowserModule,

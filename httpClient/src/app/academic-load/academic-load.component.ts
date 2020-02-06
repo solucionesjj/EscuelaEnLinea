@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CrudService } from '../services/crud.service';
+import { TeacherService } from '../services/teacher.service';
 
 @Component({
   selector: 'app-academic-load',
@@ -16,7 +17,7 @@ export class AcademicLoadComponent implements OnInit {
   selectedTeacher: string;
   whereComponent: string;
 
-  constructor(private crudService: CrudService) {
+  constructor(private crudService: CrudService, private teacherService: TeacherService) {
     this.getCourseList();
     this.getMatterList();
     this.getTeacherList();
@@ -90,13 +91,7 @@ export class AcademicLoadComponent implements OnInit {
 
   // TODO Pendiente listar solo usuarios tipo Profesor
   async getTeacherList() {
-    this.crudService.model = 'User';
-    const query = `select Users.id, Users.name, Users.surname from UserGroups inner join Users on Users.id = UserGroups.idUser inner join Groups on Groups.id = UserGroups.idGroup where Groups.group = 'Profesor'`;
-    const result = await this.crudService.getDynamicQuery(query);
-    this.teacherCatalog.push({ id: '', value: 'Todos' });
-    for (const row of result.data) {
-      this.teacherCatalog.push({ id: row.id, value: row.name + ' ' + row.surname });
-    }
+    this.teacherCatalog = this.teacherService.get();
   }
 
   filter() {
@@ -105,6 +100,10 @@ export class AcademicLoadComponent implements OnInit {
     } else {
       this.whereComponent = `{"where":{"idTeacher":"` + this.selectedTeacher + `"}}`;
     }
+  }
+
+  recordOfGrades (eventInfo:any) {
+
   }
 
   ngOnInit() {
