@@ -9,7 +9,7 @@ import { CrudService } from '../services/crud.service';
 })
 export class RecordOfGradesComponent implements OnInit {
 
-  idGradeDefinition: string;
+  idAcademicLoad: string;
   gradeDefinitionSelected: any = {};
   students: any = [];
   period: string;
@@ -19,13 +19,13 @@ export class RecordOfGradesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.idGradeDefinition = this.route.snapshot.paramMap.get('id');
-    this.loadGradeDefinitionInfo();
+    this.idAcademicLoad = this.route.snapshot.paramMap.get('id');
+    this.loadAcademicLoadInfo();
     this.idCourse = this.gradeDefinitionSelected.idCourse;
     this.period = this.gradeDefinitionSelected.period;
   }
 
-  async loadGradeDefinitionInfo() {
+  async loadAcademicLoadInfo() {
     const query = `select 
     Users.name,
     Users.surname,
@@ -34,13 +34,8 @@ export class RecordOfGradesComponent implements OnInit {
     Courses.id as idCourse,
     Areas.area,
     Matters.matter,
-    AcademicLoads.hoursPerWeek,
-    GradeDefinitions.grade, 
-    GradeDefinitions.description, 
-    GradeDefinitions.period
-  from GradeDefinitions 
-  inner join AcademicLoads
-    on AcademicLoads.id = GradeDefinitions.idAcademicLoad
+    AcademicLoads.hoursPerWeek
+  from AcademicLoads
   inner join Courses
     on AcademicLoads.idCourse = Courses.id
   inner join Matters
@@ -49,10 +44,9 @@ export class RecordOfGradesComponent implements OnInit {
     on Matters.idArea = Areas.id
   inner join Users
     on AcademicLoads.idTeacher = Users.id
-  where GradeDefinitions.id = `+ this.idGradeDefinition;
+  where AcademicLoads.id = `+ this.idAcademicLoad;
     this.crudService.model = 'AcademicLoad';
     const result = await this.crudService.getDynamicQuery(query);
-    console.log(result.data)
     if (result.result) {
       if (result.data) {
         this.gradeDefinitionSelected = result.data[0];
@@ -65,13 +59,13 @@ export class RecordOfGradesComponent implements OnInit {
   }
 
   async loadStudents() {
-    const query = `select 	Users.id as idStudent,
+    const query = `select Users.id as idStudent,
     Users.name,
       Users.surname
   from Matriculations
   inner join Users
     on Matriculations.idStudent = Users.id
-  where Matriculations.idCourse = `+ + `
+  where Matriculations.idCourse = `+ this.idCourse + `
   order by Users.name, Users.surname`;
     this.crudService.model = 'Matriculation';
     const result = await this.crudService.getDynamicQuery(query);

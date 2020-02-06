@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CrudComponent } from '../crud/crud.component';
 import { CrudService } from '../services/crud.service';
+import { PeriodService } from '../services/period.service';
 
 @Component({
   selector: 'app-grade-definition',
@@ -9,7 +9,6 @@ import { CrudService } from '../services/crud.service';
   styleUrls: ['./grade-definition.component.css']
 })
 export class GradeDefinitionComponent implements OnInit {
-
   idAcademicLoad: string;
   academicLoadSelected: any = {};
   academicLoadNotes: any = {};
@@ -20,14 +19,15 @@ export class GradeDefinitionComponent implements OnInit {
   periodActualValue: string;
   selectedPeriod: string;
 
-  constructor(private route: ActivatedRoute, private crudService: CrudService) {
+  constructor(private route: ActivatedRoute, private crudService: CrudService, private periodService: PeriodService) {
+    this.getActualPeriod();
+
+    this.idAcademicLoad = this.route.snapshot.paramMap.get('id');
+
+    this.lodaAcademicLoadInfo();
   }
 
   ngOnInit() {
-    this.idAcademicLoad = this.route.snapshot.paramMap.get('id');
-
-    this.getActualPeriod();
-
     this.configCrudComponent = {
       columns: [{
         name: 'idAcademicLoad',
@@ -97,29 +97,13 @@ export class GradeDefinitionComponent implements OnInit {
       },
       ]
     };
-
     this.whereComponent = `{"where":{"idAcademicLoad":"` + this.idAcademicLoad + `"}}`;
-
-    this.lodaAcademicLoadInfo();
   }
 
   async getActualPeriod() {
+    this.periodActualValue = this.periodService.get();
     this.periodCatalog.push({ id: '', value: '' });
-    this.crudService.model = 'Parameter';
-    const query = `select value from Parameters where parameter = 'periodoActual' limit 0, 1`;
-    const result = await this.crudService.getDynamicQuery(query);
-    if (result.result) {
-      if (result.data) {
-        for (const row of result.data) {
-          this.periodCatalog.push({ id: row.value, value: row.value });
-          this.periodActualValue = row.value;
-        }
-      } else {
-        console.log('No se encontraron datos.');
-      }
-    } else {
-      console.log(result.message);
-    }
+    this.periodCatalog.push({ id: this.periodActualValue, value: this.periodActualValue });
   }
 
 

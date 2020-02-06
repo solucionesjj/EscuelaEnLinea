@@ -3,3 +3,5 @@ start nodemon server.js
 cd ..
 cd httpClient
 start ng serve
+cd ..
+start code .

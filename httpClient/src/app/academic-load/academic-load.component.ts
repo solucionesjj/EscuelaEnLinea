@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CrudService } from '../services/crud.service';
 import { TeacherService } from '../services/teacher.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-academic-load',
@@ -17,7 +18,7 @@ export class AcademicLoadComponent implements OnInit {
   selectedTeacher: string;
   whereComponent: string;
 
-  constructor(private crudService: CrudService, private teacherService: TeacherService) {
+  constructor(private crudService: CrudService, private teacherService: TeacherService, private router:Router) {
     this.getCourseList();
     this.getMatterList();
     this.getTeacherList();
@@ -103,7 +104,8 @@ export class AcademicLoadComponent implements OnInit {
   }
 
   recordOfGrades (eventInfo:any) {
-
+console.log(eventInfo)
+this.router.navigate(['app/recordofgrades/'+eventInfo.id]);
   }
 
   ngOnInit() {
