@@ -1,25 +1,25 @@
 {
-  "development": {
-    "username": "uEscuelaEnLinea",
-    "password": "uEscuelaEnLinea",
-    "database": "EscuelaEnLinea",
-    "host": "localhost",
+  "production": {
+    "username": "escuelae_cliente1",
+    "password": "xB5.VD=Sw#%s",
+    "database": "escuelae_cliente1",
+    "host": "68.66.226.68",
+    "dialect": "mysql",
+    "operatorsAliases": false
+  },
+"development": {
+    "username": "escuelae_cliente1",
+    "password": "xB5.VD=Sw#%s",
+    "database": "escuelae_cliente1",
+    "host": "68.66.226.68",
     "dialect": "mysql",
     "operatorsAliases": false
   },
   "test": {
-    "username": "uEscuelaEnLinea",
-    "password": "uEscuelaEnLinea",
-    "database": "EscuelaEnLinea",
-    "host": "localhost",
-    "dialect": "mysql",
-    "operatorsAliases": false
-  },
-  "production": {
-    "username": "uEscuelaEnLinea",
-    "password": "uEscuelaEnLinea",
-    "database": "EscuelaEnLinea",
-    "host": "localhost",
+    "username": "escuelae_cliente1",
+    "password": "xB5.VD=Sw#%s",
+    "database": "escuelae_cliente1",
+    "host": "68.66.226.68",
     "dialect": "mysql",
     "operatorsAliases": false
   }

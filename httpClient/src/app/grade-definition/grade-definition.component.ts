@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CrudService } from '../services/crud.service';
 import { PeriodService } from '../services/period.service';
@@ -8,7 +8,7 @@ import { PeriodService } from '../services/period.service';
   templateUrl: './grade-definition.component.html',
   styleUrls: ['./grade-definition.component.css']
 })
-export class GradeDefinitionComponent implements OnInit {
+export class GradeDefinitionComponent {
   idAcademicLoad: string;
   academicLoadSelected: any = {};
   academicLoadNotes: any = {};
@@ -20,14 +20,9 @@ export class GradeDefinitionComponent implements OnInit {
   selectedPeriod: string;
 
   constructor(private route: ActivatedRoute, private crudService: CrudService, private periodService: PeriodService) {
-    this.getActualPeriod();
-
     this.idAcademicLoad = this.route.snapshot.paramMap.get('id');
-
-    this.lodaAcademicLoadInfo();
-  }
-
-  ngOnInit() {
+    this.getActualPeriod();    
+    this.loadAcademicLoadInfo();
     this.configCrudComponent = {
       columns: [{
         name: 'idAcademicLoad',
@@ -99,15 +94,14 @@ export class GradeDefinitionComponent implements OnInit {
     };
     this.whereComponent = `{"where":{"idAcademicLoad":"` + this.idAcademicLoad + `"}}`;
   }
-
+  
   async getActualPeriod() {
-    this.periodActualValue = this.periodService.get();
+    this.periodActualValue = await this.periodService.get();
     this.periodCatalog.push({ id: '', value: '' });
     this.periodCatalog.push({ id: this.periodActualValue, value: this.periodActualValue });
   }
 
-
-  async lodaAcademicLoadInfo() {
+  async loadAcademicLoadInfo() {
     const query = `select Courses.course, Areas.area, Matters.matter, Users.name,Users.surname, AcademicLoads.hoursPerWeek 
 from AcademicLoads  
 inner join Courses 

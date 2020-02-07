@@ -11,15 +11,16 @@ export class PeriodService {
   constructor(private crudService: CrudService) {
   }
 
-  get(): string {
-    this.getActualPeriod();
+  async get() {
+    await this.getActualPeriod();
     return this.actualPeriod;
   }
 
   async getActualPeriod() {
+    this.actualPeriod = '';
     this.crudService.model = 'Parameter';
     const query = `select value from Parameters where parameter = 'periodoActual' limit 0, 1`;
-    const result = await this.crudService.getDynamicQuery(query);
+    const result = await this.crudService.getDynamicQuery(query);    
     if (result.result) {
       if (result.data) {
         this.actualPeriod = result.data[0].value;

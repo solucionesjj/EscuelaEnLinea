@@ -11,8 +11,8 @@ export class TeacherService {
   constructor(private crudService: CrudService) {
   }
 
-  get() {
-    this.getTeacherList();
+  async get() {
+    await this.getTeacherList();
     return this.teacherList;
   }
 

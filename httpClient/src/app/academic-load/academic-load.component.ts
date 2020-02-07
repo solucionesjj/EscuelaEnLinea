@@ -18,7 +18,7 @@ export class AcademicLoadComponent implements OnInit {
   selectedTeacher: string;
   whereComponent: string;
 
-  constructor(private crudService: CrudService, private teacherService: TeacherService, private router:Router) {
+  constructor(private crudService: CrudService, private teacherService: TeacherService, private router: Router) {
     this.getCourseList();
     this.getMatterList();
     this.getTeacherList();
@@ -92,7 +92,7 @@ export class AcademicLoadComponent implements OnInit {
 
   // TODO Pendiente listar solo usuarios tipo Profesor
   async getTeacherList() {
-    this.teacherCatalog = this.teacherService.get();
+    this.teacherCatalog = await this.teacherService.get();
   }
 
   filter() {
@@ -103,9 +103,9 @@ export class AcademicLoadComponent implements OnInit {
     }
   }
 
-  recordOfGrades (eventInfo:any) {
-console.log(eventInfo)
-this.router.navigate(['app/recordofgrades/'+eventInfo.id]);
+  recordOfGrades(eventInfo: any) {
+    console.log(eventInfo)
+    this.router.navigate(['app/recordofgrades/' + eventInfo.id]);
   }
 
   ngOnInit() {
