@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       required: true
     },
     grade: {
-      type: DataTypes.DECIMAL,
+      type: DataTypes.DECIMAL(10,2),
       allowNull: false,
       required: true
     }

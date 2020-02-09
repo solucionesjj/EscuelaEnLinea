@@ -10,66 +10,72 @@ import { Router } from '@angular/router';
 })
 export class AcademicLoadComponent implements OnInit {
 
-
   configCrudComponent: any = {};
   courseCatalog: any = [];
   matterCatalog: any = [];
   teacherCatalog: any = [];
   selectedTeacher: string;
   whereComponent: string;
+  loadComponent:boolean;
 
   constructor(private crudService: CrudService, private teacherService: TeacherService, private router: Router) {
+    this.loadComponent = false;
+    this.getTeacherList().then((value) => { 
+      this.loadComponent = true;
+      this.configCrudComponent = {
+        columns: [
+          {
+            name: 'idCourse',
+            title: 'Curso',
+            titleAlignment: 'center',
+            dataAlignment: 'left',
+            htmlInputType: 'select',
+            placeHolder: 'Seleccione el curso.',
+            helpText: 'Seleccione el curso en el cual va a crear la carga académica.',
+            defaultValue: '',
+            catalog: this.courseCatalog
+          },
+          {
+            name: 'idMatter',
+            title: 'Materia',
+            titleAlignment: 'center',
+            dataAlignment: 'left',
+            htmlInputType: 'select',
+            placeHolder: 'Seleccione la materia',
+            helpText: 'Seleccione la materia que hará parte de la carga académica.',
+            defaultValue: '',
+            catalog: this.matterCatalog
+          },
+          {
+            name: 'idTeacher',
+            title: 'Profesor',
+            titleAlignment: 'center',
+            dataAlignment: 'left',
+            htmlInputType: 'select',
+            placeHolder: 'Seleccione el profesor',
+            helpText: 'Seleccione el profesor a cargo de la carga académica.',
+            defaultValue: '',
+            catalog: this.teacherCatalog
+          },
+          {
+            name: 'hoursPerWeek',
+            title: 'Horas por semana',
+            titleAlignment: 'center',
+            dataAlignment: 'center',
+            htmlInputType: 'number',
+            placeHolder: 'Cantidad de horas.',
+            helpText: 'Coloque la cantidad de horas o intensidad por semana.',
+            defaultValue: '1',
+            catalog: null
+          }]
+      };
+  
+    
+    });
     this.getCourseList();
     this.getMatterList();
-    this.getTeacherList();
 
-    this.configCrudComponent = {
-      columns: [
-        {
-          name: 'idCourse',
-          title: 'Curso',
-          titleAlignment: 'center',
-          dataAlignment: 'left',
-          htmlInputType: 'select',
-          placeHolder: 'Seleccione el curso.',
-          helpText: 'Seleccione el curso en el cual va a crear la carga académica.',
-          defaultValue: '',
-          catalog: this.courseCatalog
-        },
-        {
-          name: 'idMatter',
-          title: 'Materia',
-          titleAlignment: 'center',
-          dataAlignment: 'left',
-          htmlInputType: 'select',
-          placeHolder: 'Seleccione la materia',
-          helpText: 'Seleccione la materia que hará parte de la carga académica.',
-          defaultValue: '',
-          catalog: this.matterCatalog
-        },
-        {
-          name: 'idTeacher',
-          title: 'Profesor',
-          titleAlignment: 'center',
-          dataAlignment: 'left',
-          htmlInputType: 'select',
-          placeHolder: 'Seleccione el profesor',
-          helpText: 'Seleccione el profesor a cargo de la carga académica.',
-          defaultValue: '',
-          catalog: this.teacherCatalog
-        },
-        {
-          name: 'hoursPerWeek',
-          title: 'Horas por semana',
-          titleAlignment: 'center',
-          dataAlignment: 'center',
-          htmlInputType: 'number',
-          placeHolder: 'Cantidad de horas.',
-          helpText: 'Coloque la cantidad de horas o intensidad por semana.',
-          defaultValue: '1',
-          catalog: null
-        }]
-    };
+   
   }
 
   // TODO Ordenar el listado por el orden del curso
@@ -80,6 +86,7 @@ export class AcademicLoadComponent implements OnInit {
       this.courseCatalog.push({ id: row.id, value: row.course });
     }
   }
+
   // TODO Pendiente colocar el nombre del área
   // TODO ordenar por área y luego por materia
   async getMatterList() {
@@ -90,9 +97,9 @@ export class AcademicLoadComponent implements OnInit {
     }
   }
 
-  // TODO Pendiente listar solo usuarios tipo Profesor
   async getTeacherList() {
     this.teacherCatalog = await this.teacherService.get();
+    console.log('4' + this.teacherCatalog)
   }
 
   filter() {
@@ -104,10 +111,10 @@ export class AcademicLoadComponent implements OnInit {
   }
 
   recordOfGrades(eventInfo: any) {
-    console.log(eventInfo)
     this.router.navigate(['app/recordofgrades/' + eventInfo.id]);
   }
 
   ngOnInit() {
+
   }
 }
