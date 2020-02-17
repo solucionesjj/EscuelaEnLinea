@@ -18,6 +18,7 @@ import { UserGroupComponent } from './user-group/user-group.component';
 import { UserDetailsComponent } from './user/user-details/user-details.component';
 import { GradeDefinitionComponent } from './grade-definition/grade-definition.component';
 import { RecordOfGradesComponent } from './record-of-grades/record-of-grades.component';
+import { CourseDetailsComponent } from './course/course-details/course-details.component';
 
 const routes: Routes = [
   {
@@ -47,6 +48,11 @@ const routes: Routes = [
       {
         path: 'course',
         component: CourseComponent,
+        canActivate: [AuthGuardService]
+      },
+      {
+        path: 'coursedetails/:id',
+        component: CourseDetailsComponent ,
         canActivate: [AuthGuardService]
       },
       {

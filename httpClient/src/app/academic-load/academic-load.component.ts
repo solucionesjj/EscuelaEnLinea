@@ -99,7 +99,6 @@ export class AcademicLoadComponent implements OnInit {
 
   async getTeacherList() {
     this.teacherCatalog = await this.teacherService.get();
-    console.log('4' + this.teacherCatalog)
   }
 
   filter() {
