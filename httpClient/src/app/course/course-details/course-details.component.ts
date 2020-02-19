@@ -82,61 +82,62 @@ export class CourseDetailsComponent {
       this.whereComponent = `{"where":{"idCourse":"` + this.idCourse + `"}}`;
 
       this.configCrudComponent = {
-        columns: [{
-          name: 'date',
-          title: 'Fecha Matricula',
-          titleAlignment: 'center',
-          dataAlignment: 'left',
-          htmlInputType: 'date',
-          placeHolder: 'Fecha Matrícula',
-          helpText: 'Fecha en la que el estudiante se matrícula al curso.',
-          defaultValue: ''
-        },
-        {
-          name: 'sheet',
-          title: 'Folio',
-          titleAlignment: 'center',
-          dataAlignment: 'right',
-          htmlInputType: 'text',
-          placeHolder: 'Número del folio',
-          helpText: 'Número asociado al folio de la matrícula.',
-          defaultValue: ''
-        },
-        {
-          name: 'number',
-          title: 'Número de Matrícula',
-          titleAlignment: 'center',
-          dataAlignment: 'right',
-          htmlInputType: 'text',
-          placeHolder: 'Número de la matrícula.',
-          helpText: 'Número asociado a la matrícula.',
-          defaultValue: ''
-        },
-        {
-          name: 'idCourse',
-          title: 'Curso',
-          titleAlignment: 'center',
-          dataAlignment: 'center',
-          htmlInputType: 'select',
-          placeHolder: 'Curso en el que se matriculará el estudiante.',
-          helpText: 'Curso en el que se matriculará el estudiante.',
-          defaultValue: this.idCourse,
-          catalog: this.coursesCatalog
-        },
-        {
-          name: 'idStudent',
-          title: 'Estudiante',
-          titleAlignment: 'center',
-          dataAlignment: 'center',
-          htmlInputType: 'select',
-          placeHolder: 'Id del estudiante.',
-          helpText: 'Seleccione el estudiante',
-          defaultValue: '',
-          catalog: this.students
-        },
+        columns: [
+          {
+            name: 'idCourse',
+            title: 'Curso',
+            titleAlignment: 'center',
+            dataAlignment: 'center',
+            htmlInputType: 'select',
+            placeHolder: 'Curso en el que se matriculará el estudiante.',
+            helpText: 'Curso en el que se matriculará el estudiante.',
+            defaultValue: this.idCourse,
+            catalog: this.coursesCatalog
+          },
+          {
+            name: 'idStudent',
+            title: 'Estudiante',
+            titleAlignment: 'center',
+            dataAlignment: 'left',
+            htmlInputType: 'select',
+            placeHolder: 'Id del estudiante.',
+            helpText: 'Seleccione el estudiante',
+            defaultValue: '',
+            catalog: this.students
+          },
+          {
+            name: 'sheet',
+            title: 'Folio',
+            titleAlignment: 'center',
+            dataAlignment: 'right',
+            htmlInputType: 'text',
+            placeHolder: 'Número del folio',
+            helpText: 'Número asociado al folio de la matrícula.',
+            defaultValue: ''
+          },
+          {
+            name: 'number',
+            title: 'Número de Matrícula',
+            titleAlignment: 'center',
+            dataAlignment: 'right',
+            htmlInputType: 'text',
+            placeHolder: 'Número de la matrícula.',
+            helpText: 'Número asociado a la matrícula.',
+            defaultValue: ''
+          },
+          {
+            name: 'date',
+            title: 'Fecha Matricula',
+            titleAlignment: 'center',
+            dataAlignment: 'left',
+            htmlInputType: 'date',
+            placeHolder: 'Fecha Matrícula',
+            helpText: 'Fecha en la que el estudiante se matrícula al curso.',
+            defaultValue: ''
+          },
         ]
       };
-  
-    } 
+
+    }
   }
 }
