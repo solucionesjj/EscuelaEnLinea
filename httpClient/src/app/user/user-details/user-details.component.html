@@ -51,34 +51,49 @@
     </div>
 </div>
 
-<small>Padre</small>
-<h5>{{user.idFather}}</h5>
+<div class="row">
+    <div class="col-6">
+        <small>Madre</small>
+        <h6>{{motherInfo.CompleteName}}</h6>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalSelectMother">
+            Asignar/Cambiar madre...
+        </button>
+    </div>
+    <div class="col-6">
+        <small>Padre</small>
+        <h6>{{fatherInfo.CompleteName}}</h6>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalSelectFather">
+            Asignar/Cambiar padre...
+        </button>
+    </div>
+</div>
+<br>
+<h5>Información de matricula del usuario...</h5>
+<div class="p-2" *ngIf="matriculationLoadComponent">
+    <app-crud model="Matriculation" [canAdd]="true" [canDelete]="false" [canUpdate]="false" [canView]="false"
+        [where]="matriculationWhereComponent" [action]="{show : true,icon : 'print',title : 'IMPRIMIR'}"
+        (clickAction)="selectMatriculation($event)" [configCrudComponent]="matriculationConfigCrudComponent">
+    </app-crud>
+</div>
 
-<small>Madre</small>
-<h5>{{user.idMother}}</h5>
 
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modelId">
-    Launch
-</button>
 
-<button class="btn-warning btn ml-2" [routerLink]="['/app/usermatriculation/' + user.id]">
-    Registro de Matricula
-</button>
+
 
 <!-- Modal -->
-<div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+<div class="modal fade" id="modalSelectMother" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Buscar usuario...</h5>
+                <h5 class="modal-title">Seleccione madre del estudiante...</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-
-
                 <div class="form-group">
                     <label for="">Buscar por identificación o nombre</label>
                     <input type="text" class="form-control" (input)="findUsers()" name="searchCriteria"
@@ -87,19 +102,68 @@
                     <small id="helpId" class="form-text text-muted">Escriba más de 3 caracteres. Puede colocar parte de
                         la identificación o parte del nombre o los apellidos, etc.</small>
                 </div>
-
-                <ul style="height: 80px;">
-                    <li *ngFor="let user of foundUsers">
-                        {{user.name}} {{user.surname}} <small>{{user.identificationDocument}}</small>
-                    </li>
-                </ul>
-
-
-
+                <div style="height: 80px;overflow: scroll;">
+                    <ul>
+                        <li *ngFor="let parent of foundUsers"
+                            (click)="selectParentInformation(parent.id,parent.name+' '+parent.surname,'mother',parent.identificationDocument)">
+                            {{parent.name}} {{parent.surname}} <small>{{parent.identificationDocument}}</small>
+                        </li>
+                    </ul>
+                </div>
+                <ng-container *ngIf="showSelectedParent">
+                    Usuario seleccionado ({{selectedParent.typeParent}}): <br>
+                    <h6>{{selectedParent.completeName}} -
+                        <small>{{selectedParent.parentIdentificationDocument}}</small></h6>
+                </ng-container>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" (click)="saveParent();">Seleccionar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="modalSelectFather" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Seleccione padre del estudiante...</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="">Buscar por identificación o nombre</label>
+                    <input type="text" class="form-control" (input)="findUsers()" name="searchCriteria"
+                        id="searchCriteria" [(ngModel)]="searchCriteria" aria-describedby="helpId"
+                        placeholder="Coloque el riterio de búsqueda...">
+                    <small id="helpId" class="form-text text-muted">Escriba más de 3 caracteres. Puede colocar parte de
+                        la identificación o parte del nombre o los apellidos, etc.</small>
+                </div>
+                <div style="height: 80px;overflow: scroll;">
+                    <ul>
+                        <li *ngFor="let parent of foundUsers"
+                            (click)="selectParentInformation(parent.id,parent.name+' '+parent.surname,'father',parent.identificationDocument)">
+                            {{parent.name}} {{parent.surname}} <small>{{parent.identificationDocument}}</small>
+                        </li>
+                    </ul>
+                </div>
+                <ng-container *ngIf="showSelectedParent">
+                    Usuario seleccionado ({{selectedParent.typeParent }}): <br>
+                    <h6>{{selectedParent.completeName}} -
+                        <small>{{selectedParent.parentIdentificationDocument}}</small></h6>
+                </ng-container>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" (click)="saveParent();">Seleccionar</button>
             </div>
         </div>
     </div>

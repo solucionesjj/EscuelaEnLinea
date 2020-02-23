@@ -10,7 +10,7 @@ export class TeacherService {
 
   constructor(private crudService: CrudService) {
   }
-
+ 
   async get() {
     await this.getTeacherList();
     return this.teacherList;
@@ -25,4 +25,5 @@ export class TeacherService {
       this.teacherList.push({ id: row.id, value: row.name + ' ' + row.surname });
     }
   }
+  
 }
