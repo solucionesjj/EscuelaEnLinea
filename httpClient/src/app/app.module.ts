@@ -25,6 +25,7 @@ import { UserDetailsComponent } from './user/user-details/user-details.component
 import { GradeDefinitionComponent } from './grade-definition/grade-definition.component';
 import { RecordOfGradesComponent } from './record-of-grades/record-of-grades.component';
 import { CourseDetailsComponent } from './course/course-details/course-details.component';
+import { PermissionComponent } from './permission/permission.component';
 
 // TODO definir scope para consultas a Google.
 // const googleLoginOptions: LoginOpt = {
@@ -64,7 +65,8 @@ export function provideConfig() {
     UserMatriculationComponent,
     UserDetailsComponent,
     RecordOfGradesComponent,
-    CourseDetailsComponent
+    CourseDetailsComponent,
+    PermissionComponent
   ],
   imports: [
     BrowserModule,
