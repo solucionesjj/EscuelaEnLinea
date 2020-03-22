@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CrudService } from '../services/crud.service';
 
 @Component({
   selector: 'app-permission',
@@ -7,14 +8,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PermissionComponent implements OnInit {
   configCrudComponent:any = {};
-  constructor() { 
+  sectionsCatalog: any = [];
+  loadCrudComponent: boolean;
+  visibleCatalog: any = [];
 
-    const visibleCatalog = [
+  constructor(private crudService:CrudService) { 
+    this.loadCrudComponent = false;
+    this.visibleCatalog = [
       { id: '0', value: '' },
       { id: '1', value: 'Si' },
       { id: '0', value: 'No' }
     ];
+    this.loadSections()
+  }
 
+  async loadSections () {
+    this.crudService.model = 'Section';
+    const result = await this.crudService.get();
+    if(result.result) {
+      this.sectionsCatalog = result.data;
+    }
+    this.loadComponent();
+  }
+
+  loadComponent () {
     this.configCrudComponent = {
 
       columns: [
@@ -23,11 +40,11 @@ export class PermissionComponent implements OnInit {
           title: 'Sección',
           titleAlignment: 'center',
           dataAlignment: 'left',
-          htmlInputType: 'text',
+          htmlInputType: 'select',
           placeHolder: 'Nombre de la sección en el menú.',
           helpText: 'Nombre de la sección en el menú ',
           defaultValue: '',
-          catalog: null
+          catalog: this.sectionsCatalog
         },
         {
           name: 'component',
@@ -78,7 +95,7 @@ export class PermissionComponent implements OnInit {
           htmlInputType: 'select',
           placeHolder: 'Si se mostrará o no en el menú.',
           helpText: 'Si se mostrará o no en el menú.',
-          defaultValue: visibleCatalog
+          defaultValue: this.visibleCatalog
         },
         {
           name: 'menuOrder',
@@ -124,8 +141,10 @@ export class PermissionComponent implements OnInit {
       
       ]
     };
-
+    this.loadCrudComponent=true;
   }
+
+
 
   ngOnInit() {
   }
