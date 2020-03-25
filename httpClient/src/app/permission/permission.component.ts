@@ -7,33 +7,34 @@ import { CrudService } from '../services/crud.service';
   styleUrls: ['./permission.component.css']
 })
 export class PermissionComponent implements OnInit {
-  configCrudComponent:any = {};
+  configCrudComponent: any = {};
   sectionsCatalog: any = [];
-  loadCrudComponent: boolean;
   visibleCatalog: any = [];
+  loadCrudComponent: boolean;
 
-  constructor(private crudService:CrudService) { 
+  constructor(private crudService: CrudService) {
     this.loadCrudComponent = false;
     this.visibleCatalog = [
       { id: '0', value: '' },
       { id: '1', value: 'Si' },
       { id: '0', value: 'No' }
     ];
-    this.loadSections()
+    this.loadSections();
   }
 
-  async loadSections () {
+  async loadSections() {
     this.crudService.model = 'Section';
     const result = await this.crudService.get();
-    if(result.result) {
-      this.sectionsCatalog = result.data;
+    console.log(result)
+    if (result.result) {
+      result.data.forEach(item => { this.sectionsCatalog.push({ id: item.id, value: item.section }) });
     }
+
     this.loadComponent();
   }
 
-  loadComponent () {
+  loadComponent() {
     this.configCrudComponent = {
-
       columns: [
         {
           name: 'idSection',
@@ -95,18 +96,19 @@ export class PermissionComponent implements OnInit {
           htmlInputType: 'select',
           placeHolder: 'Si se mostrará o no en el menú.',
           helpText: 'Si se mostrará o no en el menú.',
-          defaultValue: this.visibleCatalog
+          defaultValue: 0,
+          catalog: this.visibleCatalog
         },
         {
           name: 'menuOrder',
           title: 'Orden',
           titleAlignment: 'center',
           dataAlignment: 'center',
-          htmlInputType: 'text',
+          htmlInputType: 'number',
           placeHolder: 'Orden como se visualizará en el .',
           helpText: 'Nombre de la acción específica que el desarrollador colocó dentro del componente.',
-          defaultValue: ''
-        },      
+          defaultValue: 0
+        },
         {
           name: 'routerLink',
           title: 'Router Link',
@@ -118,33 +120,20 @@ export class PermissionComponent implements OnInit {
           defaultValue: ''
         },
         {
-          name: 'action',
-          title: 'Acción',
+          name: 'icon',
+          title: 'Icono',
           titleAlignment: 'center',
           dataAlignment: 'left',
           htmlInputType: 'text',
-          placeHolder: 'Nombre de la acción específica.',
-          helpText: 'Nombre de la acción específica que el desarrollador colocó dentro del componente.',
-          defaultValue: ''
-        },
-        {
-          name: 'action',
-          title: 'Acción',
-          titleAlignment: 'center',
-          dataAlignment: 'left',
-          htmlInputType: 'text',
-          placeHolder: 'Nombre de la acción específica.',
-          helpText: 'Nombre de la acción específica que el desarrollador colocó dentro del componente.',
-          defaultValue: ''
+          placeHolder: 'Nombre del icono.',
+          helpText: 'Nombre del icono a utilizar.',
+          defaultValue: 'mdi mdi-duck',
+          catalog: null
         }
-      
-      
       ]
     };
-    this.loadCrudComponent=true;
+    this.loadCrudComponent = true;
   }
-
-
 
   ngOnInit() {
   }

@@ -26,6 +26,11 @@ import { GradeDefinitionComponent } from './grade-definition/grade-definition.co
 import { RecordOfGradesComponent } from './record-of-grades/record-of-grades.component';
 import { CourseDetailsComponent } from './course/course-details/course-details.component';
 import { PermissionComponent } from './permission/permission.component';
+import { SectionComponent } from './section/section.component';
+import { GroupComponentComponent } from './group-component/group-component.component';
+import { GrantPermissonComponent } from './grant-permisson/grant-permisson.component';
+import { PerformanceComponent } from './performance/performance.component';
+import { PerformanceDefinitionComponent } from './performance-definition/performance-definition.component';
 
 // TODO definir scope para consultas a Google.
 // const googleLoginOptions: LoginOpt = {
@@ -66,7 +71,12 @@ export function provideConfig() {
     UserDetailsComponent,
     RecordOfGradesComponent,
     CourseDetailsComponent,
-    PermissionComponent
+    PermissionComponent,
+    SectionComponent,
+    GroupComponentComponent,
+    GrantPermissonComponent,
+    PerformanceComponent,
+    PerformanceDefinitionComponent
   ],
   imports: [
     BrowserModule,

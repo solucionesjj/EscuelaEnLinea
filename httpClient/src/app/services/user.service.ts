@@ -26,6 +26,23 @@ export class UserService {
     } else {
       console.log('Error al consultar el usuario con id: ' + idUser)
     }
+    this.user.Groups = this.getUsertGroups(idUser);
     return this.user;
+  }
+
+  async getUsertGroups(idUser: string) {
+    let userGroupsObject: any = [];
+    this.crudService.model = 'Group';
+    const sqlQuery = `select g.group, ug.idGroup from UserGroups as ug inner join Groups as g on ug.idGroup = g.id where ug.idUser = ` + idUser;
+    const result = await this.crudService.getDynamicQuery(sqlQuery);
+    if (result.result) {
+      result.data.forEach(item => {
+        userGroupsObject.push({ idGroup: item.idGroup, group: item.group });
+      });
+    }
+    if (userGroupsObject.lenght === 0) {
+      userGroupsObject.push({ idGroup: 0, group: 'Sin grupos' });
+    }
+    return userGroupsObject;
   }
 }

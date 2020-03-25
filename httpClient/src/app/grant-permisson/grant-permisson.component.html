@@ -1,0 +1,36 @@
+<ng-container *ngIf="group.id">
+    <h5>Privilegios para los integrantes del grupo: <strong>{{group.group}}</strong>&nbsp;&nbsp;<small>(id:
+            {{group.id}})</small></h5>
+</ng-container>
+<ng-container *ngIf="!group.id">
+    <h5>Por favor seleccione un grupo.</h5>
+</ng-container>
+
+<ng-container *ngIf="group.id">
+    <table class="table table-striped table-small table-responsive">
+        <thead class="">
+            <tr>
+                <th>Otorgado</th>
+                <th>Sección</th>
+                <th>Menú</th>
+                <th>Descripción</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr *ngFor="let permisson of grantedPermissons">
+                <td>
+                    <div class="text-center">
+                        <input type="checkbox" #item (click)="grantPermissons(permisson,item)"
+                            [checked]="permisson.idGroupComponent > 0" name="permisson" id="permisson"
+                            style="width: 20px; height: 20px;" value="{{permisson.idGroupCompoent}}">
+                    </div>
+                </td>
+                <td>{{permisson.section}}</td>
+                <td>{{permisson.title}}</td>
+                <td>{{permisson.description}}</td>
+            </tr>
+
+        </tbody>
+    </table>
+</ng-container>

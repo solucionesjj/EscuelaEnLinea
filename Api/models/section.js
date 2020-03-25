@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const Setion = sequelize.define('Section', {
+  const Section = sequelize.define('Section', {
     section: {
       type: DataTypes.STRING,
       required: true,
@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       default: 'mdi mdi-duck'
     }
   }, {});
-  Setion.associate = function(models) {
+  Section.associate = function(models) {
     // associations can be defined here
   };
   return Section;

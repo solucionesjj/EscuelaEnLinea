@@ -53,12 +53,26 @@
                 <div class="collapse" id="ui-sistema">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item">
-                            <a class="nav-link" [routerLink]="['permissions']" routerLinkActive="active">
+                            <a class="nav-link" [routerLink]="['permission']" routerLinkActive="active">
                                 &nbsp;
                                 <span class="menu-title">Permisos</span>
                                 <i class="mdi mdi-security menu-icon"></i>
                             </a>
-                        </li>                        
+                        </li>       
+                        <li class="nav-item">
+                            <a class="nav-link" [routerLink]="['groupcomponent']" routerLinkActive="active">
+                                &nbsp;
+                                <span class="menu-title">Asignación de permisos</span>
+                                <i class="mdi mdi-security-network menu-icon"></i>
+                            </a>
+                        </li>                               
+                        <li class="nav-item">
+                            <a class="nav-link" [routerLink]="['section']" routerLinkActive="active">
+                                &nbsp;
+                                <span class="menu-title">Secciones</span>
+                                <i class="mdi mdi-menu menu-icon"></i>
+                            </a>
+                        </li>                                            
                         <li class="nav-item">
                             <a class="nav-link" [routerLink]="['group']" routerLinkActive="active">
                                 &nbsp;
@@ -129,6 +143,20 @@
                                 <i class="mdi mdi-book-open-page-variant menu-icon"></i>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [routerLink]="['performance']" routerLinkActive="active">
+                                &nbsp;
+                                <span class="menu-title">Desempeños</span>
+                                <i class="mdi mdi-signal menu-icon"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" [routerLink]="['performanceDefinition']" routerLinkActive="active">
+                                &nbsp;
+                                <span class="menu-title">Definición de Desempeños</span>
+                                <i class="mdi mdi-sort-variant menu-icon"></i>
+                            </a>
+                        </li>                        
                         <li class="nav-item">
                             <a class="nav-link" [routerLink]="['academicLoad']" routerLinkActive="active">
                                 &nbsp;

@@ -20,6 +20,10 @@ import { GradeDefinitionComponent } from './grade-definition/grade-definition.co
 import { RecordOfGradesComponent } from './record-of-grades/record-of-grades.component';
 import { CourseDetailsComponent } from './course/course-details/course-details.component';
 import { PermissionComponent } from './permission/permission.component';
+import { SectionComponent } from './section/section.component';
+import { GroupComponentComponent } from './group-component/group-component.component';
+import { PerformanceComponent } from './performance/performance.component';
+import { PerformanceDefinitionComponent } from './performance-definition/performance-definition.component';
 
 const routes: Routes = [
   {
@@ -117,8 +121,28 @@ const routes: Routes = [
         canActivate: [AuthGuardService]
       },
       {
-        path: 'permissions',
+        path: 'permission',
         component: PermissionComponent,
+        canActivate: [AuthGuardService]
+      },
+      {
+        path: 'section',
+        component: SectionComponent,
+        canActivate: [AuthGuardService]
+      },
+      {
+        path: 'groupcomponent',
+        component: GroupComponentComponent,
+        canActivate: [AuthGuardService]
+      },
+      {
+        path: 'performance',
+        component: PerformanceComponent,
+        canActivate: [AuthGuardService]
+      },
+      {
+        path: 'performanceDefinition',
+        component: PerformanceDefinitionComponent,
         canActivate: [AuthGuardService]
       }
     ]
