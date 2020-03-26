@@ -40,7 +40,7 @@ export class UserService {
         userGroupsObject.push({ idGroup: item.idGroup, group: item.group });
       });
     }
-    if (userGroupsObject.lenght === 0) {
+    if (userGroupsObject.length === 0) {
       userGroupsObject.push({ idGroup: 0, group: 'Sin grupos' });
     }
     return userGroupsObject;

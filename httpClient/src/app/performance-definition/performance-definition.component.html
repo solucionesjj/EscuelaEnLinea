@@ -1,10 +1,78 @@
+<ng-container *ngIf="!baseInformationLoaded">
+  <div class="row">
+    <div class="col-12">
+      <img height="64px" src="../../assets/loading.jpg" class="rounded-circle" alt="Cargando información...">
+    </div>
+  </div>
+</ng-container>
 
-Año
-Curso
-Bimestre
-Carga académica
-Desempeños
-Descripción
+<ng-container *ngIf="baseInformationLoaded">
+  <div class="row">
+    <div class="col-3">
+      <div class="form-group">
+        <label for="currentYear">Año</label>
+        <input type="text" class="form-control" name="currentYear" id="currentYear" [(ngModel)]="currentYear" readonly
+          aria-describedby="helpId" placeholder="">
+        <small id="helpId" class="form-text text-muted">Año actual.</small>
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="form-group">
+        <label for="selectedPeriod">Periodo actual</label>
+        <input type="text" class="form-control" name="selectedPeriod" id="selectedPeriod" [(ngModel)]="selectedPeriod"
+          readonly aria-describedby="helpId" placeholder="">
+        <small id="helpId" class="form-text text-muted">Parámetro de periodo actual.</small>
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="form-group">
+        <label for="selectedCourse">Curso</label>
+        <select class="form-control" name="selectedCourse" id="selectedCourse" [(ngModel)]="selectedCourse"
+          (change)="selectCourse()">
+          <option *ngFor="let course of courseLists" value="{{course.value}}">{{course.text}}</option>
+        </select>
+      </div>
+    </div>
 
+    <div class="col-3">
 
+    </div>
+  </div>
+</ng-container>
 
+<ng-container *ngIf="performanceDefinitionsData.length == 0">
+  Por favor seleccione el curso para mostrar la información. Si ya seleccionó el curso y no aparecen datos, es posible
+  que no tenga carga académica asignada para el año y periodo en curso. Por favor cnsulte con el administrador.
+</ng-container>
+
+<ng-container *ngIf="performanceDefinitionsData.length > 0">
+  <table class="table table-striped table-inverse table-responsive">
+    <thead>
+      <tr>
+        <th>Desempeño / Descripción</th>
+        <th>Curso / Área / Materia</th>
+        <th>Profesor</th>        
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let performanceDefinition of performanceDefinitionsData">
+        <td>{{performanceDefinition.performance}}
+          <div class="form-group">
+            <textarea class="form-control" 
+            name="performanceData{{performanceDefinition.idCourse}}{{performanceDefinition.idArea}}{{performanceDefinition.idMatter}}{{performanceDefinition.idTeacher}}{{performanceDefinition.idPerformance}}{{performanceDefinition.idAcademicLoad}}" 
+            id="performanceData{{performanceDefinition.idCourse}}{{performanceDefinition.idArea}}{{performanceDefinition.idMatter}}{{performanceDefinition.idTeacher}}{{performanceDefinition.idPerformance}}{{performanceDefinition.idAcademicLoad}}" 
+            rows="3" #item (change)="savePerformanceDefinition(performanceDefinition,item)">{{performanceDefinition.description}}</textarea>
+           </div>
+        </td>
+        <td>
+          <h4><small>{{performanceDefinition.course}}</small></h4>
+          <h5><small>&nbsp;&nbsp;{{performanceDefinition.area}}</small></h5>
+          <h6 class="text-danger"><small>&nbsp;&nbsp;&nbsp;&nbsp;{{performanceDefinition.matter}}</small></h6>
+        </td>
+        <td>
+          <h4><small>{{performanceDefinition.teacher}}</small></h4>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</ng-container>
