@@ -15,7 +15,7 @@
     </div> 
     </div>
 </div>
-<img height="64px" *ngIf="!loadComponent" src="../../assets/loading.jpg" class="rounded-circle" alt="Cargando información...">
+<app-loading *ngIf="!loadComponent"></app-loading>
 <app-crud model="AcademicLoad" *ngIf="loadComponent"
 [canAdd]="true" 
 [canDelete]="true" 

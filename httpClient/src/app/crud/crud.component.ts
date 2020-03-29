@@ -53,7 +53,6 @@ export class CrudComponent implements OnInit, OnChanges {
     this.get();
   }
 
-
   async get() {
     this.crudService.model = this.model;
     let result: any;
@@ -63,8 +62,7 @@ export class CrudComponent implements OnInit, OnChanges {
       result = await this.crudService.get();
     }
     this.allObjects = result.data;
-    this.objects = this.allObjects;
-    
+    this.objects = this.allObjects;    
   }
 
   async add() {
@@ -155,7 +153,6 @@ export class CrudComponent implements OnInit, OnChanges {
       }
     }
   }
-
 
   // Funcionar para activar el llamado al padre.
   clickDefaultAction(model: any) {

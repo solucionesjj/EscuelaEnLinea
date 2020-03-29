@@ -9,8 +9,9 @@
     </div>
     <div class="col-9">
         Listado de alumnos matriculados<br>
-        <img height="64px" *ngIf="!loadComponent" src="../../assets/loading.jpg" class="rounded-circle" alt="Cargando información...">
-        <app-crud *ngIf="informationLoaded" model="Matriculation" [where]="whereComponent" [canAdd]="false" [canDelete]="true" [canUpdate]="false" [canView]="false"
-            viewUrl="" [configCrudComponent]="configCrudComponent"></app-crud>
+        <app-loading *ngIf="!loadComponent"></app-loading>
+        <app-crud *ngIf="informationLoaded" model="Matriculation" [where]="whereComponent" [canAdd]="false"
+            [canDelete]="true" [canUpdate]="false" [canView]="false" viewUrl=""
+            [configCrudComponent]="configCrudComponent"></app-crud>
     </div>
 </div>

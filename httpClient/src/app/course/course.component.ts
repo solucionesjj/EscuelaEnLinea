@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DirectorService } from '../services/director.service';
 
 @Component({
   selector: 'app-course',
@@ -8,27 +9,22 @@ import { Component, OnInit } from '@angular/core';
 
 export class CourseComponent implements OnInit {
 
-  configCrudComponent: any = {};
+  actualYear: number = (new Date()).getFullYear();
+  loadComponent: boolean = false;
 
-  actualYear: number;
+  configCrudComponent: any = {};
+  directorCatalog: any = [];
 
   // TODO Agregar director del curso, el director es un profesor
-  constructor() {
+  constructor(private directorService: DirectorService) {
+    this.getDirectorList().then(result => {
+      this.buildComponent();
+    });
+  }
 
-    this.actualYear = (new Date()).getFullYear();
-
+  buildComponent () {
     this.configCrudComponent = {
       columns: [{
-        name: 'course',
-        title: 'Curso',
-        titleAlignment: 'center',
-        dataAlignment: 'left',
-        htmlInputType: 'text',
-        placeHolder: 'Nombre del curso',
-        helpText: 'Nombre con el cual se identifica el curso.',
-        defaultValue: ''
-      },
-      {
         name: 'year',
         title: 'Año',
         titleAlignment: 'center',
@@ -39,6 +35,27 @@ export class CourseComponent implements OnInit {
         defaultValue: this.actualYear
       },
       {
+        name: 'course',
+        title: 'Curso',
+        titleAlignment: 'center',
+        dataAlignment: 'left',
+        htmlInputType: 'text',
+        placeHolder: 'Nombre del curso',
+        helpText: 'Nombre con el cual se identifica el curso.',
+        defaultValue: ''
+      },
+      {
+        name: 'idDirector',
+        title: 'Director',
+        titleAlignment: 'center',
+        dataAlignment: 'left',
+        htmlInputType: 'select',
+        placeHolder: 'Seleccione el director del curso.',
+        helpText: 'Seleccione el director del curso.',
+        defaultValue: 0,
+        catalog: this.directorCatalog
+      },      
+      {
         name: 'order',
         title: 'Orden',
         titleAlignment: 'center',
@@ -47,7 +64,7 @@ export class CourseComponent implements OnInit {
         placeHolder: 'Orden del curso',
         helpText: 'Orden con el cual se se visualiza el curso.',
         defaultValue: '1'
-      },
+      },      
       {
         name: 'active',
         title: 'Activo',
@@ -59,6 +76,12 @@ export class CourseComponent implements OnInit {
         defaultValue: '1'
       }]
     };
+    this.loadComponent = true;
+    console.log(this.configCrudComponent)
+  }
+
+  async getDirectorList() {
+    this.directorCatalog = await this.directorService.get();
   }
 
   ngOnInit() {

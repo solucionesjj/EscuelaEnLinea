@@ -31,6 +31,8 @@ import { GroupComponentComponent } from './group-component/group-component.compo
 import { GrantPermissonComponent } from './grant-permisson/grant-permisson.component';
 import { PerformanceComponent } from './performance/performance.component';
 import { PerformanceDefinitionComponent } from './performance-definition/performance-definition.component';
+import { LoadingComponent } from './loading/loading.component';
+import { SchoolInformationComponent } from './school-information/school-information.component';
 
 // TODO definir scope para consultas a Google.
 // const googleLoginOptions: LoginOpt = {
@@ -76,7 +78,9 @@ export function provideConfig() {
     GroupComponentComponent,
     GrantPermissonComponent,
     PerformanceComponent,
-    PerformanceDefinitionComponent
+    PerformanceDefinitionComponent,
+    LoadingComponent,
+    SchoolInformationComponent
   ],
   imports: [
     BrowserModule,

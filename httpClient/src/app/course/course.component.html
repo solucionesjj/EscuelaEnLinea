@@ -1,7 +1,5 @@
-<app-crud model="Course" 
-[canAdd]="true" 
-[canDelete]="true" 
-[canUpdate]="true" 
-[canView]="true" 
-viewUrl="app/coursedetails" 
-[configCrudComponent]="configCrudComponent"></app-crud>
+<app-loading *ngIf="!loadComponent"></app-loading>
+<ng-container *ngIf="loadComponent">
+    <app-crud model="Course" [canAdd]="true" [canDelete]="true" [canUpdate]="true" [canView]="true"
+        viewUrl="app/coursedetails" [configCrudComponent]="configCrudComponent"></app-crud>
+</ng-container>

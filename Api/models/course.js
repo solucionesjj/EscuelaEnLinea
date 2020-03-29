@@ -17,8 +17,17 @@ module.exports = (sequelize, DataTypes) => {
       required: true,
       allowNulls: false,
       default: 1
-    },
-    year: DataTypes.SMALLINT
+    },  
+    year: DataTypes.SMALLINT,
+    idDirector: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      required: true,
+      references: {
+        model: 'User',
+        key: 'id'
+      }
+    }
   }, {});
   Course.associate = function (models) {
     // associations can be defined here
