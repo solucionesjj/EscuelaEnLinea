@@ -64,6 +64,7 @@ export class CrudComponent implements OnInit, OnChanges {
     }
     this.allObjects = result.data;
     this.objects = this.allObjects;
+    
   }
 
   async add() {

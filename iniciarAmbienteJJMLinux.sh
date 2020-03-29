@@ -1,7 +1,6 @@
 #!/bin/bash
-konsole --new-tab --workdir "/home/jmartinez/Documents/Desarrollo/EscuelaEnLinea/Api" -e "nodemon server.js" &
-konsole --new-tab --workdir "/home/jmartinez/Documents/Desarrollo/EscuelaEnLinea/httpClient" -e "ng serve" &
-konsole --new-tab --workdir "/home/jmartinez/Documents/Desarrollo/EscuelaEnLinea/" &
-konsole --new-tab --workdir "/home/jmartinez/Documents/Desarrollo/EscuelaEnLinea/" -e "code ." &
-brave-browser http://localhost:4200 &
+io.elementary.terminal --working-directory="/home/jmartinez/Documents/Desarrollo/EscuelaEnLinea/Api" --commandline="nodemon server.js" 
+io.elementary.terminal --working-directory="/home/jmartinez/Documents/Desarrollo/EscuelaEnLinea/httpClient" --commandline="ng serve" 
+io.elementary.terminal --working-directory="/home/jmartinez/Documents/Desarrollo/EscuelaEnLinea/" --commandline="code ." 
+google-chrome --incognito http://localhost:4200 &
 

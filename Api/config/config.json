@@ -5,7 +5,8 @@
     "database": "escuelae_cliente1",
     "host": "68.66.226.68",
     "dialect": "mysql",
-    "operatorsAliases": false
+    "operatorsAliases": false,
+    "logging":true
   },
 "development": {
     "username": "escuelae_cliente1",
@@ -13,7 +14,8 @@
     "database": "escuelae_cliente1",
     "host": "68.66.226.68",
     "dialect": "mysql",
-    "operatorsAliases": false
+    "operatorsAliases": false,
+    "logging":true
   },
   "test": {
     "username": "escuelae_cliente1",
@@ -21,6 +23,7 @@
     "database": "escuelae_cliente1",
     "host": "68.66.226.68",
     "dialect": "mysql",
-    "operatorsAliases": false
+    "operatorsAliases": false,
+    "logging":true
   }
 }

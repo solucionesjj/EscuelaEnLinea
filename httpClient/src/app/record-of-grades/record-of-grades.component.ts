@@ -86,7 +86,7 @@ export class RecordOfGradesComponent implements OnInit {
   inner join Users
     on Matriculations.idStudent = Users.id
   where Matriculations.idCourse = `+ this.idCourse + `
-  order by Users.name, Users.surname`;
+  order by Users.surname, Users.name`;
     this.crudService.model = 'Matriculation';
     const result = await this.crudService.getDynamicQuery(query);
     if (result.result) {

@@ -12,91 +12,115 @@ import { ComponentRegister } from '../component-register';
 export class AcademicLoadComponent implements OnInit {
 
   configCrudComponent: any = {};
+  loadComponent: boolean = false;
+
+  selectedTeacher: string;
+
   courseCatalog: any = [];
   matterCatalog: any = [];
   teacherCatalog: any = [];
-  selectedTeacher: string;
+
   whereComponent: string;
-  loadComponent:boolean;
 
   constructor(private crudService: CrudService, private teacherService: TeacherService, private router: Router) {
-
-    this.loadComponent = false;
-    this.getTeacherList().then((value) => { 
-      this.loadComponent = true;
-      this.configCrudComponent = {
-        columns: [
-          {
-            name: 'idCourse',
-            title: 'Curso',
-            titleAlignment: 'center',
-            dataAlignment: 'left',
-            htmlInputType: 'select',
-            placeHolder: 'Seleccione el curso.',
-            helpText: 'Seleccione el curso en el cual va a crear la carga académica.',
-            defaultValue: '',
-            catalog: this.courseCatalog
-          },
-          {
-            name: 'idMatter',
-            title: 'Materia',
-            titleAlignment: 'center',
-            dataAlignment: 'left',
-            htmlInputType: 'select',
-            placeHolder: 'Seleccione la materia',
-            helpText: 'Seleccione la materia que hará parte de la carga académica.',
-            defaultValue: '',
-            catalog: this.matterCatalog
-          },
-          {
-            name: 'idTeacher',
-            title: 'Profesor',
-            titleAlignment: 'center',
-            dataAlignment: 'left',
-            htmlInputType: 'select',
-            placeHolder: 'Seleccione el profesor',
-            helpText: 'Seleccione el profesor a cargo de la carga académica.',
-            defaultValue: '',
-            catalog: this.teacherCatalog
-          },
-          {
-            name: 'hoursPerWeek',
-            title: 'Horas por semana',
-            titleAlignment: 'center',
-            dataAlignment: 'center',
-            htmlInputType: 'number',
-            placeHolder: 'Cantidad de horas.',
-            helpText: 'Coloque la cantidad de horas o intensidad por semana.',
-            defaultValue: '1',
-            catalog: null
-          }]
-      };
-  
-    
+    this.getTeacherList().then((value) => {
+      this.getCourseList().then((value) => {
+        this.getMatterList().then((value) => {
+          this.buildComponent();
+        });
+      });
     });
-    this.getCourseList();
-    this.getMatterList();
-
-   
   }
 
-  // TODO Ordenar el listado por el orden del curso
+  buildComponent() {
+    this.configCrudComponent = {
+      columns: [
+        {
+          name: 'idCourse',
+          title: 'Curso',
+          titleAlignment: 'center',
+          dataAlignment: 'left',
+          htmlInputType: 'select',
+          placeHolder: 'Seleccione el curso.',
+          helpText: 'Seleccione el curso en el cual va a crear la carga académica.',
+          defaultValue: '',
+          catalog: this.courseCatalog
+        },
+        {
+          name: 'idMatter',
+          title: 'Materia',
+          titleAlignment: 'center',
+          dataAlignment: 'left',
+          htmlInputType: 'select',
+          placeHolder: 'Seleccione la materia',
+          helpText: 'Seleccione la materia que hará parte de la carga académica.',
+          defaultValue: '',
+          catalog: this.matterCatalog
+        },
+        {
+          name: 'idTeacher',
+          title: 'Profesor',
+          titleAlignment: 'center',
+          dataAlignment: 'left',
+          htmlInputType: 'select',
+          placeHolder: 'Seleccione el profesor',
+          helpText: 'Seleccione el profesor a cargo de la carga académica.',
+          defaultValue: '',
+          catalog: this.teacherCatalog
+        },
+        {
+          name: 'hoursPerWeek',
+          title: 'Horas por semana',
+          titleAlignment: 'center',
+          dataAlignment: 'center',
+          htmlInputType: 'number',
+          placeHolder: 'Cantidad de horas.',
+          helpText: 'Coloque la cantidad de horas o intensidad por semana.',
+          defaultValue: '1',
+          catalog: null
+        }]
+    };
+    this.loadComponent = true;
+  }
+
   async getCourseList() {
+    const sqlQuery = `select c.id as idCourse, 
+                      c.course 
+                      from Courses as c 
+                      where active = 1 
+                      order by c.order`;
     this.crudService.model = 'Course';
-    const result = await this.crudService.get();
-    for (const row of result.data) {
-      this.courseCatalog.push({ id: row.id, value: row.course });
+    const result = await this.crudService.getDynamicQuery(sqlQuery);
+    if (result.result) {
+      for (const row of result.data) {
+        this.courseCatalog.push({ id: row.idCourse, value: row.course });
+      }
+    } else {
+      alert('Error al consultar el catálogo de cursos.')
+      console.log(result)
     }
+
   }
 
-  // TODO Pendiente colocar el nombre del área
-  // TODO ordenar por área y luego por materia
   async getMatterList() {
+    const sqlQuery = `select m.id as idMatter, 
+                      a.area, 
+                      m.matter  
+                      from Areas as a 
+                      inner join Matters as m 
+                        on a.id = m.idArea 
+                      order by a.area, m.matter`;
     this.crudService.model = 'Matter';
-    const result = await this.crudService.get();
-    for (const row of result.data) {
-      this.matterCatalog.push({ id: row.id, value: row.matter });
+    const result = await this.crudService.getDynamicQuery(sqlQuery);
+    if (result.result) {
+      for (const row of result.data) {
+        this.matterCatalog.push({ id: row.idMatter, value: row.area + ' - ' + row.matter });
+      }
+    } else {
+      alert('Error al consultar el catálogo de materias.')
+      console.log(result)
     }
+
   }
 
   async getTeacherList() {

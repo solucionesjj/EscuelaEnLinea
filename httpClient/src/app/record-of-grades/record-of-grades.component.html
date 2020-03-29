@@ -52,7 +52,7 @@
     <tbody>
         <tr *ngFor="let student of students; let rowNumber = index ">
             <td>{{rowNumber + 1}}</td>
-            <td>{{student.name}} {{student.surname}} - <small>{{student.identificationDocument}}</small></td>
+            <td>{{student.surname}} <strong>{{student.name}}</strong> - <small>{{student.identificationDocument}}</small></td>
             <ng-container *ngFor="let grade of grades" >
                 <td class="text-center"> 
                     <input type="number" style="width: 64px;" value="{{getActualGrade(grade.id,student.idStudent)}}" #gradeModified  (blur)="applyGrade(grade.id,student.idStudent,gradeModified.value)" class="form-control form-control-sm text-center">                
