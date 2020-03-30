@@ -10,7 +10,6 @@ if (environment.production) {
 
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.error(err));
-//TODO Información del director del colegio
 //TODO Visualizar Boletin 
 //TODO Restringir los menus de acuerdo al perfil de quien accede.
 //TODO Restringir colcar la nota para cada profesor en específico
