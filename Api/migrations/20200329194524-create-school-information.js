@@ -23,13 +23,13 @@ module.exports = {
       approval: {
         type: Sequelize.STRING
       },
-      pais: {
+      country: {
         type: Sequelize.STRING
       },
-      departamento: {
+      department: {
         type: Sequelize.STRING
       },
-      ciudad: {
+      city: {
         type: Sequelize.STRING
       },
       urlLogoImage: {

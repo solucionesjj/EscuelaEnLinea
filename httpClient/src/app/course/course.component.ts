@@ -77,7 +77,6 @@ export class CourseComponent implements OnInit {
       }]
     };
     this.loadComponent = true;
-    console.log(this.configCrudComponent)
   }
 
   async getDirectorList() {

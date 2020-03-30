@@ -24,6 +24,7 @@ import { SectionComponent } from './section/section.component';
 import { GroupComponentComponent } from './group-component/group-component.component';
 import { PerformanceComponent } from './performance/performance.component';
 import { PerformanceDefinitionComponent } from './performance-definition/performance-definition.component';
+import { SchoolInformationComponent } from './school-information/school-information.component';
 
 const routes: Routes = [
   {
@@ -143,6 +144,11 @@ const routes: Routes = [
       {
         path: 'performanceDefinition',
         component: PerformanceDefinitionComponent,
+        canActivate: [AuthGuardService]
+      },
+      {
+        path: 'schoolInformation',
+        component: SchoolInformationComponent,
         canActivate: [AuthGuardService]
       }
     ]
