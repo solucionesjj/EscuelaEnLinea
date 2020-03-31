@@ -27,6 +27,15 @@ module.exports = (sequelize, DataTypes) => {
         model: 'User',
         key: 'id'
       }
+    },
+    idReportCardModel: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      required: true,
+      references: {
+        model: 'ReportCardModels',
+        key: 'id'
+      }
     }
   }, {});
   Course.associate = function (models) {

@@ -34,6 +34,7 @@ import { PerformanceDefinitionComponent } from './performance-definition/perform
 import { LoadingComponent } from './loading/loading.component';
 import { SchoolInformationComponent } from './school-information/school-information.component';
 import { ReportCardComponent } from './report-card/report-card.component';
+import { ReportCardConfigComponent } from './report-card-config/report-card-config.component';
 
 // TODO definir scope para consultas a Google.
 // const googleLoginOptions: LoginOpt = {
@@ -82,7 +83,8 @@ export function provideConfig() {
     PerformanceDefinitionComponent,
     LoadingComponent,
     SchoolInformationComponent,
-    ReportCardComponent
+    ReportCardComponent,
+    ReportCardConfigComponent
   ],
   imports: [
     BrowserModule,
