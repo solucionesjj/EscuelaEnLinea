@@ -10,7 +10,9 @@ if (environment.production) {
 
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.error(err));
+
 //TODO Visualizar Boletin 
+//TODO Puesto dentro del grupo promedio general 
 //TODO Restringir los menus de acuerdo al perfil de quien accede.
 //TODO Restringir colcar la nota para cada profesor en específico
 //TODO Sacar registro de notas

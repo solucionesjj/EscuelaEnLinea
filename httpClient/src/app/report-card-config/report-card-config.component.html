@@ -1,1 +1,83 @@
-<p>report-card-config works!</p>
+<div class="row">
+  <div class="col-6">
+    <div class="form-group">
+      <label for="newModelName">Crear modelo:</label>
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Escriba el nombre del nuevo modelo" name="newModelName"
+          [(ngModel)]="newModelName">
+        <div class="input-group-append">
+          <button type="button" class="btn btn-primary" (click)="createModel()">Crear</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-6">
+    <div class="form-group">
+      <label for="idReportCardModelSelected">Seleccione un modelo para editar:</label>
+      <select class="form-control" name="idReportCardModelSelected" id="idReportCardModelSelected"
+        [(ngModel)]="idReportCardModelSelected" (click)="selectModel()">
+        <option value="0">Ninguno</option>
+        <option *ngFor="let model of reportCardModelList" value="{{model.value}}">{{model.text}}</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<ng-container *ngIf="idReportCardModelSelected == 0">
+  <div class="text-center">Por favor seleccione un modelo de boletín para editar...</div>
+</ng-container>
+
+
+<div id="editor"></div>
+
+
+<ng-container *ngIf="idReportCardModelSelected > 0">
+  <div class="row">
+    <div class="col-12">
+      <div class="text-center">
+        <h4>{{selectedModel.name}}</h4>
+      </div>
+      Encabezado <br>
+
+
+      <form [formGroup]="editorFormHeader" (ngSubmit)="saveModel()">
+        <quill-editor id="headerEditorId" [style]="editorHeaderStyle" [modules]="editorHeaderConfig" formControlName="headerEditor">
+        </quill-editor>
+      </form>
+
+      <input type="text" name="header" id="header" [(ngModel)]="selectedModel.header">
+      <div class="text-left">
+        <button type="button" class="btn btn-success" (click)="add()">Add</button>
+      </div>
+      <div class="text-left">
+        <button type="button" class="btn btn-success" (click)="saveModel()">Guardar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      Cuerpo <br>
+
+      <form [formGroup]="editorFormBody" (ngSubmit)="saveModel()">
+        <quill-editor [style]="editorBodyStyle" [modules]="editorBodyConfig" formControlName="bodyEditor">
+        </quill-editor>
+      </form>
+
+      <input type="text" name="body" id="body" [(ngModel)]="selectedModel.body">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      Pie de página <br>
+
+      <form [formGroup]="editorFormFooter" (ngSubmit)="saveModel()">
+        <quill-editor [style]="editorFooterStyle" [modules]="editorFooterConfig" formControlName="footerEditor">
+        </quill-editor>
+      </form>
+
+      <input type="text" name="footer" id="footer" [(ngModel)]="selectedModel.footer">
+    </div>
+  </div>
+</ng-container>

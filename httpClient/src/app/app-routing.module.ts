@@ -1,4 +1,3 @@
-import { UserMatriculationComponent } from './user/user-matriculation/user-matriculation.component';
 import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CourseComponent } from './course/course.component';
@@ -16,6 +15,7 @@ import { LoadUsersComponent } from './load-users/load-users.component';
 import { ParameterComponent } from './parameter/parameter.component';
 import { UserGroupComponent } from './user-group/user-group.component';
 import { UserDetailsComponent } from './user/user-details/user-details.component';
+import { UserMatriculationComponent } from './user/user-matriculation/user-matriculation.component';
 import { GradeDefinitionComponent } from './grade-definition/grade-definition.component';
 import { RecordOfGradesComponent } from './record-of-grades/record-of-grades.component';
 import { CourseDetailsComponent } from './course/course-details/course-details.component';
@@ -26,6 +26,7 @@ import { PerformanceComponent } from './performance/performance.component';
 import { PerformanceDefinitionComponent } from './performance-definition/performance-definition.component';
 import { SchoolInformationComponent } from './school-information/school-information.component';
 import { ReportCardComponent } from './report-card/report-card.component';
+import { ReportCardConfigComponent } from './report-card-config/report-card-config.component';
 
 const routes: Routes = [
   {
@@ -155,6 +156,11 @@ const routes: Routes = [
       {
         path: 'reportCard',
         component: ReportCardComponent,
+        canActivate: [AuthGuardService]
+      },
+      {
+        path: 'reportCardConfig',
+        component: ReportCardConfigComponent,
         canActivate: [AuthGuardService]
       }
     ]

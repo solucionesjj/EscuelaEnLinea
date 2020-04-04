@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CourseComponent } from './course/course.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AreaComponent } from './area/area.component';
 import { MatterComponent } from './matter/matter.component';
 import { CrudComponent } from './crud/crud.component';
@@ -35,6 +35,7 @@ import { LoadingComponent } from './loading/loading.component';
 import { SchoolInformationComponent } from './school-information/school-information.component';
 import { ReportCardComponent } from './report-card/report-card.component';
 import { ReportCardConfigComponent } from './report-card-config/report-card-config.component';
+import { QuillModule } from 'ngx-quill'
 
 // TODO definir scope para consultas a Google.
 // const googleLoginOptions: LoginOpt = {
@@ -91,7 +92,9 @@ export function provideConfig() {
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    SocialLoginModule
+    SocialLoginModule,
+    QuillModule.forRoot() ,
+    ReactiveFormsModule
   ],
   providers: [
     {
