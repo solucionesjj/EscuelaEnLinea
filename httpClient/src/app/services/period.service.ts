@@ -30,5 +30,6 @@ export class PeriodService {
     } else {
       console.log(result.message);
     }
+    return this.actualPeriod;
   }
 }

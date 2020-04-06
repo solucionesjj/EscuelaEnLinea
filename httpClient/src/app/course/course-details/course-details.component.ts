@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CrudService } from 'src/app/services/crud.service';
 import { ActivatedRoute } from '@angular/router';
+import { CourseService } from 'src/app/services/course.service';
 
 @Component({
   selector: 'app-course-details',
@@ -19,7 +20,7 @@ export class CourseDetailsComponent {
   courseInformationLoaded: boolean;
   studentsInformationLoaded: boolean;
 
-  constructor(private crudService: CrudService, private route: ActivatedRoute) {
+  constructor(private crudService: CrudService, private route: ActivatedRoute, private courseService: CourseService) {
 
     this.idCourse = this.route.snapshot.paramMap.get('id');
 
@@ -50,29 +51,9 @@ export class CourseDetailsComponent {
   }
 
   async loadStudents() {
-    this.students = [];
-    const query = `select Users.id as idStudent, 
-        Users.name, 
-        Users.surname, 
-        Users.identificationDocument 
-      from Users 
-      inner join UserGroups 
-        on Users.id = UserGroups.idUser 
-      inner join Groups 
-        on Groups.id = UserGroups.idGroup 
-      where Groups.group = 'Estudiante' 
-      order by Users.name, Users.surname`;
-    this.crudService.model = 'User';
-    const result = await this.crudService.getDynamicQuery(query);
-    if (result.result) {
-      if (result.data) {
-        this.students = result.data.map((record) => { return { id: record.idStudent, value: record.name + ' ' + record.surname + ' - ' + record.identificationDocument }; });
-      } else {
-        console.log('No se encontraron datos.');
-      }
-    } else {
-      console.log(result.message);
-    }
+    this.students = []
+    const result = await this.courseService.getStudentsOrderBySurname(this.idCourse);
+    this.students = result.map((record) => { return { id: record.idStudent, value: record.fullName + ' - ' + record.identificationDocument }; });
   }
 
   loadComponent() {

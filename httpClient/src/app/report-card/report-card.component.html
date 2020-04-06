@@ -1,8 +1,57 @@
+<app-loading *ngIf="!filtersLoaded">
+</app-loading>
 
+<ng-container *ngIf="filtersLoaded">
+    <div class="row">
+        <div class="col-1">
+            <div class="form-group">
+                <label for="year">Año</label>
+                <select class="form-control" name="selectedYear" id="selectedYear" [(ngModel)]="selectedYear">
+                    <option *ngFor="let year of yearList" value="{{year.value}}">{{year.text}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-1">
+            <div class="form-group">
+                <label for="year">Periodo</label>
+                <select class="form-control" name="selectedPeriod" id="selectedPeriod" [(ngModel)]="selectedPeriod">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-group">
+                <label for="selectedCourse">Curso</label>
+                <select class="form-control" name="selectedCourse" id="selectedCourse" [(ngModel)]="selectedCourse" (ngModelChange)="loadStudents()">
+                    <option *ngFor="let course of courseLists" value="{{course.value}}">{{course.text}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-group">
+                <label for="selectedCourse">Estudiante</label>
+                <select class="form-control" name="selectdStudent" id="selectdStudent" [(ngModel)]="selectdStudent">
+                    <option *ngFor="let student of studentsList" value="{{student.id}}">{{student.value}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-2">
+            <div class="form-group">
+                <label for="">&nbsp;</label>
+                <button type="button" class="btn btn-success form-control" (click)="generateReportList()" >Consultar...</button>
+            </div>
+        </div>
+        <div class="col-1">
+            <app-loading *ngIf="loadingReports"></app-loading>
+        </div>
+    </div>
 
-<div class="form-group">
-    <label for="year">Año</label>
-    <select class="form-control" name="selectedYear" id="selectedYear" [(ngModel)]="selectedYear">
-        <option *ngFor="let year of yearList" value="{{year.value}}">{{year.text}}</option>
-    </select>
+    
+
+</ng-container>
+<div [innerHTML]="generatedReports" style="background-color: white;">
+
 </div>

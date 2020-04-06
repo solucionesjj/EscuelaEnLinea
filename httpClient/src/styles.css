@@ -29,3 +29,16 @@ html {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+
+.BackgroundAreaMatterColor {
+    background-color:#e0e0eb;
+}
+
+.spaceBetweenData {
+    padding: 5px !important;
+}
+
+.gradeData {
+  font-size: small;
+}

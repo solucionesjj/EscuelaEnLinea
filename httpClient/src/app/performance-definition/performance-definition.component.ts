@@ -28,7 +28,7 @@ export class PerformanceDefinitionComponent implements OnInit {
   loadComponent: boolean = false;
 
   constructor(private userService: UserService, private crudService: CrudService, private periodService: PeriodService) {
-    const user = JSON.parse(localStorage.getItem('userInfo'));
+    const user = this.userService.getLoggedUserInformation();
     this.idUser = user.id;
     this.courseLists.push({ value: '', text: '' })
     this.loadGroups().then(result => {

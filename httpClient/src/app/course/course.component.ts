@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DirectorService } from '../services/director.service';
+import { ReportService } from '../services/report.service';
 
 @Component({
   selector: 'app-course',
@@ -14,15 +15,26 @@ export class CourseComponent implements OnInit {
 
   configCrudComponent: any = {};
   directorCatalog: any = [];
+  reportCardModelList: any = [];
 
   // TODO Agregar director del curso, el director es un profesor
-  constructor(private directorService: DirectorService) {
+  constructor(private directorService: DirectorService, private reportService: ReportService) {
     this.getDirectorList().then(result => {
-      this.buildComponent();
+      this.getReportCardConfigList().then(result => {
+        this.buildComponent();
+      })
     });
   }
 
-  buildComponent () {
+  async getDirectorList() {
+    this.directorCatalog = await this.directorService.get();
+  }
+
+  async getReportCardConfigList() {
+    this.reportCardModelList = await this.reportService.getReportModelList();
+  }
+  
+  buildComponent() {
     this.configCrudComponent = {
       columns: [{
         name: 'year',
@@ -54,7 +66,18 @@ export class CourseComponent implements OnInit {
         helpText: 'Seleccione el director del curso.',
         defaultValue: 0,
         catalog: this.directorCatalog
-      },      
+      },
+      {
+        name: 'idReportCardModel',
+        title: 'Modelo de boletín',
+        titleAlignment: 'center',
+        dataAlignment: 'left',
+        htmlInputType: 'select',
+        placeHolder: 'Seleccione el modelo de boletín para este curso.',
+        helpText: 'eleccione el modelo de boletín para este curso.',
+        defaultValue: 0,
+        catalog: this.reportCardModelList
+      },
       {
         name: 'order',
         title: 'Orden',
@@ -64,7 +87,7 @@ export class CourseComponent implements OnInit {
         placeHolder: 'Orden del curso',
         helpText: 'Orden con el cual se se visualiza el curso.',
         defaultValue: '1'
-      },      
+      },
       {
         name: 'active',
         title: 'Activo',
@@ -79,9 +102,6 @@ export class CourseComponent implements OnInit {
     this.loadComponent = true;
   }
 
-  async getDirectorList() {
-    this.directorCatalog = await this.directorService.get();
-  }
 
   ngOnInit() {
   }

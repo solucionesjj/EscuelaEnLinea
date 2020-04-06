@@ -24,60 +24,32 @@
   </div>
 </div>
 
+<!-- <div [ngxSummernote]="headerEditorConfig"></div> -->
+
+
+
+
+<!-- <ckeditor id="HeaderCKEditorId" [editor]="HeaderCKEditor" [data]="selectedModel.header"  ></ckeditor>
+<ckeditor id="BodyCKEditorId" [editor]="BodyCKEditor" [data]="selectedModel.body"></ckeditor>
+<ckeditor id="FooterCKEditorId" [editor]="FooterCKEditor" [data]="selectedModel.footer"></ckeditor> -->
+
+
+<!-- <ckeditor [editor]="Editor" data="<p>Hello, world!</p>" (ready)="onReady($event)"></ckeditor> -->
+
 <ng-container *ngIf="idReportCardModelSelected == 0">
   <div class="text-center">Por favor seleccione un modelo de boletín para editar...</div>
 </ng-container>
 
-
-<div id="editor"></div>
-
-
-<ng-container *ngIf="idReportCardModelSelected > 0">
-  <div class="row">
-    <div class="col-12">
-      <div class="text-center">
-        <h4>{{selectedModel.name}}</h4>
-      </div>
-      Encabezado <br>
-
-
-      <form [formGroup]="editorFormHeader" (ngSubmit)="saveModel()">
-        <quill-editor id="headerEditorId" [style]="editorHeaderStyle" [modules]="editorHeaderConfig" formControlName="headerEditor">
-        </quill-editor>
-      </form>
-
-      <input type="text" name="header" id="header" [(ngModel)]="selectedModel.header">
-      <div class="text-left">
-        <button type="button" class="btn btn-success" (click)="add()">Add</button>
-      </div>
-      <div class="text-left">
-        <button type="button" class="btn btn-success" (click)="saveModel()">Guardar</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-12">
-      Cuerpo <br>
-
-      <form [formGroup]="editorFormBody" (ngSubmit)="saveModel()">
-        <quill-editor [style]="editorBodyStyle" [modules]="editorBodyConfig" formControlName="bodyEditor">
-        </quill-editor>
-      </form>
-
-      <input type="text" name="body" id="body" [(ngModel)]="selectedModel.body">
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-12">
-      Pie de página <br>
-
-      <form [formGroup]="editorFormFooter" (ngSubmit)="saveModel()">
-        <quill-editor [style]="editorFooterStyle" [modules]="editorFooterConfig" formControlName="footerEditor">
-        </quill-editor>
-      </form>
-
-      <input type="text" name="footer" id="footer" [(ngModel)]="selectedModel.footer">
-    </div>
-  </div>
-</ng-container>
+<div class="text-center">
+  <h4>{{selectedModel.name}}</h4>
+</div>
+<!-- 
+<div id="headerEditorComponent" style="height: 150px;"></div>
+<button type="button" class="btn btn-success" (click)="add()">Add</button>&nbsp;&nbsp;&nbsp;
+<button type="button" class="btn btn-success" (click)="saveModel()">Guardar</button>
+<input type="text" name="header" id="header" [(ngModel)]="selectedModel.header">
+<div id="bodyEditorComponent" style="height: 150px;"></div>
+<input type="text" name="body" id="body" [(ngModel)]="selectedModel.body">
+<div id="footerEditorComponent" style="height: 150px;"></div>
+<input type="text" name="footer" id="footer" [(ngModel)]="selectedModel.footer">
+<button type="button" class="btn btn-success" (click)="saveModel()">Guardar</button> -->

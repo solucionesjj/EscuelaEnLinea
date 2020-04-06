@@ -45,4 +45,27 @@ export class UserService {
     }
     return userGroupsObject;
   }
+
+  async isAdministrator(idUser: string) {
+    let isAdministrator: boolean = false;
+    const userGroups = await this.getUsertGroups(idUser);
+    userGroups.forEach(group => {
+      if (group.group == 'Administrador') { isAdministrator = true; }
+    });
+    return isAdministrator;
+  }
+
+  async areLoggedOnAsAnAdministrator() {
+    const user = this.getLoggedUserInformation();
+    let isAdministrator: boolean = false;
+    const userGroups = await this.getUsertGroups(user.id);
+    userGroups.forEach(group => {
+      if (group.group == 'Administrador') { isAdministrator = true; }
+    });
+    return isAdministrator;
+  }  
+
+  getLoggedUserInformation() {
+    return JSON.parse(localStorage.getItem('userInfo'));
+  }
 }
