@@ -42,3 +42,11 @@ html {
 .gradeData {
   font-size: small;
 }
+
+.logos { 
+  height: 128px; 
+}
+
+@media print {
+  .pagebreak { page-break-before: always; } 
+}

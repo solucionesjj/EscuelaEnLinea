@@ -26,24 +26,55 @@ export class ReportService {
     return reportCardModelList;
   }
 
-  async getReport(idStudent: string, idCourse: string, period: string) {
+  async getReport(idStudent: string, idCourse: string, period: string,reportType:number) {
     let report: string = '';
     report = report + await this.getSchoolInformationHtml();
     //report = report + '<br>';
     report = report + await this.getBasicInformation(idStudent, idCourse, period);
     //report = report + '<br>';
-    report = report + await this.getAcademicLoad(idCourse, period, idStudent);
+    if(reportType == 1) {
+      report = report + await this.getAcademicLoad1(idCourse, period, idStudent);
+    } else {
+      report = report + await this.getAcademicLoad2(idCourse, period, idStudent);
+      report = report + await this.getGeneralPerformanceInformation();
+    }    
     report = report + '&nbsp;&nbsp;Observaciones del Director de grupo:';
     report = report + '<hr width="90%">';
     report = report + '<hr width="90%">';
-    report = report + '<hr width="90%">';
-    report = report + '<br>';
+    //report = report + '<hr width="90%">';
+    //report = report + '<br>';
     report = report + '<br>';
     report = report + await this.getFooterInformation(idCourse);
-    return idStudent + ' - ' + idCourse + ' - ' + period + '<br>' + report;
+    report = report + '<div class="pagebreak"></div>'
+    return report;
   }
 
-  async  getFooterInformation(idCourse) {
+  async getGeneralPerformanceInformation () {
+    let html = '<table width="100%" class="gradeData" border="1" cellspacing="0" cellpadding="0"><tr><td class="text-center BackgroundAreaMatterColor ">Escala de valoración</td></tr>';
+    this.crudService.model = 'Performamces';
+    const sqlQuery = `select concat(p.performance,': De: ',p.from,' a: ',p.to) as performance 
+                      from Performances as p 
+                      order by p.from
+                      `;
+    html = html + '<tr><td class="text-center ">';
+    const result = await this.crudService.getDynamicQuery(sqlQuery);
+    if(result.result) {
+      if(result.data.length > 0) {
+          result.data.forEach(performance => {
+            html = html + performance.performance + ' ';
+          });
+      } else {
+        html = html + 'No se han parametrizado los rendimientos.'
+      }
+    } else {
+      alert ('Error al consultar los rendimientos')
+      console.log(result)
+    }
+    html = html + '</td></tr></table>';
+    return html;
+  }
+
+  async getFooterInformation(idCourse) {
     let html = '';
     let courseIdDirector = await this.courseService.getCourseInformation(idCourse);
     courseIdDirector = courseIdDirector.idDirector;
@@ -90,7 +121,7 @@ export class ReportService {
               <table width="100%">
               <tbody>
               <tr>
-              <td class="text-center"><img src="`+ schoolInformation.urlLogoImage + `"></td>
+              <td class="text-center"><img class="logos" src="`+ schoolInformation.urlLogoImage + `"></td>
               <td>
               <h4 class="text-center">`+ schoolInformation.name + `</h4>
               <h6 class="text-center">`+ schoolInformation.address + ` ` + schoolInformation.telephone1Description + `: ` + schoolInformation.telephone1 + `</h6>
@@ -99,7 +130,7 @@ export class ReportService {
               <h6 class="text-center">`+ schoolInformation.approval + `</h6>
               <h6 class="text-center">`+ schoolInformation.country + ` - ` + schoolInformation.department + ` - ` + schoolInformation.city + `</h6>
               </td>
-              <td class="text-center"><img src="`+ schoolInformation.urlCertificationImage + `"></td>
+              <td class="text-center"><img class="logos" src="`+ schoolInformation.urlCertificationImage + `"></td>
               </tr>
               </tbody>
               </table>
@@ -147,8 +178,7 @@ export class ReportService {
     }
   }
 
-
-  async getAcademicLoad(idCourse: string, period: string, idStudent: string) {
+  async getAcademicLoad1(idCourse: string, period: string, idStudent: string) {
     let html = '';
     const academicLoad = await this.courseService.getAcademicLoad(idCourse);
 
@@ -158,7 +188,7 @@ export class ReportService {
           let performanceDescription = await this.getPerformanceInformation(academicLoad[index].idAcademicLoad, period, grade);
           performanceDescription = performanceDescription.description;
           html= html + `
-          <table width="100%" border="1" class="gradeData" >
+          <table width="100%" border="1" class="gradeData" cellspacing="0" cellpadding="0" >
           <tr class="BackgroundAreaMatterColor">
           <td width="80%" class="spaceBetweenData"><b>`+ academicLoad[index].area + ` - ` + academicLoad[index].matter + `</b></td>
           <td width="20%" class="spaceBetweenData text-center">Horas: `+ academicLoad[index].hoursPerWeek + `</td>
@@ -172,7 +202,38 @@ export class ReportService {
       } else {
         html = 'No se encontró carga academica.'
       }
-      console.log(html)
+    return html;
+  }
+
+  async getAcademicLoad2(idCourse: string, period: string, idStudent: string) {
+    let html = '';
+    const academicLoad = await this.courseService.getAcademicLoad(idCourse);
+
+      if(academicLoad.length > 0) {
+        for (let index = 0; index < academicLoad.length; index++) {
+          let grade = await this.getGrade(academicLoad[index]['idAcademicLoad'], period, idStudent);
+          let performanceDescription = await this.getPerformanceInformation(academicLoad[index].idAcademicLoad, period, grade);
+          performanceDescription = performanceDescription.description;
+          html= html + `
+          <table width="100%" border="1" class="gradeData" cellspacing="0" cellpadding="0" >
+          <tr class="BackgroundAreaMatterColor">
+            <td colspan="2">&nbsp;</td>
+            <td class="text-center">Valoración</td>
+          </tr>
+          <tr class="BackgroundAreaMatterColor">
+            <td width="80%" class="spaceBetweenData"><b>`+ academicLoad[index].area + ` - ` + academicLoad[index].matter + `</b></td>
+            <td width="10%" class="spaceBetweenData text-center">Horas: `+ academicLoad[index].hoursPerWeek + `</td>
+            <td width="10%" class="text-center">`+parseFloat(grade).toFixed(2)+`</td>
+          </tr>
+          <tr>
+            <td colspan="3" class="spaceBetweenData"><b>Observaciones:</b><br>`+ performanceDescription + `</td>
+          </tr>
+          </table>
+          `;
+        }
+      } else {
+        html = 'No se encontró carga academica.'
+      }
     return html;
   }
 
@@ -236,27 +297,4 @@ export class ReportService {
       console.log(result)
     }
   }
-
-  /*
-   getGeneralHeaderInformation () {
-     //return object with basic header information
-     //Student Name
-     //Selected Course
-     //Selected Perior
-     //Possible Global Average
-     //Possible position of student on his group
-   }
- 
-   getStudentList(order) {
-     //Possible order values = firstSurname or firstName
-     //return an object with student id and student name
-   }
- 
-   acumulatedAverage (idAcademicLoad,period,idStudent,)
- 
-   Courses
-   AcademicLoads
-   GradeDefinitions
-   GradeInformations
-      */
 }

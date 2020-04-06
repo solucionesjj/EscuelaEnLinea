@@ -84,7 +84,7 @@ export class ReportCardComponent implements OnInit {
   async loadCourses() {
     const result = await this.courseService.getCourses(this.currentYear.toString());
     if (result.length > 0) {
-      result.forEach(course => { this.courseLists.push({ value: course.idCourse, text: course.course + ' - ' + course.reportCardModelName, idReportCardModel: course.idReportCardModel }) });
+      result.forEach(course => { this.courseLists.push({ value: course.idCourse, text: course.course + ' - ' + course.reportCardModelName , idReportCardModel: course.idReportCardModel }) });
     } else {
       this.courseLists.push({ value: '0', text: 'No se encontraron años para el curso actual.' })
     }
@@ -100,6 +100,13 @@ export class ReportCardComponent implements OnInit {
   async generateReportList() {
     this.loadingReports = true;
     this.generatedReports = '';
+    let reportType: number = 0;
+    this.courseLists.forEach(course => {
+      if (course.value == parseInt(this.selectedCourse)) {
+        reportType = course.idReportCardModel;
+      }
+    });
+
     if (this.selectedYear > 0) {
       if (parseInt(this.selectedPeriod) > 0) {
         if (parseInt(this.selectedCourse) > 0) {
@@ -107,7 +114,7 @@ export class ReportCardComponent implements OnInit {
             ////Print reports of all students of selected course
             for (let index = 0; index < this.studentsList.length; index++) {
               if (parseInt(this.studentsList[index].id) > 0) {
-                const report = await this.reportService.getReport(this.studentsList[index].id, this.selectedCourse, this.selectedPeriod);
+                const report = await this.reportService.getReport(this.studentsList[index].id, this.selectedCourse, this.selectedPeriod, reportType);
                 this.generatedReports = this.generatedReports + report;
               } else {
                 ////idStudent equal to 0
@@ -116,7 +123,7 @@ export class ReportCardComponent implements OnInit {
           } else {
             if (parseInt(this.selectdStudent) > 0) {
               ////Print report of specific student
-              this.generatedReports = await this.reportService.getReport(this.selectdStudent, this.selectedCourse, this.selectedPeriod);
+              this.generatedReports = await this.reportService.getReport(this.selectdStudent, this.selectedCourse, this.selectedPeriod, reportType);
             } else {
               alert('Por favor seleccione uno o todos los  estudiante.')
             }

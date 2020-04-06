@@ -45,13 +45,23 @@
             </div>
         </div>
         <div class="col-1">
-            <app-loading *ngIf="loadingReports"></app-loading>
-        </div>
-    </div>
-
-    
-
+            <div class="form-group">
+                <label for="">&nbsp;</label>
+                <button type="button" 
+                [printStyle]="{'.BackgroundAreaMatterColor':{'background-color':'#e0e0eb'},
+                '.spaceBetweenData':{'padding':'5px'},
+                '.gradeData':{'font-size':'small'},
+                '.text-center':{'text-align': 'center!important'},
+                'h4':{'font-size': '1.5rem','margin-bottom': '.5rem','font-weight': '500','line-height': '1.2','margin-top': '0'},
+                'h6':{'font-size': '1rem','margin-bottom': '.5rem','font-weight': '500','line-height': '1.2','margin-top': '0'},
+                '.pagebreak':{ 'page-break-before': 'always'},
+                '.logos':{'height':'128px'}
+                }"
+                class="btn btn-success form-control" printSectionId="printReportObject" ngxPrint><i class="fas fa-print"></i></button> 
+            </div>
+        </div>        
+    </div>  
+    <app-loading *ngIf="loadingReports"></app-loading>
 </ng-container>
-<div [innerHTML]="generatedReports" style="background-color: white;">
-
+<div  id="printReportObject" [innerHTML]="generatedReports" style="background-color: white;">
 </div>
