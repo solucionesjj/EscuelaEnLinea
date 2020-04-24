@@ -19,18 +19,20 @@ export class PermissionComponent implements OnInit {
       { id: '1', value: 'Si' },
       { id: '0', value: 'No' }
     ];
-    this.loadSections();
+    this.loadSections().then(result => {
+      this.loadComponent();
+    })
   }
 
   async loadSections() {
     this.crudService.model = 'Section';
     const result = await this.crudService.get();
-    console.log(result)
     if (result.result) {
       result.data.forEach(item => { this.sectionsCatalog.push({ id: item.id, value: item.section }) });
+    } else {
+      alert('Error al consultar los datos de las secciones.')
+      console.log(result)
     }
-
-    this.loadComponent();
   }
 
   loadComponent() {

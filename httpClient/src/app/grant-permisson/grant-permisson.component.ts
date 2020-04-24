@@ -11,8 +11,8 @@ import { GroupComponent } from '../group/group.component';
 
 
 export class GrantPermissonComponent implements OnInit, OnChanges {
-
-  grantedPermissons: any = {};
+  loadComponent: boolean = false;
+  grantedPermissons: any = [];
   @Input() group: any;
 
   constructor(private crudService: CrudService) {
@@ -20,10 +20,13 @@ export class GrantPermissonComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: import("@angular/core").SimpleChanges): void {
-    this.getComponentList();
+    this.getComponentList().then(result => {
+      this.loadComponent = true;
+    });
   }
 
   async getComponentList() {
+    this.loadComponent = false;
     if (this.group.id > 0) {
       this.crudService.model = 'Component';
       const sqlQuery = `select s.section as section, 
@@ -48,10 +51,18 @@ export class GrantPermissonComponent implements OnInit, OnChanges {
   }
 
   grantPermissons(permisson: any, item: any) {
-    if (item.value > 0) {
-      this.revoquePermisson(permisson.idGroupComponent);
+    if (permisson.idGroupComponent > 0 && item.value == false) {
+      this.revoquePermisson(permisson.idGroupComponent).then(result => {
+        this.getComponentList().then(result => {
+          this.loadComponent = true;
+        });
+      });
     } else {
-      this.grantPermisson(permisson.idGroup, permisson.idComponent);
+      this.grantPermisson(permisson.idGroup, permisson.idComponent).then(result => {
+        this.getComponentList().then(result => {
+          this.loadComponent = true;
+        });
+      });
     }
   }
 
@@ -59,14 +70,24 @@ export class GrantPermissonComponent implements OnInit, OnChanges {
     let GroupComponentObject = { idGroup: idGroup, idComponent: idComponent };
     this.crudService.model = 'GroupComponent';
     const result = await this.crudService.add(GroupComponentObject);
-    console.log(result);
+    if (result.result) {
+      //resultado correcto
+    } else {
+      alert('Error al otorgar el permiso.')
+      console.log(result)
+    }
   }
 
   async revoquePermisson(idGroupComponent: number) {
     let GroupComponentObject = { id: idGroupComponent };
     this.crudService.model = 'GroupComponent';
     const result = await this.crudService.delete(GroupComponentObject);
-    console.log(result);
+    if (result.result) {
+      //resultado correcto
+    } else {
+      alert('Error al otorgar el permiso.')
+      console.log(result)
+    }
   }
 
   ngOnInit() {

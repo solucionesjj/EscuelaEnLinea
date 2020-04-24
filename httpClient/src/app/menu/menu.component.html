@@ -1,0 +1,25 @@
+<app-loading *ngIf="!loadComponent"></app-loading>
+<ng-container *ngIf="loadComponent">
+  <!-- <ul class="nav"> -->
+    <li class="nav-item px-2" *ngFor="let section of menuObject">
+      <a class="nav-link" data-toggle="collapse" href="{{ '#ui-section-'+section.sectionId }}" aria-expanded="false"
+        attr.aria-controls="{{ 'ui-section-'+section.sectionId }}">
+        <span class="menu-title">{{section.sectionTitle}}</span>
+        <i class="menu-arrow"></i>
+        <i class="{{section.sectionIcon}} menu-icon"></i>
+      </a>
+      <div class="collapse" id="{{ 'ui-section-'+section.sectionId }}">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item" *ngFor="let item of section.items">
+            <a class="nav-link" [routerLink]="[item.menuRouterLink]" routerLinkActive="active">
+              &nbsp;
+              <span class="menu-title">{{item.menuTitle}}</span>
+              <i class="{{item.menuIcon}}  menu-icon"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </li>
+    
+  <!-- </ul> -->
+</ng-container>

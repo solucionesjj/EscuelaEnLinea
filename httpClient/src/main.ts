@@ -12,7 +12,6 @@ platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.error(err));
 
 
-//TODO Restringir los menus de acuerdo al perfil de quien accede.
 //TODO Restringir colcar la nota para cada profesor en específico.
 //TODO Sacar registro de notas del componente actual para que sea más fácil
 //TODO Sacar mantenimiento de carga académica del componente actual para que sea más fácil
