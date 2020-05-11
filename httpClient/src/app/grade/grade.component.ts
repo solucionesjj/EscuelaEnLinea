@@ -35,7 +35,6 @@ export class GradeComponent implements OnInit {
 
   isAdministrator: boolean = false;
 
-
   idAcademicLoad: string;
   gradeDefinitionSelected: any = {};
   students: any = [];
@@ -44,7 +43,6 @@ export class GradeComponent implements OnInit {
   idCourse: string;
   grades: any = [];
   smallDateFormat: string;
-
 
   constructor(private courseService: CourseService, private crudService: CrudService, private userService: UserService, private periodService: PeriodService) {
     const user = this.userService.getLoggedUserInformation();
@@ -65,26 +63,8 @@ export class GradeComponent implements OnInit {
         });
       });
     });
-
-
-
-    // this.loadAcademicLoadInfo().then((value) => {
-    //   this.idCourse = this.gradeDefinitionSelected.idCourse;
-    //   this.loadStudents();
-    // });
-    // this.loadPeriodInfo().then((value) => {
-    //   this.loadGrades().then((value) => {
-    //     this.loadActualGrades();
-    //   })
-    // });
-
-
-
-
   }
 
-
-  //// load filters information 
   async loggedUserIsAdministrator() {
     this.isAdministrator = await this.userService.isAdministrator(this.idUser.toString());
   }
@@ -258,7 +238,6 @@ export class GradeComponent implements OnInit {
     })
   }
 
-  //// load Data
   async loadAcademicLoadId() {
     this.idAcademicLoad = '';
     if (parseInt(this.selectedTeacher) > 0) {
@@ -474,7 +453,6 @@ export class GradeComponent implements OnInit {
       console.log(result.message);
     }
   }
-
 
   ngOnInit() {
   }
