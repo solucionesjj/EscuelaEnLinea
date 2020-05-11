@@ -27,6 +27,7 @@ import { PerformanceDefinitionComponent } from './performance-definition/perform
 import { SchoolInformationComponent } from './school-information/school-information.component';
 import { ReportCardComponent } from './report-card/report-card.component';
 import { ReportCardConfigComponent } from './report-card-config/report-card-config.component';
+import { GradeComponent } from './grade/grade.component';
 
 const routes: Routes = [
   {
@@ -161,6 +162,11 @@ const routes: Routes = [
       {
         path: 'reportCardConfig',
         component: ReportCardConfigComponent,
+        canActivate: [AuthGuardService]
+      },
+      {
+        path: 'grade',
+        component: GradeComponent,
         canActivate: [AuthGuardService]
       }
     ]

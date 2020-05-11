@@ -37,6 +37,7 @@ import { ReportCardComponent } from './report-card/report-card.component';
 import { ReportCardConfigComponent } from './report-card-config/report-card-config.component';
 import { NgxPrintModule } from 'ngx-print';
 import { MenuComponent } from './menu/menu.component';
+import { GradeComponent } from './grade/grade.component';
 
 // TODO definir scope para consultas a Google.
 // const googleLoginOptions: LoginOpt = {
@@ -87,7 +88,8 @@ export function provideConfig() {
     SchoolInformationComponent,
     ReportCardComponent,
     ReportCardConfigComponent,
-    MenuComponent
+    MenuComponent,
+    GradeComponent
   ],
   imports: [
     BrowserModule,

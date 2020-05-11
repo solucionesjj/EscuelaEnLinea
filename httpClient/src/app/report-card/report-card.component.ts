@@ -21,8 +21,6 @@ export class ReportCardComponent implements OnInit {
 
   selectedPeriod: string = '0';
 
-  isAdministrator: boolean = false;
-
   idReportCardModelSelected: string = '0';
   reportCardModelList: any = [];
 
