@@ -28,6 +28,7 @@ import { SchoolInformationComponent } from './school-information/school-informat
 import { ReportCardComponent } from './report-card/report-card.component';
 import { ReportCardConfigComponent } from './report-card-config/report-card-config.component';
 import { GradeComponent } from './grade/grade.component';
+import { ValorativeResumeComponent } from './valorativeResume/valorativeResume.component';
 
 const routes: Routes = [
   {
@@ -167,6 +168,11 @@ const routes: Routes = [
       {
         path: 'grade',
         component: GradeComponent,
+        canActivate: [AuthGuardService]
+      },
+      {
+        path: 'valorativeResume',
+        component: ValorativeResumeComponent,
         canActivate: [AuthGuardService]
       }
     ]

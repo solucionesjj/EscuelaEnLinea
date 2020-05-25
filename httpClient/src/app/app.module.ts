@@ -38,6 +38,7 @@ import { ReportCardConfigComponent } from './report-card-config/report-card-conf
 import { NgxPrintModule } from 'ngx-print';
 import { MenuComponent } from './menu/menu.component';
 import { GradeComponent } from './grade/grade.component';
+import { ValorativeResumeComponent } from './valorativeResume/valorativeResume.component';
 
 // TODO definir scope para consultas a Google.
 // const googleLoginOptions: LoginOpt = {
@@ -56,55 +57,58 @@ export function provideConfig() {
 }
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    CourseComponent,
-    AreaComponent,
-    MatterComponent,
-    CrudComponent,
-    UserComponent,
-    GroupComponent,
-    AcademicLoadComponent,
-    LandingPageComponent,
-    LayoutComponent,
-    DashboardComponent,
-    PageNotFoundComponent,
-    LoadUsersComponent,
-    ParameterComponent,
-    FilterPipe,
-    UserGroupComponent,
-    GradeDefinitionComponent,
-    UserMatriculationComponent,
-    UserDetailsComponent,
-    RecordOfGradesComponent,
-    CourseDetailsComponent,
-    PermissionComponent,
-    SectionComponent,
-    GroupComponentComponent,
-    GrantPermissonComponent,
-    PerformanceComponent,
-    PerformanceDefinitionComponent,
-    LoadingComponent,
-    SchoolInformationComponent,
-    ReportCardComponent,
-    ReportCardConfigComponent,
-    MenuComponent,
-    GradeComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    SocialLoginModule,
-    NgxPrintModule
-  ],
-  providers: [
-    {
-      provide: AuthServiceConfig,
-      useFactory: provideConfig
-    }
-  ],
-  bootstrap: [AppComponent]
+   declarations: [
+      AppComponent,
+      CourseComponent,
+      AreaComponent,
+      MatterComponent,
+      CrudComponent,
+      UserComponent,
+      GroupComponent,
+      AcademicLoadComponent,
+      LandingPageComponent,
+      LayoutComponent,
+      DashboardComponent,
+      PageNotFoundComponent,
+      LoadUsersComponent,
+      ParameterComponent,
+      FilterPipe,
+      UserGroupComponent,
+      GradeDefinitionComponent,
+      UserMatriculationComponent,
+      UserDetailsComponent,
+      RecordOfGradesComponent,
+      CourseDetailsComponent,
+      PermissionComponent,
+      SectionComponent,
+      GroupComponentComponent,
+      GrantPermissonComponent,
+      PerformanceComponent,
+      PerformanceDefinitionComponent,
+      LoadingComponent,
+      SchoolInformationComponent,
+      ReportCardComponent,
+      ReportCardConfigComponent,
+      MenuComponent,
+      GradeComponent,
+      ValorativeResumeComponent
+   ],
+   imports: [
+      BrowserModule,
+      AppRoutingModule,
+      HttpClientModule,
+      FormsModule,
+      SocialLoginModule,
+      NgxPrintModule
+   ],
+   providers: [
+     {
+       provide: AuthServiceConfig,
+       useFactory: provideConfig
+     }
+   ],
+   bootstrap: [
+      AppComponent
+   ]
 })
 export class AppModule { }

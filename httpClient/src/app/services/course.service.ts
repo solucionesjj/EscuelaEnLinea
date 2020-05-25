@@ -171,6 +171,4 @@ export class CourseService {
       console.log(result)
     }
   }
-
-
 }

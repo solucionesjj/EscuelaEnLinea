@@ -1,0 +1,74 @@
+<div class="row">
+  <div class="col-2">
+    <div class="form-group">
+      <label for="year">Año</label>
+      <select class="form-control" name="selectedYear" id="selectedYear" [(ngModel)]="selectedYear"
+        (ngModelChange)="loadCourses()">
+        <option *ngFor="let year of yearList" value="{{year.value}}">{{year.text}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="col-3">
+    <div class="form-group">
+      <label for="selectedCourse">Curso</label>
+      <select class="form-control" name="selectedCourse" id="selectedCourse" [(ngModel)]="selectedCourse"
+        (ngModelChange)="loadValorativeResumen()">
+        <option *ngFor="let course of courseLists" value="{{course.value}}">{{course.text}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="col-1">
+    <div class="form-group">
+        <label for="">&nbsp;</label>
+        <button type="button" 
+        [useExistingCss]="true"
+        [printStyle]="{'.':{'font-family': 'Verdana, Geneva, Tahoma, sans-serif','font-size': 'small'},'table ':{'border': '1px solid black', 'border-spacing': '0'},'th ':{'border': '1px solid black'},'td ':{'border': '1px solid black'},'tr ':{'border': '1px solid black'}}"
+        class="btn btn-success form-control" printTitle="Informe Valorativo Resumido" printSectionId="printReportObject" ngxPrint><i class="fas fa-print"></i></button> 
+    </div>
+  </div> 
+</div>
+
+<ng-container *ngIf="showData" >
+
+<div class="row" id="printReportObject">
+  <div class="col-12">
+    <table class="table table-striped table-inverse table-responsive table-hover">
+      <thead class="thead-inverse">
+        <tr>
+          <th class="align-middle">
+            <p class="text-primary">Estudiante</p>
+          </th>
+          <th class="align-middle">
+            <p class="text-primary">Periodo</p>
+          </th>
+          <th class="align-middle">
+            <p class="text-primary">Promedio general</p>
+          </th>
+          <th *ngFor="let matter of matterList" class="text-center align-middle">
+            <p class="text-secondary">{{matter.area}}</p>
+            <p class="text-primary">{{matter.matter}} </p>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let student of studentList">
+          <td class="align-middle font-weight-bold" [ngClass]="{'studentDivisor' : student.period == 5}">
+            {{student.name}}</td>
+          <td class="text-center align-middle" [ngClass]="{'studentDivisor' : student.period == 5}">{{student.period}}
+          </td>
+          <td class="text-center align-middle text-success font-weight-bold"
+            [ngClass]="{'studentDivisor' : student.period == 5}">
+            {{getGeneralAverageByPeriod(student.idStudent,student.period)}}</td>
+          <td *ngFor="let matter of matterList" class="text-center align-middle"
+            [ngClass]="{'text-success font-weight-bold studentDivisor' : student.period == 5}">
+            {{getAverageByMatterAndPeriod(student.idStudent,matter.idMatter,student.period)}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+   
+</ng-container>
+
+
+
