@@ -151,7 +151,7 @@ export class ValorativeResumeComponent implements OnInit {
       if(record.idStudent == idStudent && record.period == period) {
         for (const key in record) {
           if(key == idMatter.toString()) {
-            generalAverage = record.generalAverage;
+            generalAverage = record[key];
             return generalAverage;
           }
         }

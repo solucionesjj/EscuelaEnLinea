@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CrudService } from '../services/crud.service';
 import { PeriodService } from '../services/period.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-grade-definition',
@@ -18,11 +19,17 @@ export class GradeDefinitionComponent {
   periodCatalog: any = [];
   periodActualValue: string;
   selectedPeriod: string;
+  periodList: any = [];
 
-  constructor(private route: ActivatedRoute, private crudService: CrudService, private periodService: PeriodService) {
+  isAdministrator: boolean = false;
+  idUser: number = 0;
+
+  loading: boolean = true;
+
+  constructor(private route: ActivatedRoute, private crudService: CrudService, private periodService: PeriodService, private userService: UserService) {
     this.idAcademicLoad = this.route.snapshot.paramMap.get('id');
-    this.getActualPeriod();    
-    this.loadAcademicLoadInfo();
+
+
     this.configCrudComponent = {
       columns: [{
         name: 'idAcademicLoad',
@@ -92,9 +99,33 @@ export class GradeDefinitionComponent {
       },
       ]
     };
-    this.whereComponent = `{"where":{"idAcademicLoad":"` + this.idAcademicLoad + `"}}`;
+
+    const user = this.userService.getLoggedUserInformation()
+    this.idUser = user.id;
+    this.getActualPeriod().then(result => {
+      this.loggedUserIsAdministrator().then(result => {
+        if (this.isAdministrator == true) {
+          this.whereComponent = `{"where":{"idAcademicLoad":"` + this.idAcademicLoad + `"}}`;
+          this.periodList.push({ value: '0', text: 'Todos' });
+          this.periodList.push({ value: '1', text: '1' });
+          this.periodList.push({ value: '2', text: '2' });
+          this.periodList.push({ value: '3', text: '3' });
+          this.periodList.push({ value: '4', text: '4' });
+        } else {
+          this.whereComponent = `{"where":{"idAcademicLoad":"` + this.idAcademicLoad + `","period":"` + this.periodActualValue + `"}}`;
+          this.periodList.push({ value: this.periodActualValue, text: this.periodActualValue });
+        }
+        this.loadAcademicLoadInfo().then(result => {
+          this.loading = false;
+        })
+      })
+    })
   }
-  
+
+  async loggedUserIsAdministrator() {
+    this.isAdministrator = await this.userService.isAdministrator(this.idUser.toString());
+  }
+
   async getActualPeriod() {
     this.periodActualValue = await this.periodService.get();
     this.periodCatalog.push({ id: '', value: '' });

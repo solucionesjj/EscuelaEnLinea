@@ -34,11 +34,7 @@
         <div class="form-group">
             <label for="">Periodo</label>
             <select class="form-control" name="selectedPeriod" id="selectedPeriod" [(ngModel)]="selectedPeriod">
-                <option value="0">Todos</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
+                <option *ngFor="let period of periodList" value="{{period.value}}">{{period.text}}</option>
             </select>
         </div>
     </div>
@@ -52,5 +48,5 @@
 
 
 
-<app-crud model="GradeDefinition" [canAdd]="true" [canDelete]="true" [canUpdate]="true" [canView]="true"
+<app-crud model="GradeDefinition" *ngIf="!loading" [canAdd]="true" [canDelete]="true" [canUpdate]="true" [canView]="true"
     viewUrl="app/recordofgrades" [where]="whereComponent" [configCrudComponent]="configCrudComponent"></app-crud>
