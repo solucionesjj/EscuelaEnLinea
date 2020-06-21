@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { CourseService } from '../services/course.service';
 import { CrudService } from '../services/crud.service';
 import { UserService } from '../services/user.service';
 import { PeriodService } from '../services/period.service';
+import { AlertService } from '../services/alert.service';
 
 declare var $: any;
 
@@ -44,7 +44,7 @@ export class GradeComponent implements OnInit {
   grades: any = [];
   smallDateFormat: string;
 
-  constructor(private courseService: CourseService, private crudService: CrudService, private userService: UserService, private periodService: PeriodService) {
+  constructor(private alertService: AlertService, private crudService: CrudService, private userService: UserService, private periodService: PeriodService) {
     const user = this.userService.getLoggedUserInformation();
     this.idUser = user.id;
 
@@ -111,6 +111,8 @@ export class GradeComponent implements OnInit {
           result.data.forEach(teacher => {
             this.teacherLists.push({ value: teacher.id, text: teacher.name + ' ' + teacher.surname });
           });
+          this.teacherLists.unshift({ value: '0', text: 'Ninguno' });
+          this.selectedTeacher = '0';
         } else {
           alert('No hay profesores para el año seleccionado.');
         }
@@ -144,6 +146,8 @@ export class GradeComponent implements OnInit {
           result.data.forEach(course => {
             this.courseLists.push({ value: course.id, text: course.course });
           });
+          this.courseLists.unshift({ value: '0', text: 'Ninguno' });
+          this.selectedCourse = '0';
         } else {
           alert('No hay cursos para el profesor seleccionado.');
         }
@@ -178,6 +182,8 @@ export class GradeComponent implements OnInit {
           result.data.forEach(area => {
             this.areaLists.push({ value: area.id, text: area.area });
           });
+          this.areaLists.unshift({ value: '0', text: 'Ninguno' });
+          this.selectedArea = '0';
         } else {
           alert('No hay areas para el curso seleccionado.');
         }
@@ -212,6 +218,8 @@ export class GradeComponent implements OnInit {
           result.data.forEach(matter => {
             this.matterLists.push({ value: matter.id, text: matter.matter });
           });
+          this.matterLists.unshift({ value: '0', text: 'Ninguno' });
+          this.selectedMatter = '0';
         } else {
           alert('No hay materias para el área seleccionada.');
         }
@@ -268,39 +276,6 @@ export class GradeComponent implements OnInit {
     }
   }
 
-  async loadAcademicLoadInfo() {
-    const query = `select 
-    Users.name,
-    Users.surname,
-    Courses.year,
-    Courses.course,
-    Courses.id as idCourse,
-    Areas.area,
-    Matters.matter,
-    AcademicLoads.hoursPerWeek
-  from AcademicLoads
-  inner join Courses
-    on AcademicLoads.idCourse = Courses.id
-  inner join Matters
-    on AcademicLoads.idMatter = Matters.id
-  inner join Areas
-    on Matters.idArea = Areas.id
-  inner join Users
-    on AcademicLoads.idTeacher = Users.id
-  where AcademicLoads.id = `+ this.idAcademicLoad;
-    this.crudService.model = 'AcademicLoad';
-    const result = await this.crudService.getDynamicQuery(query);
-    if (result.result) {
-      if (result.data) {
-        this.gradeDefinitionSelected = result.data[0];
-      } else {
-        console.log('No se encontraron datos.');
-      }
-    } else {
-      console.log(result.message);
-    }
-  }
-
   async loadStudents() {
     this.students = [];
     const query = `select Users.id as idStudent,
@@ -349,6 +324,31 @@ export class GradeComponent implements OnInit {
     }
   }
 
+  async loadActualGrades() {
+    const query = `select GradeDefinitions.id as idGradeDefinitions,
+    GradeInformations.idStudent,
+    GradeInformations.grade,
+    GradeInformations.id as idGradeInformations
+    from AcademicLoads
+    inner join GradeDefinitions
+      on GradeDefinitions.idAcademicLoad = AcademicLoads.id
+    inner join GradeInformations
+      on GradeInformations.idGradeDefinition = GradeDefinitions.id
+    where AcademicLoads.id = `+ this.idAcademicLoad + `
+        and GradeDefinitions.period = `+ this.selectedPeriod;
+    this.crudService.model = 'GradeDefinition';
+    const result = await this.crudService.getDynamicQuery(query);
+    if (result.result) {
+      if (result.data) {
+        this.actualGrades = result.data;
+      } else {
+        console.log('No se encontraron datos.');
+      }
+    } else {
+      console.log(result.message);
+    }
+  }
+
   getAverage(idStudent: number) {
     let sumOfGrades: number = 0;
     let gradesCount: number = 0;
@@ -375,34 +375,53 @@ export class GradeComponent implements OnInit {
 
         gradeInformation.idGradeDefinition = idGradeDefinition;
         gradeInformation.idStudent = idStudent;
-        gradeInformation.period = this.period;
+        gradeInformation.period = this.selectedPeriod;
         gradeInformation.grade = grade;
         idGradeInformation = this.getActualIdGradeInformation(idGradeDefinition, idStudent);
         // Grade exists, update it
         if (idGradeInformation > 0) {
-          gradeInformation.id = idGradeInformation;
-          result = await this.crudService.update(gradeInformation);
-          if (result.result) {
-            console.log(result.message)
+          if (grade == 0) {
+            let gradeInformationToDelete: any = { id: idGradeInformation };
+            result = await this.crudService.delete(gradeInformationToDelete);
+            if (result.result) {
+              this.alertService.success(result.message)
+            } else {
+              this.alertService.danger(result.message)
+            }
+          } else {
+            gradeInformation.id = idGradeInformation;
+            result = await this.crudService.update(gradeInformation);
+            if (result.result) {
+              this.alertService.success(result.message)
+            } else {
+              this.alertService.danger(result.message)
+            }
           }
         } else {
-          // Grade not exists, insert it
-          result = await this.crudService.add(gradeInformation);
-          if (result.result) {
-            console.log(result.message)
+          if (grade > 0) {
+            // Grade not exists, insert it
+            result = await this.crudService.add(gradeInformation);
+            console.log(result)
+            if (result.result) {
+              this.alertService.success(result.message)
+            } else {
+              this.alertService.danger(result.message)
+            }
+          } else {
+            this.alertService.warning('No se puede crear una nota en cero (0).')
           }
+
         }
+
         this.loadActualGrades().then((value) => {
           let htmlObject = '#averageStudent_' + idStudent;
           let average = this.getAverage(idStudent)
-          console.log(htmlObject)
-          console.log(average)
           $(htmlObject).val(average);
         });
+      } else {
+        this.alertService.warning('La nota debe ser un número entre 0 y 5.')
       }
     }
-
-
   }
 
   getActualIdGradeInformation(idGradeDefinitions: number, idStudent: number): number {
@@ -429,32 +448,45 @@ export class GradeComponent implements OnInit {
     return grade;
   }
 
-  async loadActualGrades() {
-    const query = `select GradeDefinitions.id as idGradeDefinitions,
-    GradeInformations.idStudent,
-    GradeInformations.grade,
-    GradeInformations.id as idGradeInformations
-    from AcademicLoads
-    inner join GradeDefinitions
-      on GradeDefinitions.idAcademicLoad = AcademicLoads.id
-    inner join GradeInformations
-      on GradeInformations.idGradeDefinition = GradeDefinitions.id
-    where AcademicLoads.id = `+ this.idAcademicLoad + `
-        and GradeDefinitions.period = `+ this.selectedPeriod;
-    this.crudService.model = 'GradeDefinition';
-    const result = await this.crudService.getDynamicQuery(query);
-    if (result.result) {
-      if (result.data) {
-        this.actualGrades = result.data;
-      } else {
-        console.log('No se encontraron datos.');
-      }
-    } else {
-      console.log(result.message);
-    }
-  }
+
 
   ngOnInit() {
   }
 
 }
+
+
+/*
+async loadAcademicLoadInfo() {
+  const query = `select
+  Users.name,
+  Users.surname,
+  Courses.year,
+  Courses.course,
+  Courses.id as idCourse,
+  Areas.area,
+  Matters.matter,
+  AcademicLoads.hoursPerWeek
+from AcademicLoads
+inner join Courses
+  on AcademicLoads.idCourse = Courses.id
+inner join Matters
+  on AcademicLoads.idMatter = Matters.id
+inner join Areas
+  on Matters.idArea = Areas.id
+inner join Users
+  on AcademicLoads.idTeacher = Users.id
+where AcademicLoads.id = `+ this.idAcademicLoad;
+  this.crudService.model = 'AcademicLoad';
+  const result = await this.crudService.getDynamicQuery(query);
+  if (result.result) {
+    if (result.data) {
+      this.gradeDefinitionSelected = result.data[0];
+    } else {
+      console.log('No se encontraron datos.');
+    }
+  } else {
+    console.log(result.message);
+  }
+}
+*/

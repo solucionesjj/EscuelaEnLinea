@@ -11,7 +11,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "~8.2.13",
+    "@angular/animations": "^8.2.14",
     "@angular/common": "~8.2.13",
     "@angular/compiler": "~8.2.13",
     "@angular/core": "~8.2.13",
@@ -28,6 +28,7 @@
     "httpclient": "^0.1.0",
     "jquery": "^3.4.1",
     "ngx-print": "^1.2.0-beta.4",
+    "ngx-toastr": "^10.0.4",
     "perfect-scrollbar": "^1.4.0",
     "popper": "^1.0.1",
     "quill": "^1.3.7",

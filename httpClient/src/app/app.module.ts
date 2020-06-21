@@ -39,6 +39,8 @@ import { NgxPrintModule } from 'ngx-print';
 import { MenuComponent } from './menu/menu.component';
 import { GradeComponent } from './grade/grade.component';
 import { ValorativeResumeComponent } from './valorativeResume/valorativeResume.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 // TODO definir scope para consultas a Google.
 // const googleLoginOptions: LoginOpt = {
@@ -55,6 +57,7 @@ export function provideConfig() {
   ]);
   return config;
 }
+
 
 @NgModule({
    declarations: [
@@ -99,7 +102,13 @@ export function provideConfig() {
       HttpClientModule,
       FormsModule,
       SocialLoginModule,
-      NgxPrintModule
+      NgxPrintModule,
+      BrowserAnimationsModule,
+      ToastrModule.forRoot({
+        disableTimeOut: false,
+        positionClass: 'toast-top-center',
+        closeButton: true
+      }),
    ],
    providers: [
      {
