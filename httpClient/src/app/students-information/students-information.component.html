@@ -1,0 +1,58 @@
+<div class="text-center">
+  <app-loading *ngIf="!filterDataLoaded">
+</app-loading>  
+</div>
+
+
+<ng-container *ngIf="filterDataLoaded">
+    <div class="row">
+        <div class="col-1">
+
+        </div>
+
+        <div class="col-6 text-center" style="height: 205px;  overflow-y: scroll;">
+            <h6>Estudiante - Curso - Año</h6>
+            <ul class="list-group text-left" id="listFilters">
+                <li *ngFor="let filter of filterData" class="list-group-item" #item (click)="selectFilter(filter,item)">
+                    {{filter.surname}} {{filter.name}}
+                    <b> {{filter.year}} {{filter.course}}</b></li>
+            </ul>
+        </div>
+        <div class="col-2 text-center">
+            <h6>Periodo</h6>
+            <ul class="list-group" id="listPeriods">
+                <li class="list-group-item" #item1 (click)="selectPeriod(1,item1)">1</li>
+                <li class="list-group-item" #item2 (click)="selectPeriod(2,item2)">2</li>
+                <li class="list-group-item" #item3 (click)="selectPeriod(3,item3)">3</li>
+                <li class="list-group-item" #item4 (click)="selectPeriod(4,item4)">4</li>
+            </ul>
+        </div>
+        <div class="col-2 text-center">
+          <h6>&nbsp;</h6>  
+            <button type="button" class="btn btn-success form-control" (click)="generateReport()">Consultar...</button>
+
+            <button type="button" [printStyle]="{'.BackgroundAreaMatterColor':{'background-color':'#e0e0eb'},
+                '.spaceBetweenData':{'padding':'5px'},
+                '.gradeData':{'font-size':'small'},
+                '.text-center':{'text-align': 'center!important'},
+                'h4':{'font-size': '1.5rem','margin-bottom': '.5rem','font-weight': '500','line-height': '1.2','margin-top': '0'},
+                'h6':{'font-size': '1rem','margin-bottom': '.5rem','font-weight': '500','line-height': '1.2','margin-top': '0'},
+                '.pagebreak':{ 'page-break-before': 'always'},
+                '.logos':{'height':'128px'}
+                }" class="btn btn-primary form-control" printSectionId="printReportObject" ngxPrint><i
+                    class="fas fa-print"></i></button>
+
+
+        </div>
+        <div class="col-1">
+
+        </div>
+    </div>
+</ng-container>
+<hr>
+<div class="text-center">
+    <app-loading *ngIf="!reportDataLoaded">
+    </app-loading>
+</div>
+<div id="printReportObject" *ngIf="reportDataLoaded" [innerHTML]="generatedReports" style="background-color: white;">
+</div>

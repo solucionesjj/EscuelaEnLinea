@@ -41,6 +41,8 @@ import { GradeComponent } from './grade/grade.component';
 import { ValorativeResumeComponent } from './valorativeResume/valorativeResume.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { StudentsInformationComponent } from './students-information/students-information.component';
+import { AcademicInformationComponent } from './academic-information/academic-information.component';
 
 // TODO definir scope para consultas a Google.
 // const googleLoginOptions: LoginOpt = {
@@ -94,7 +96,9 @@ export function provideConfig() {
       ReportCardConfigComponent,
       MenuComponent,
       GradeComponent,
-      ValorativeResumeComponent
+      ValorativeResumeComponent,
+      StudentsInformationComponent,
+      AcademicInformationComponent
    ],
    imports: [
       BrowserModule,

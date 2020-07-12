@@ -12,11 +12,11 @@ platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.error(err));
 
 
+//TODO Permitir a los padres que puedan ver las notas de sus hijos
+//TODO Permitir a los alumnos que puedan ver sus notas
 //TODO Restringir colcar la nota para cada profesor en específico.
 //TODO Sacar registro de notas del componente actual para que sea más fácil
 //TODO Sacar mantenimiento de carga académica del componente actual para que sea más fácil
-//TODO Permitir a los padres que puedan ver las notas de sus hijos
-//TODO Permitir a los alumnos que puedan ver sus notas
 //TODO Informe - Informe de notas de cada periodo por curso, donde salen todos los alumnos y todas sus materias.
 //TODO Puesto dentro del grupo promedio general.
 //TODO Crear/editar boletin

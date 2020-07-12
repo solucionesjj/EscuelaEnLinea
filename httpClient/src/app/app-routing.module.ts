@@ -29,6 +29,8 @@ import { ReportCardComponent } from './report-card/report-card.component';
 import { ReportCardConfigComponent } from './report-card-config/report-card-config.component';
 import { GradeComponent } from './grade/grade.component';
 import { ValorativeResumeComponent } from './valorativeResume/valorativeResume.component';
+import { StudentsInformationComponent } from './students-information/students-information.component';
+import { AcademicInformationComponent } from './academic-information/academic-information.component';
 
 const routes: Routes = [
   {
@@ -173,6 +175,17 @@ const routes: Routes = [
       {
         path: 'valorativeResume',
         component: ValorativeResumeComponent,
+        canActivate: [AuthGuardService]
+      }
+      ,
+      {
+        path: 'studentsInformation',
+        component: StudentsInformationComponent,
+        canActivate: [AuthGuardService]
+      },
+      {
+        path: 'academicInformation',
+        component: AcademicInformationComponent,
         canActivate: [AuthGuardService]
       }
     ]
