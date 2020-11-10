@@ -97,7 +97,6 @@ export class CourseService {
                       c.idReportCardModel,
                       rm.name
                   order by c.order`;
-
     this.crudService.model = 'Course';
     const result = await this.crudService.getDynamicQuery(sqlQuery);
     if (result.result) {
@@ -166,6 +165,21 @@ export class CourseService {
     const result = await this.crudService.getDynamicQuery(sqlQuery);
     if (result.result) {
       return result.data;
+    } else {
+      alert('Error al consultar la carga académica del curso.')
+      console.log(result)
+    }
+  }
+
+  async getDirectorName(idCourse: number) {
+    let sqlQuery = `select concat(u.name,' ',u.surname) as name
+    from Courses as c
+    inner join Users as u
+      on c.idDirector = u.id
+    where c.id = `+ idCourse ;
+    const result = await this.crudService.getDynamicQuery(sqlQuery);
+    if (result.result) {
+      return result.data[0];
     } else {
       alert('Error al consultar la carga académica del curso.')
       console.log(result)

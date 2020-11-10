@@ -117,7 +117,27 @@ export class ReportService {
     let html: string = '';
     const schoolInformation = await this.getSchoolInformation();
     if (schoolInformation) {
-      html = `
+      // html = `
+      //         <table width="100%">
+      //         <tbody>
+      //         <tr>
+      //         <td class="text-center"><img class="logos" src="`+ schoolInformation.urlLogoImage + `"></td>
+      //         <td>
+      //         <h4 class="text-center">`+ schoolInformation.name + `</h4>
+      //         <h6 class="text-center">`+ schoolInformation.address + ` ` + schoolInformation.telephone1Description + `: ` + schoolInformation.telephone1 + `</h6>
+      //         <h6 class="text-center">`+ schoolInformation.email1Description + `: ` + schoolInformation.email1 + `</h6>
+      //         <h6 class="text-center">Página web: `+ schoolInformation.webPage + `</h6>
+      //         <h6 class="text-center">`+ schoolInformation.approval + `</h6>
+      //         <h6 class="text-center">`+ schoolInformation.country + ` - ` + schoolInformation.department + ` - ` + schoolInformation.city + `</h6>
+      //         </td>
+      //         <td class="text-center">
+      //         <img class="logos" src="`+ schoolInformation.urlCertificationImage + `">
+      //         </td>
+      //         </tr>
+      //         </tbody>
+      //         </table>
+      //         `;
+              html = `
               <table width="100%">
               <tbody>
               <tr>
@@ -130,7 +150,8 @@ export class ReportService {
               <h6 class="text-center">`+ schoolInformation.approval + `</h6>
               <h6 class="text-center">`+ schoolInformation.country + ` - ` + schoolInformation.department + ` - ` + schoolInformation.city + `</h6>
               </td>
-              <td class="text-center"><img class="logos" src="`+ schoolInformation.urlCertificationImage + `"></td>
+              <td class="text-center">
+              </td>
               </tr>
               </tbody>
               </table>

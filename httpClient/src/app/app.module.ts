@@ -43,6 +43,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { StudentsInformationComponent } from './students-information/students-information.component';
 import { AcademicInformationComponent } from './academic-information/academic-information.component';
+import { RadicadorValoracionesFinalesComponent } from './radicador-valoraciones-finales/radicador-valoraciones-finales.component';
+import { InformeConsolidadoFinalComponent } from './informe-consolidado-final/informe-consolidado-final.component';
+import { CertificadoComponent } from './certificado/certificado.component';
+import { ConstanciaComponent } from './constancia/constancia.component';
 
 // TODO definir scope para consultas a Google.
 // const googleLoginOptions: LoginOpt = {
@@ -98,7 +102,11 @@ export function provideConfig() {
       GradeComponent,
       ValorativeResumeComponent,
       StudentsInformationComponent,
-      AcademicInformationComponent
+      AcademicInformationComponent,
+      RadicadorValoracionesFinalesComponent,
+      InformeConsolidadoFinalComponent,
+      CertificadoComponent,
+      ConstanciaComponent
    ],
    imports: [
       BrowserModule,

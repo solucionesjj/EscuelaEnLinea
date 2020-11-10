@@ -1,0 +1,110 @@
+<h4>Constancias academicas...</h4>
+
+<div style="border: solid; border-color: slateblue; border-width: 1px; " class="p-1 rounded">
+    <div class="row">
+        <div class="col-3">
+            <div class="form-group">
+                <label for="year">Año</label>
+                <select class="form-control" name="selectedYear" id="selectedYear" [(ngModel)]="selectedYear" (ngModelChange)="selectYear()">
+                <option *ngFor="let year of yearList" value="{{year.value}}">{{year.text}}</option>
+            </select>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-group">
+                <label for="selectedCourse">Curso</label>
+                <select class="form-control" name="selectedCourse" id="selectedCourse" [(ngModel)]="selectedCourse" (ngModelChange)="getRadicadorValoracionesFinalesData()">
+                <option *ngFor="let course of courseLists" value="{{course.value}}">{{course.text}}</option>
+            </select>
+            </div>
+        </div>
+        <div class="col-2">
+            <div class="form-group">
+                <label for="">&nbsp;</label>
+                <button type="button" [useExistingCss]="true" [printStyle]="{
+                '.':{'font-family': 'Verdana, Geneva, Tahoma, sans-serif','font-size': 'small'},
+                '.pagebreak':{ 'page-break-before': 'always'}
+            }" class="btn btn-success form-control" printTitle="Informe Valorativo Resumido" printSectionId="printReportObject" ngxPrint><i class="fas fa-print"></i></button>
+            </div>
+        </div>
+        <div class="col-4"></div>
+    </div>
+</div>
+
+<div class="row" id="printReportObject" style="margin-right: 10%; margin-left: 10%;">
+    <ng-container *ngFor="let student of students">
+
+        <table style="width: 100%;  border-width: 0px;">
+            <tr style="border-width: 0px;">
+                <td style="width:20%; text-align: left;">
+                    <img src="{{schoolData.urlLogoImage}}" alt="{{schoolData.name}}">
+                </td>
+                <td style="width:60%; text-align: center;">
+                    <p class="text-center h2"><b>{{schoolData.name}}</b> </p>
+                    {{schoolData.address}} Teléfono: {{schoolData.telephone1}}<br> Email: {{schoolData.email1}}<br> Página web: {{schoolData.webPage}}<br> APROBACIONES: {{schoolData.approval}} <br> Res No. 3083 Julio 24 de 2018<br> {{schoolData.city}}
+                    {{schoolData.department}}
+
+                </td>
+                <td style="width:20%; text-align: right;">
+                    <!-- <img src="{{schoolData.urlCertificationImage}}" height="120px" alt="{{schoolData.name}}"> -->
+                </td>
+            </tr>
+
+            <tr style="border-width: 0px; border-style: hidden;">
+                <td colspan="3" style="text-align: center;"><br> <b>EL SUSCRITO RECTOR</b><br><br>
+                    <b>DEL COLEGIO MARÍA AUXILIADORA DE CHÍA</b>
+                    <br><br>
+                    <b>HACEN CONSTAR</b>
+                    <br><br>
+                </td>
+            </tr>
+            <tr style="border-width: 0px; border-style: hidden;">
+                <td colspan="3" style="text-align: left;">
+                    Que la estudiante, <b>{{student.name | uppercase }}</b>, identificada con <b>{{student.data[0].studentIdentificationType}}</b> N° <b>{{student.data[0].studentIdentification}}</b> de <b>{{student.data[0].studentIdentificationSite}}</b>,
+                    cursó y <b>{{(promotionDecision(student.name)?"Aprobó":"No aprobó") | uppercase}}</b> el grado <b>{{this.selectedCourseName | uppercase}}</b> en el año {{this.selectedYear}} y se encuentra matriculada para el grado <b>{{ this.getNextYearCourse(student.data[0].studentId) |uppercase}}</b>                    en nuestra Institución para la vigencia {{this.selectedYear +1}}.
+                    <br>
+                    <br> El Colegio es privado, de Calendario A y labora en jornada continua de 7:00 a.m. a 3:00 p.m., con una intensidad horaria de 40 horas semanales.<br><br>
+                </td>
+            </tr>
+
+        </table>
+
+        <!-- <table style="width: 100%;  border: 1px !important; border-color: black !important; border-style: solid !important; border-spacing: 0px; ">
+            <tr style="border-style: solid; border-color: black; border-width: 1px;">
+                <td style="border: 1px solid black;text-align: center;"><b>ÀREAS</b></td>
+                <td style="border: 1px solid black;text-align: center;"><b>IHS</b></td>
+                <td colspan="2" style="border: 1px solid black;text-align: center;"><b>VALORACIONES</b></td>
+            </tr>
+            <tr *ngFor="let information of student.data" style="border-style: solid; border-color: black; border-width: 1px; ">
+                <td style="border: 1px solid black;">{{information.area}} - {{information.matter}}</td>
+                <td style="border: 1px solid black;text-align: center;">{{information.ihs}}</td>
+                <td style="border: 1px solid black;text-align: center;">{{information.finalGrade | number:'1.2-2'}}</td>
+                <td style="border: 1px solid black;text-align: center;">{{information.performance}}</td>
+            </tr>
+        </table> -->
+
+        <table style="width: 100%; ">
+            <tr>
+                <td style="text-align: left;">
+                    <br><br>
+                    <p style="text-align: right;">Chía, {{today | date:'yyyy/MMM/dd'}}</p>
+                    <br> En constancia firman:
+                    <br><br><br><br><br>
+                </td>
+            </tr>
+        </table>
+
+        <table style="width: 100%;  border: 0px;">
+            <tr>
+                <td style="width: 50%; text-align: left;">
+                    <hr> {{schoolData.directorName}} <br>{{schoolData.directorIdentification}}<br>Rector
+                </td>
+                <td style="width: 50%; text-align: center;">
+
+                </td>
+            </tr>
+        </table>
+        <br><br><br><br>
+        <div class="pagebreak"></div>
+    </ng-container>
+</div>

@@ -31,6 +31,10 @@ import { GradeComponent } from './grade/grade.component';
 import { ValorativeResumeComponent } from './valorativeResume/valorativeResume.component';
 import { StudentsInformationComponent } from './students-information/students-information.component';
 import { AcademicInformationComponent } from './academic-information/academic-information.component';
+import { RadicadorValoracionesFinalesComponent } from './radicador-valoraciones-finales/radicador-valoraciones-finales.component';
+import { InformeConsolidadoFinalComponent } from './informe-consolidado-final/informe-consolidado-final.component';
+import { CertificadoComponent } from './certificado/certificado.component';
+import { ConstanciaComponent } from './constancia/constancia.component';
 
 const routes: Routes = [
   {
@@ -186,6 +190,26 @@ const routes: Routes = [
       {
         path: 'academicInformation',
         component: AcademicInformationComponent,
+        canActivate: [AuthGuardService]
+      },
+      {
+        path: 'RadicadorValoracionesFinales',
+        component: RadicadorValoracionesFinalesComponent,
+        canActivate: [AuthGuardService]
+      },
+      {
+        path: 'InformeConsolidadoFinal',
+        component: InformeConsolidadoFinalComponent,
+        canActivate: [AuthGuardService]
+      },
+      {
+        path: 'Certificado',
+        component: CertificadoComponent,
+        canActivate: [AuthGuardService]
+      },
+      {
+        path: 'Constancia',
+        component: ConstanciaComponent,
         canActivate: [AuthGuardService]
       }
     ]

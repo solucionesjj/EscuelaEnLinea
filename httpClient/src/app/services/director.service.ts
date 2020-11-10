@@ -15,6 +15,22 @@ export class DirectorService {
     return this.directorList;
   }
 
+  async getSchoolDirector() {
+    this.crudService.model = 'User';
+    const sqlQuery = `select  concat(u.identificationDocumentType,': ', u.identificationDocument) as identification, 
+		concat(u.name,' ',u.surname) as name 
+from SchoolInformations as si 
+inner join Users as u 
+	on u.id = si.idDirector`;
+    const result = await this.crudService.getDynamicQuery(sqlQuery);
+    if (result.result) {
+      return result.data[0];
+    } else {
+      alert('Error al consultar el catálogo de profesores.')
+      console.log(result)
+    }
+  }
+
   async getDirectorList() {
     this.directorList = [];
     this.crudService.model = 'User';

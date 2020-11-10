@@ -12,6 +12,27 @@ export class UserService {
 
   }
 
+
+
+  
+
+async getNextYearCourse(idStudent: number) {
+  this.crudService.model = 'Courses';
+  const sqlQuery = `select c.course from Matriculations as m 
+  inner join Courses as c 
+  on m.idCourse = c.id 
+  where m.idStudent = `+idStudent+` 
+  and c.year = year(date_add(current_date(), interval 1 year))`;
+  const result = await this.crudService.getDynamicQuery(sqlQuery);
+  if (result.result) {
+    return result.data[0];
+  } else {
+    alert('Error al consultar la información de la matricula para el siguiente año.')
+    console.log(result);
+    return {};
+  }
+}
+
   async getUserInformation(idUser: string) {
     this.crudService.model = 'User';
     const searchCriteria = '{"where":{"id":"' + idUser + '"}}'

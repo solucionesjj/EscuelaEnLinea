@@ -28,9 +28,11 @@ app.use(middleware);
 
 ////Routing
 var crudRouting = require('./routes/crud');
+//var areaRouting = require('./routes/area');
 
 ////Add routes to use
 app.use('/crud', crudRouting);
+//app.use('/area', areaRouting);
 
 ////Add images folder
 app.use('/images', express.static('images'));

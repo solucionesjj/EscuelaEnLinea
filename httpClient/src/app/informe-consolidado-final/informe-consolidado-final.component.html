@@ -1,0 +1,108 @@
+<h4>Informe consolidado final de año...</h4>
+
+<div style="border: solid; border-color: slateblue; border-width: 1px; " class="p-1 rounded">
+    <div class="row">
+        <div class="col-3">
+            <div class="form-group">
+                <label for="year">Año</label>
+                <select class="form-control" name="selectedYear" id="selectedYear" [(ngModel)]="selectedYear" (ngModelChange)="selectYear()">
+                <option *ngFor="let year of yearList" value="{{year.value}}">{{year.text}}</option>
+            </select>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-group">
+                <label for="selectedCourse">Curso</label>
+                <select class="form-control" name="selectedCourse" id="selectedCourse" [(ngModel)]="selectedCourse" (ngModelChange)="getRadicadorValoracionesFinalesData()">
+                <option *ngFor="let course of courseLists" value="{{course.value}}">{{course.text}}</option>
+            </select>
+            </div>
+        </div>
+        <div class="col-2">
+            <div class="form-group">
+                <label for="">&nbsp;</label>
+                <button type="button" [useExistingCss]="true" [printStyle]="{
+                '.':{'font-family': 'Verdana, Geneva, Tahoma, sans-serif','font-size': 'small'},
+                '.pagebreak':{ 'page-break-before': 'always'}
+            }" class="btn btn-success form-control" printTitle="Informe Valorativo Resumido" printSectionId="printReportObject" ngxPrint><i class="fas fa-print"></i></button>
+            </div>
+        </div>
+        <div class="col-4"></div>
+    </div>
+</div>
+
+<div class="row" id="printReportObject" style="margin-right: 10%; margin-left: 10%;">
+    <ng-container *ngFor="let student of students">
+
+        <table style="width: 100%;  border-width: 0px;">
+            <tr style="border-width: 0px;">
+                <td style="width:20%; text-align: left;">
+                    <img src="{{schoolData.urlLogoImage}}" alt="{{schoolData.name}}">
+                </td>
+                <td style="width:60%; text-align: center;">
+                    <p class="text-center h2"><b>{{schoolData.name}}</b></p>
+                    <p class="text-center">Año escolar: <b>{{selectedYear}}</b> </p>
+                    <p class="text-center h5">Informe consolidado final del año</p>
+
+                </td>
+                <td style="width:20%; text-align: right;">
+                    <!-- <img src="{{schoolData.urlCertificationImage}}" height="120px" alt="{{schoolData.name}}"> -->
+                </td>
+            </tr>
+            <tr style="border-width: 0px; border-style: hidden;">
+                <td colspan="3"><br>
+                    <p style="text-align: left;">Estudiante: <b>{{student.name}}</b><br> Curso: <b>{{this.selectedCourseName}}</b></p>
+                </td>
+            </tr>
+        </table>
+
+
+        <br>
+        <table style="width: 100%;  border: 1px !important; border-color: black !important; border-style: solid !important; border-spacing: 0px; ">
+            <tr style="border-style: solid; border-color: black; border-width: 1px;">
+                <td style="border: 1px solid black;text-align: center;"><b>Área</b></td>
+                <td style="border: 1px solid black;text-align: center;"><b>Intensidad horaria semanal</b></td>
+                <td style="border: 1px solid black;text-align: center;"><b>Valoración</b></td>
+                <td style="border: 1px solid black;text-align: center;"><b>Valoración definitiva</b></td>
+            </tr>
+            <tr *ngFor="let information of student.data" style="border-style: solid; border-color: black; border-width: 1px; ">
+                <td style="border: 1px solid black;">{{information.area}} - {{information.matter}}</td>
+                <td style="border: 1px solid black;text-align: center;">{{information.ihs}}</td>
+                <td style="border: 1px solid black;text-align: center;">{{information.finalGrade | number:'1.2-2'}}</td>
+                <td style="border: 1px solid black;text-align: center;">{{information.performance}}</td>
+            </tr>
+        </table>
+
+        <table style="width: 100%; ">
+            <tr>
+                <td colspan="2">
+                    <br>
+                    <div [innerHTML]="performanceInformation"></div>
+                </td>
+            </tr>
+            <tr>
+
+                <td style="width:60%; text-align: left;">
+                    <br><br> Decisión de promoción: {{(promotionDecision(student.name)?"Promovido":"No promovido")}}
+                    <br><br> Observaciones:<br><br><br><br><br><br><br><br>
+                </td>
+                <td style="width:40%; text-align: center;">
+                </td>
+            </tr>
+        </table>
+
+
+        <table style="width: 100%;  border: 0px;">
+            <tr>
+                <td style="width: 50%; text-align: center;">
+                    <hr> Rector: <b>{{schoolData.directorName}}</b>
+                </td>
+                <td style="width: 50%; text-align: center;">
+                    <hr> Director: <b>{{courseDirectorName}}</b>
+                </td>
+            </tr>
+        </table>
+        <br><br><br><br>
+        <div class="pagebreak"></div>
+    </ng-container>
+</div>

@@ -3,6 +3,7 @@ import { CrudService } from '../services/crud.service';
 import { UserService } from '../services/user.service';
 import { PeriodService } from '../services/period.service';
 import { AlertService } from '../services/alert.service';
+import { FaultService } from '../services/fault.service';
 
 declare var $: any;
 
@@ -39,12 +40,17 @@ export class GradeComponent implements OnInit {
   gradeDefinitionSelected: any = {};
   students: any = [];
   actualGrades: any = [];
+  actualFaults: any = [];
   period: string;
   idCourse: string;
   grades: any = [];
   smallDateFormat: string;
 
-  constructor(private alertService: AlertService, private crudService: CrudService, private userService: UserService, private periodService: PeriodService) {
+  constructor(private alertService: AlertService,
+    private crudService: CrudService,
+    private userService: UserService,
+    private periodService: PeriodService,
+    private faultService: FaultService) {
     const user = this.userService.getLoggedUserInformation();
     this.idUser = user.id;
 
@@ -235,9 +241,13 @@ export class GradeComponent implements OnInit {
   async loadData() {
     this.loadAcademicLoadId().then(result => {
       if (parseInt(this.idAcademicLoad) > 0) {
-        this.loadStudents().then(result => {
-          this.loadGrades().then((value) => {
-            this.loadActualGrades();
+        this.loadActualFaults().then(result => {
+          this.loadStudents().then(result => {
+            this.loadGrades().then(result => {
+              this.loadActualGrades().then(result => {
+                console.log("Información cargada correctamente")
+              })
+            })
           })
         })
       } else {
@@ -346,6 +356,50 @@ export class GradeComponent implements OnInit {
       }
     } else {
       console.log(result.message);
+    }
+  }
+
+  async loadActualFaults() {
+    this.actualFaults = await this.faultService.getFaultsInformationByCourse(parseInt(this.selectedCourse), parseInt(this.selectedMatter), parseInt(this.selectedPeriod));
+  }
+
+ getActualFaults(idStudent: number) {
+    let faults: number = 0;
+    this.actualFaults.forEach(faultInfo => {
+      if (faultInfo.idStudent === idStudent) {
+        faults = faultInfo.faults;
+      }
+    });
+    return faults;
+  }
+
+ getActualIdFaults(idStudent: number) {
+    let id: number = 0;
+    this.actualFaults.forEach(faultInfo => {
+      if (faultInfo.idStudent == idStudent) {
+        id = faultInfo.idFault;
+      }
+    });
+    return id;
+  }
+
+  async updateFaults(idStudent: number, faults: any, idFault: number) {
+    if(faults.value) {
+      if(idFault > 0) {
+        let result:any = await this.faultService.updateFaults(parseInt(this.selectedCourse),parseInt(this.selectedMatter), idStudent,parseInt(this.selectedPeriod),faults.value,idFault)
+        if(result.result) {
+          this.alertService.success("Registro actualizado correctamente.")
+        } else {
+          this.alertService.danger("Error al actualizar el registro.")
+        }
+      } else {
+        let result:any = await this.faultService.addFaults(parseInt(this.selectedCourse),parseInt(this.selectedMatter), idStudent,parseInt(this.selectedPeriod),faults.value)
+        if(result.result) {
+          this.alertService.success("Registro creado correctamente.")
+        } else {
+          this.alertService.danger("Error al crear el registro.")
+        }
+      }
     }
   }
 
