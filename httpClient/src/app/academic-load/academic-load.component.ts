@@ -85,10 +85,9 @@ export class AcademicLoadComponent implements OnInit {
 
   async getCourseList() {
     const sqlQuery = `select c.id as idCourse, 
-                      c.course 
+                      concat(c.year,' - ',c.course) as course 
                       from Courses as c 
-                      where active = 1 
-                      order by c.order`;
+                      order by c.year desc, c.order asc`;
     this.crudService.model = 'Course';
     const result = await this.crudService.getDynamicQuery(sqlQuery);
     if (result.result) {

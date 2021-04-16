@@ -1,8 +1,7 @@
 <div class="row">
     <div class="col-3">
         CURSO
-        <br>
-        Agregar alumnos al curso
+        <br> Agregar alumnos al curso
         <br>
         <small>Se creará automáticamente las matriculas</small>
 
@@ -10,8 +9,6 @@
     <div class="col-9">
         Listado de alumnos matriculados<br>
         <app-loading *ngIf="!loadComponent"></app-loading>
-        <app-crud *ngIf="informationLoaded" model="Matriculation" [where]="whereComponent" [canAdd]="false"
-            [canDelete]="true" [canUpdate]="false" [canView]="false" viewUrl=""
-            [configCrudComponent]="configCrudComponent"></app-crud>
+        <app-crud *ngIf="informationLoaded" model="Matriculation" [where]="whereComponent" [canAdd]="false" [canDelete]="true" [canUpdate]="false" [canView]="false" viewUrl="" [configCrudComponent]="configCrudComponent"></app-crud>
     </div>
 </div>

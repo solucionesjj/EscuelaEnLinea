@@ -178,12 +178,31 @@ export class UserDetailsComponent implements OnInit {
     }
     this.showSelectedParent = true;
   }
-
+/*
   async getCoursesCatalog() {
     this.crudService.model = 'Course';
     const result = await this.crudService.get();
     if (result.result) {
       this.coursesCatalog = result.data.map(m => ({ id: m.id, value: m.course }));
+    }
+  }
+  */
+
+
+  async getCoursesCatalog() {
+    const sqlQuery = `select c.id as idCourse, 
+                      concat(c.year,' - ',c.course) as course 
+                      from Courses as c 
+                      order by c.year desc, c.order asc`;
+    this.crudService.model = 'Course';
+    const result = await this.crudService.getDynamicQuery(sqlQuery);
+    if (result.result) {
+      for (const row of result.data) {
+        this.coursesCatalog.push({ id: row.idCourse, value: row.course });
+      }
+    } else {
+      alert('Error al consultar el catálogo de cursos.')
+      console.log(result)
     }
   }
 

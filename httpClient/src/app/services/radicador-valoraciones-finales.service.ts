@@ -34,7 +34,7 @@ export class RadicadorValoracionesFinalesService {
                       on mt.id = al.idMatter  
                     inner join Areas as a  
                       on a.id = mt.idArea  
-                    inner join (select idStudent, idMatter, sum(average) / 4 as finalGrade   
+                    inner join (select idStudent, idMatter, sum(average) / count(1) as finalGrade   
                                 from (  
                                 select gi.idStudent, gd.period, al.idMatter, avg(gi.grade) average  
                                 from AcademicLoads as al  
@@ -51,7 +51,7 @@ export class RadicadorValoracionesFinalesService {
                       on grades.idStudent = u.id   
                       and grades.idMatter = mt.id   
                     left join Performances as p  
-                        on grades.finalGrade between p.from and p.to  
+                        on cast(grades.finalGrade as decimal(10,2)) between p.from and p.to  
                     where  c.id = `+idCourse+`  
                     order by concat(u.surname," ",u.name) asc, a.order asc, mt.matter asc`;
     this.crudService.model = 'Course';

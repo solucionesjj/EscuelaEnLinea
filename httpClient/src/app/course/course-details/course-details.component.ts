@@ -43,7 +43,7 @@ export class CourseDetailsComponent {
         this.course.course = result.data[0].course;
         this.course.year = result.data[0].year;
         this.course.active = result.data[0].active;
-        this.coursesCatalog.push({ id: this.course.id, value: this.course.course });
+        this.coursesCatalog.push({ id: this.course.id, value: this.course.year +' - '+this.course.course });
       }
     } else {
       console.log(result.message);

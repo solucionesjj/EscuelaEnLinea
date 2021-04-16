@@ -278,7 +278,7 @@ export class ReportService {
                         on pd.idPerformance = p.id 
                       where idAcademicLoad = `+ idAcademicLoad + `
                         and pd.period = `+ period + `
-                        and `+ grade + ` between p.from and p.to
+                        and format(`+ grade + `,2) between p.from and p.to
                     `;
     this.crudService.model = 'performanceDefinitions';
     const result = await this.crudService.getDynamicQuery(sqlQuery);
