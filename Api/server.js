@@ -1,6 +1,13 @@
 const { Sequelize, Model, DataTypes } = require('sequelize');
 var express = require('express')
+var fs = require('fs')
 var http = require('http')
+var https = require('https')
+const options = {
+  key: fs.readFileSync('key.pem'),
+  cert: fs.readFileSync('cert.pem')
+};
+
 const cors = require("cors");
 var compression = require('compression');
 var app = express()
@@ -60,6 +67,7 @@ app.get('/', (req, res) => {
     res.status(200).send(welcomePage)
 });
 
-http.createServer(app).listen(38001, () => {
+
+https.createServer(options, app).listen(38001, () => {
     console.log('Server has start at localhost on port 38001: http://localhost:38001');
 });
