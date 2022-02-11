@@ -1,18 +1,18 @@
 {
   "production": {
-    "username": "escuelae_cliente1",
+    "username": "escuelae_cliente",
     "password": "xB5.VD=Sw#%s",
-    "database": "escuelae_cliente1",
-    "host": "68.66.226.68",
+    "database": "notaenlinea",
+    "host": "localhost",
     "dialect": "mysql",
     "operatorsAliases": false,
     "logging":true
   },
 "development": {
-    "username": "escuelae_cliente1",
+    "username": "escuelae_cliente",
     "password": "xB5.VD=Sw#%s",
-    "database": "escuelae_cliente1",
-    "host": "68.66.226.68",
+    "database": "notaenlinea",
+    "host": "localhost",
     "dialect": "mysql",
     "operatorsAliases": false,
     "logging":true

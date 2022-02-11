@@ -80,7 +80,8 @@ export class ReportCardComponent implements OnInit {
   }
 
   async loadCourses() {
-    const result = await this.courseService.getCourses(this.currentYear.toString());
+    this.courseLists = [];
+    const result = await this.courseService.getCourses(this.selectedYear.toString());
     if (result.length > 0) {
       result.forEach(course => { this.courseLists.push({ value: course.idCourse, text: course.course + ' - ' + course.reportCardModelName , idReportCardModel: course.idReportCardModel }) });
     } else {

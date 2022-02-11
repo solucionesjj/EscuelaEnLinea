@@ -54,7 +54,7 @@ async getNextYearCourse(idStudent: number) {
   async getUsertGroups(idUser: string) {
     let userGroupsObject: any = [];
     this.crudService.model = 'Group';
-    const sqlQuery = `select g.group, ug.idGroup from UserGroups as ug inner join Groups as g on ug.idGroup = g.id where ug.idUser = ` + idUser;
+    const sqlQuery = "select g.group, ug.idGroup from UserGroups as ug inner join `Groups` as g on ug.idGroup = g.id where ug.idUser = " + idUser;
     const result = await this.crudService.getDynamicQuery(sqlQuery);
     if (result.result) {
       result.data.forEach(item => {

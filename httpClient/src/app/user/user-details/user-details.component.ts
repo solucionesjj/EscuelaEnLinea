@@ -46,20 +46,7 @@ export class UserDetailsComponent implements OnInit {
     this.selectedParent = {};
     if (this.searchCriteria.length > 2) {
       this.crudService.model = 'User';
-      const query = `select u.id, 
-      u.name, 
-      u.surname, 
-      u.identificationDocument, 
-      u.identificationDocumentType 
-      from Users as u 
-      inner join UserGroups as ug 
-      on u.id = ug.idUser 
-      inner join Groups as g 
-      on g.id = ug.idGroup 
-      and g.group = 'Padre' 
-      where lower(name) like lower('%` + this.searchCriteria + `%') 
-      or lower(surname) like lower('%` + this.searchCriteria + `%') 
-      or identificationDocument = lower('%` + this.searchCriteria + `%')`;
+      const query = "select u.id, u.name, u.surname, u.identificationDocument, u.identificationDocumentType from Users as u inner join UserGroups as ug on u.id = ug.idUser inner join `Groups` as g on g.id = ug.idGroup and g.group = 'Padre' where lower(name) like lower('%" + this.searchCriteria + "%') or lower(surname) like lower('%" + this.searchCriteria + "%') or identificationDocument = lower('%" + this.searchCriteria + "%')";
       const result = await this.crudService.getDynamicQuery(query);
       if (result.result) {
         if (result.data.length > 0) {
