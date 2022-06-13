@@ -1,0 +1,31 @@
+#select * from vBoletinResumedInfo
+create or replace view vBoletinResumedInfo as
+select 	year,
+		idCourse,
+        idStudent,
+		area, 
+		matter, 
+		hoursPerWeek, 
+        ifnull(P1_Observation,'') as P1_Observation,
+        P1_gradeByArea, 
+        P1_grade, 
+        P1_recovery,
+		P1_finalGrade,
+        ifnull(P2_Observation,'') as P2_Observation,
+        P2_gradeByArea,
+		P2_grade, 
+        P2_recovery,
+		P2_finalGrade,
+        ifnull(P3_Observation,'') as P3_Observation,
+        P3_gradeByArea,
+		P3_grade, 
+        P3_recovery,
+		P3_finalGrade,
+        ifnull(P4_Observation,'') as P4_Observation,
+        P4_gradeByArea,
+		P4_grade, 
+        P4_recovery,
+		P4_finalGrade,
+		yearGrade
+from 	vBoletinCompleteInfo;
+

@@ -34,6 +34,7 @@ import { PerformanceDefinitionComponent } from './performance-definition/perform
 import { LoadingComponent } from './loading/loading.component';
 import { SchoolInformationComponent } from './school-information/school-information.component';
 import { ReportCardComponent } from './report-card/report-card.component';
+import { ReportCardV2Component } from './report-card-v2/report-card-v2.component';
 import { ReportCardConfigComponent } from './report-card-config/report-card-config.component';
 import { NgxPrintModule } from 'ngx-print';
 import { MenuComponent } from './menu/menu.component';
@@ -47,6 +48,7 @@ import { RadicadorValoracionesFinalesComponent } from './radicador-valoraciones-
 import { InformeConsolidadoFinalComponent } from './informe-consolidado-final/informe-consolidado-final.component';
 import { CertificadoComponent } from './certificado/certificado.component';
 import { ConstanciaComponent } from './constancia/constancia.component';
+
 
 // TODO definir scope para consultas a Google.
 // const googleLoginOptions: LoginOpt = {
@@ -97,6 +99,7 @@ export function provideConfig() {
       LoadingComponent,
       SchoolInformationComponent,
       ReportCardComponent,
+      ReportCardV2Component,
       ReportCardConfigComponent,
       MenuComponent,
       GradeComponent,
@@ -106,7 +109,7 @@ export function provideConfig() {
       RadicadorValoracionesFinalesComponent,
       InformeConsolidadoFinalComponent,
       CertificadoComponent,
-      ConstanciaComponent
+      ConstanciaComponent,
    ],
    imports: [
       BrowserModule,

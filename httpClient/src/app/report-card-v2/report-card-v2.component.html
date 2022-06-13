@@ -1,0 +1,207 @@
+<app-loading *ngIf="!filtersLoaded">
+</app-loading>
+
+<ng-container *ngIf="filtersLoaded">
+    <div class="row">
+        <div class="col-1">
+            <div class="form-group">
+                <label for="year">Año</label>
+                <select class="form-control" name="selectedYear" id="selectedYear" [(ngModel)]="selectedYear" (ngModelChange)="loadCourses()">
+                    <option *ngFor="let year of yearList" value="{{year.value}}">{{year.text}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-1">
+            <div class="form-group">
+                <label for="year">Periodo</label>
+                <select class="form-control" name="selectedPeriod" id="selectedPeriod" [(ngModel)]="selectedPeriod">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-group">
+                <label for="selectedCourse">Curso</label>
+                <select class="form-control" name="selectedCourse" id="selectedCourse" [(ngModel)]="selectedCourse" (ngModelChange)="loadStudents()">
+                    <option *ngFor="let course of courseLists" value="{{course.value}}">{{course.text}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-group">
+                <label for="selectedCourse">Estudiante</label>
+                <select class="form-control" name="selectdStudent" id="selectdStudent" [(ngModel)]="selectdStudent">
+                    <option *ngFor="let student of studentsList" value="{{student.id}}">{{student.value}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-2">
+            <div class="form-group">
+                <label for="">&nbsp;</label>
+                <button type="button" class="btn btn-success form-control" (click)="generateReportList()" >Consultar...</button>
+            </div>
+        </div>
+        <div class="col-1">
+            <div class="form-group">
+                <label for="">&nbsp;</label>
+                <button type="button" 
+                [printStyle]="{'.BackgroundAreaMatterColor':{'background-color':'#e0e0eb'},
+                '.spaceBetweenData':{'padding':'5px'},
+                '.gradeData':{'font-size':'small'},
+                '.text-center':{'text-align': 'center!important'},
+                'h4':{'font-size': '1.5rem','margin-bottom': '.5rem','font-weight': '500','line-height': '1.2','margin-top': '0'},
+                'h6':{'font-size': '1rem','margin-bottom': '.5rem','font-weight': '500','line-height': '1.2','margin-top': '0'},
+                '.pagebreak':{ 'page-break-before': 'always'},
+                '.logos':{'height':'128px'}
+                }"
+                class="btn btn-success form-control" printSectionId="printReportObject" ngxPrint><i class="fas fa-print"></i></button> 
+            </div>
+        </div>        
+    </div>  
+    <app-loading *ngIf="loadingReports"></app-loading>
+</ng-container>
+
+<div id="printReportObject">
+<ng-container id="printReportObject" *ngFor="let boletin of boletinData">
+<div innerHTML="{{schoolInformation}}"></div>
+<table width="100%">
+  <tr>
+  <td class="text-left" width="34%">&nbsp;&nbsp;Estudiante: <b> {{boletinData[0][0].surname}}&nbsp;{{boletinData[0][0].name}}</b></td>
+  <td class="text-center" width="33%">Curso: <b>{{boletinData[0][0].course}} </b></td>
+  <td class="text-right" width="33%">Periodo: <b> {{this.selectedPeriod}}&nbsp;&nbsp;</b></td>
+  </tr>
+  </table>
+    <table border="1" cellspacing="1" cellpadding="1" width="100%">
+      <thead>
+        <tr>
+          <td rowspan="2" align="center">&Aacute;rea - Materia - Observaci&oacute;n</td>
+          <td rowspan="2" align="center">&nbsp;Horas&nbsp;</td>
+
+          <ng-container *ngIf="(Number(selectedPeriod) >= 1 ? true: false)"  >
+            <td align="center">&nbsp;Nota&nbsp;</td>
+            <td align="center">&nbsp;Rec.&nbsp;</td>
+          </ng-container>
+
+          <ng-container *ngIf="(Number(selectedPeriod) >= 2 ? true: false)"  >
+            <td align="center">&nbsp;Nota&nbsp;</td>
+            <td align="center">&nbsp;Rec.&nbsp;</td>
+          </ng-container>
+          
+          <ng-container *ngIf="(Number(selectedPeriod) >= 3 ? true: false)"  >
+            <td align="center">&nbsp;Nota&nbsp;</td>
+            <td align="center">&nbsp;Rec.&nbsp;</td>
+          </ng-container>
+          
+          <ng-container *ngIf="(Number(selectedPeriod) >= 4 ? true: false)"  >
+            <td align="center">&nbsp;Nota&nbsp;</td>
+            <td align="center">&nbsp;Rec.&nbsp;</td>
+            <td align="center">&nbsp;Final&nbsp;</td>
+          </ng-container>
+
+        </tr>  
+        <tr>
+
+
+
+          <ng-container *ngIf="(Number(selectedPeriod) >= 1 ? true: false)"  >
+            <td colspan="2" align="center">
+              &nbsp;Periodo 1&nbsp;
+            </td>
+          </ng-container>
+
+          <ng-container *ngIf="(Number(selectedPeriod) >= 2 ? true: false)"  >
+            <td colspan="2" align="center">
+              &nbsp;Periodo 2&nbsp;
+            </td>
+          </ng-container>
+          
+          <ng-container *ngIf="(Number(selectedPeriod) >= 3 ? true: false)"  >
+            <td colspan="2" align="center">
+              &nbsp;Periodo 3&nbsp;
+            </td>
+          </ng-container>
+          
+          <ng-container *ngIf="(Number(selectedPeriod) >= 4 ? true: false)"  >
+            <td colspan="2" align="center">
+              &nbsp;Periodo 4&nbsp;
+            </td>
+            <td></td>
+          </ng-container>
+          
+        </tr>
+      </thead>
+
+  <ng-container *ngFor="let record of boletin">
+    
+  
+      <tr>
+        <td><b>{{record.area}}&nbsp;-&nbsp;{{record.matter}}&nbsp;</b><br>
+          <span class="small">
+          <b>Observaci&oacute;n:</b><br>
+          <ng-container *ngIf="(Number(selectedPeriod) == 1 ? true: false)"  >
+            {{record.P1_Observation}}&nbsp;
+          </ng-container>
+          <ng-container *ngIf="(Number(selectedPeriod) == 2 ? true: false)"  >
+            {{record.P2_Observation}}&nbsp;
+          </ng-container>
+          <ng-container *ngIf="(Number(selectedPeriod) == 3 ? true: false)"  >
+            {{record.P3_Observation}}&nbsp;
+          </ng-container>
+          <ng-container *ngIf="(Number(selectedPeriod) == 4 ? true: false)"  >
+            {{record.P4_Observation}}&nbsp;
+          </ng-container>
+        </span>
+        </td>
+        <td align="center">{{record.hoursPerWeek}}&nbsp;</td>
+        <ng-container *ngIf="(Number(selectedPeriod) >= 1 ? true: false)"  >
+          <td align="right">{{(record.P1_grade > 0 ? record.P1_grade : '') | number : '1.2-2'}}&nbsp;</td>
+          <td align="right">{{(record.P1_recovery > 0 ? record.P1_recovery  : '')| number : '1.2-2'}}&nbsp;</td>
+        </ng-container>
+        <ng-container *ngIf="(Number(selectedPeriod) >= 2 ? true: false)"  >
+          <td align="right">{{(record.P2_grade > 0 ? record.P2_grade : '') | number : '1.2-2'}}&nbsp;</td>
+          <td align="right">{{(record.P2_recovery > 0 ? record.P2_recovery  : '')| number : '1.2-2'}}&nbsp;</td>
+        </ng-container>
+        <ng-container *ngIf="(Number(selectedPeriod) >= 3 ? true: false)"  >
+          <td align="right">{{(record.P3_grade > 0 ? record.P3_grade : '') | number : '1.2-2'}}&nbsp;</td>
+          <td align="right">{{(record.P3_recovery > 0 ? record.P3_recovery  : '')| number : '1.2-2'}}&nbsp;</td>
+        </ng-container>
+        <ng-container *ngIf="(Number(selectedPeriod) >= 4 ? true: false)"  >
+          <td align="right">{{(record.P4_grade > 0 ? record.P4_grade : '') | number : '1.2-2'}}&nbsp;</td>
+          <td align="right">{{(record.P4_recovery > 0 ? record.P4_recovery  : '')| number : '1.2-2'}}&nbsp;</td>
+          <td align="right">{{(record.yearGrade > 0 ? record.yearGrade : '') | number : '1.2-2'}}&nbsp;</td>
+        </ng-container>
+      </tr>
+    
+
+    <!-- {{record.year}}&nbsp;
+    {{record.idCourse}}&nbsp;
+    {{record.idStudent}}&nbsp;
+    {{record.P1_gradeByArea}}&nbsp;
+    {{record.P1_finalGrade}}&nbsp;
+    {{record.P2_gradeByArea}}&nbsp;
+    {{record.P2_finalGrade}}&nbsp;
+    {{record.P3_gradeByArea}}&nbsp;
+    {{record.P3_finalGrade}}&nbsp;
+    {{record.P4_gradeByArea}}&nbsp;
+    {{record.P4_finalGrade}}&nbsp;
+     -->
+  </ng-container>
+</table>
+<div innerHTML="{{performanceInformation}}"></div>
+&nbsp;&nbsp;Observaciones del Director de grupo:
+<hr width="90%">
+<hr width="90%">
+<br>
+<div innerHTML="{{footerInformation}}" ></div>
+
+<div class="pagebreak"></div>
+
+</ng-container>
+</div>
+
+
+<!-- <div  id="printReportObject" [innerHTML]="generatedReports" style="background-color: white;">
+</div> -->

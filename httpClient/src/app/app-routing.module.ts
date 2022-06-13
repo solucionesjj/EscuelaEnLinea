@@ -26,6 +26,7 @@ import { PerformanceComponent } from './performance/performance.component';
 import { PerformanceDefinitionComponent } from './performance-definition/performance-definition.component';
 import { SchoolInformationComponent } from './school-information/school-information.component';
 import { ReportCardComponent } from './report-card/report-card.component';
+import { ReportCardV2Component } from './report-card-v2/report-card-v2.component';
 import { ReportCardConfigComponent } from './report-card-config/report-card-config.component';
 import { GradeComponent } from './grade/grade.component';
 import { ValorativeResumeComponent } from './valorativeResume/valorativeResume.component';
@@ -35,6 +36,7 @@ import { RadicadorValoracionesFinalesComponent } from './radicador-valoraciones-
 import { InformeConsolidadoFinalComponent } from './informe-consolidado-final/informe-consolidado-final.component';
 import { CertificadoComponent } from './certificado/certificado.component';
 import { ConstanciaComponent } from './constancia/constancia.component';
+
 
 const routes: Routes = [
   {
@@ -164,6 +166,11 @@ const routes: Routes = [
       {
         path: 'reportCard',
         component: ReportCardComponent,
+        canActivate: [AuthGuardService]
+      },
+      {
+        path: 'reportCardV2',
+        component: ReportCardV2Component,
         canActivate: [AuthGuardService]
       },
       {

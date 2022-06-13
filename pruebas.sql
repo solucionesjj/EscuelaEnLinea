@@ -1,0 +1,1 @@
+select * from vBoletinResumedInfo where year = 2022 and idCourse = 32 and idStudent = 880
