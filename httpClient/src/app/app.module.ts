@@ -48,6 +48,7 @@ import { RadicadorValoracionesFinalesComponent } from './radicador-valoraciones-
 import { InformeConsolidadoFinalComponent } from './informe-consolidado-final/informe-consolidado-final.component';
 import { CertificadoComponent } from './certificado/certificado.component';
 import { ConstanciaComponent } from './constancia/constancia.component';
+import { GradeDefinitionErrorComponent } from './grade-definition-error/grade-definition-error.component';
 
 
 // TODO definir scope para consultas a Google.
@@ -110,6 +111,7 @@ export function provideConfig() {
       InformeConsolidadoFinalComponent,
       CertificadoComponent,
       ConstanciaComponent,
+      GradeDefinitionErrorComponent,
    ],
    imports: [
       BrowserModule,

@@ -1,13 +1,28 @@
 <h5>Carga académica...</h5>
-<div class="row">
-    <div class="col-4">
 <div class="form-group">
-  <label for="">Profesor</label>
-  <select class="form-control" name="selectedTeacher" id="selectedTeacher" [(ngModel)]="selectedTeacher">
-    <option value="{{teacher.id}}" *ngFor="let teacher of teacherCatalog">{{teacher.value}}</option>
-  </select>
-</div>        
-    </div>
+<div class="row">
+  <div class="col-2">
+      <div class="form-group">
+          <label for="year">Año</label>
+          <select class="form-control" name="selectedYear" id="selectedYear" [(ngModel)]="selectedYear" (ngModelChange)="loadCourses()">
+              <option *ngFor="let year of yearList" value="{{year.value}}">{{year.text}}</option>
+          </select>
+      </div>
+  </div>
+  <div class="col-4">
+      <div class="form-group">
+          <label for="selectedCourse">Curso</label>
+          <select class="form-control" name="selectedCourse" id="selectedCourse" [(ngModel)]="selectedCourse" (ngModelChange)="loadTeachers()" >
+              <option *ngFor="let course of courseLists" value="{{course.value}}">{{course.text}}</option>
+          </select>
+      </div>
+  </div>
+  <div class="col-4">
+    <label for="">Profesor</label>
+    <select class="form-control" name="selectedTeacher" id="selectedTeacher" [(ngModel)]="selectedTeacher">
+      <option value="{{teacher.id}}" *ngFor="let teacher of teacherListCatalog">{{teacher.value}}</option>
+    </select>
+  </div>    
     <div class="col-2">
         <div class="form-group ">
             <label for="">&nbsp;</label>
@@ -15,6 +30,11 @@
     </div> 
     </div>
 </div>
+</div>
+
+
+
+
 <app-loading *ngIf="!loadComponent"></app-loading>
 <app-crud model="AcademicLoad" *ngIf="loadComponent"
 [canAdd]="true" 

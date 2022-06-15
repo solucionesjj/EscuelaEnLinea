@@ -1,0 +1,27 @@
+<p>
+A continuación la carga academica que contiene errores que deben ser resueltos para que el bolet&iacute;n se presente sin errores:
+</p>
+<table class="table table-sm table-striped table-bordered table-hover table-responsive">
+  <thead>
+    <tr>
+      <td>No</td>
+      <td>Año</td>
+      <td>Curso</td>
+      <td>Profesor</td>
+      <td>&Aacute;rea</td>
+      <td>Materia</td>
+      <td>Periodo</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let record of academicLoadInfo; let i = index">
+      <td>{{i+1}}</td>
+      <td>{{record.year}}</td>
+      <td>{{record.course}}</td>
+      <td>{{record.teacher}}</td>
+      <td>{{record.area}}</td>
+      <td>{{record.matter}}</td>
+      <td>{{record.period}}</td>
+    </tr>
+  </tbody>
+</table>

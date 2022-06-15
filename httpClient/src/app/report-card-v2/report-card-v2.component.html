@@ -138,8 +138,9 @@
     
   
       <tr>
-        <td><b>{{record.area}}&nbsp;-&nbsp;{{record.matter}}&nbsp;</b><br>
-          <span class="small">
+        <td><b>{{record.area}}&nbsp;-&nbsp;{{record.matter}}&nbsp;</b>
+          <br>
+          <!-- <span class="small">
           <b>Observaci&oacute;n:</b><br>
           <ng-container *ngIf="(Number(selectedPeriod) == 1 ? true: false)"  >
             {{record.P1_Observation}}&nbsp;
@@ -153,7 +154,7 @@
           <ng-container *ngIf="(Number(selectedPeriod) == 4 ? true: false)"  >
             {{record.P4_Observation}}&nbsp;
           </ng-container>
-        </span>
+        </span> -->
         </td>
         <td align="center">{{record.hoursPerWeek}}&nbsp;</td>
         <ng-container *ngIf="(Number(selectedPeriod) >= 1 ? true: false)"  >
