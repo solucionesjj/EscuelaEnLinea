@@ -85,6 +85,7 @@
                         <p class="text-info text-small p-0 m-0">{{grade.weight}}%</p>
                     </th>
                 </ng-container>
+                <th>Recuperaci&oacute;n</th>
                 <th>Promedio</th>
             </tr>
         </thead>
@@ -101,7 +102,16 @@
 
                     </td>
                 </ng-container>
-                <td><input disabled="disabled" id="averageStudent_{{student.idStudent}}" type="number" style="width: 72px;" value="{{getAverage(student.idStudent)}}" class="form-control form-control-sm text-center"> </td>
+                
+                    <td class="text-center">
+                        <input type="number" style="width: 72px;" 
+                        value="{{getActualRecoveryGrade(student.idStudent)}}" 
+                        #recoveryGrade 
+                        (blur)="applyRecovery(idAcademicLoad,student.idStudent,selectedPeriod,recoveryGrade.value)" 
+                        class="form-control form-control-sm text-center">
+                    </td>
+                    <td class="text-center">
+                    <input disabled="disabled" id="averageStudent_{{student.idStudent}}" type="number" style="width: 72px;" value="{{getAverage(student.idStudent)}}" class="form-control form-control-sm text-center"> </td>
             </tr>
         </tbody>
     </table>

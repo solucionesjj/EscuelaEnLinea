@@ -41,6 +41,7 @@ export class GradeComponent implements OnInit {
   students: any = [];
   actualGrades: any = [];
   actualFaults: any = [];
+  actualRecoveryGrades: any = [];
   period: string;
   idCourse: string;
   grades: any = [];
@@ -245,7 +246,9 @@ export class GradeComponent implements OnInit {
           this.loadStudents().then(result => {
             this.loadGrades().then(result => {
               this.loadActualGrades().then(result => {
-                console.log("Información cargada correctamente")
+                this.loadRecoveryGrades().then(result => {
+                  this.alertService.success("Información cargada correctamente");
+                });
               })
             })
           })
@@ -334,6 +337,24 @@ export class GradeComponent implements OnInit {
     }
   }
 
+  async loadRecoveryGrades() {
+    const query = ` select idStudent,period,grade 
+                    from RecoveryGrades 
+                    where idAcademicLoad = `+ this.idAcademicLoad + ` 
+                    and period = `+ this.selectedPeriod;
+    this.crudService.model = 'GradeDefinition';
+    const result = await this.crudService.getDynamicQuery(query);
+    if (result.result) {
+      if (result.data) {
+        this.actualRecoveryGrades = result.data;
+      } else {
+        console.log('No se encontraron datos.');
+      }
+    } else {
+      console.log(result.message);
+    }
+  }
+
   async loadActualGrades() {
     const query = `select GradeDefinitions.id as idGradeDefinitions,
     GradeInformations.idStudent,
@@ -371,6 +392,16 @@ export class GradeComponent implements OnInit {
       }
     });
     return faults;
+  }
+
+  getActualRecoveryGrade(idStudent: number) {
+    let recoveryGrade: number = 0;
+    this.actualRecoveryGrades.forEach(recoveryInfo => {
+      if (recoveryInfo.idStudent === idStudent) {
+        recoveryGrade = recoveryInfo.grade;
+      }
+    });
+    return recoveryGrade;
   }
 
  getActualIdFaults(idStudent: number) {
@@ -477,6 +508,28 @@ export class GradeComponent implements OnInit {
       }
     }
   }
+
+  async applyRecovery(idAcademicLoad: string, idStudent: number, period: string,recoveryGrade: number) {
+    if (recoveryGrade) {
+      if (recoveryGrade > 0 && recoveryGrade <= 5) {
+        let sqlQuery = `INSERT 
+                  INTO RecoveryGrades (idAcademicLoad,idStudent,period,grade) 
+                  VALUES (`+idAcademicLoad+`,`+idStudent+`,`+period+`,`+recoveryGrade+`) 
+                  ON DUPLICATE KEY UPDATE grade = `+recoveryGrade;
+        this.crudService.model = 'User';
+        const result = await this.crudService.getDynamicQuery(sqlQuery);
+        console.log(result);
+        if (result.result) {
+          this.alertService.success(result.message)
+        } else {
+          //this.alertService.danger(result.message)
+        }         
+    } else {
+      this.alertService.warning('Por favor coloque una nota válida mayor a 0 y menor o igual a 5.')
+    }
+  }
+}
+
 
   getActualIdGradeInformation(idGradeDefinitions: number, idStudent: number): number {
     let idGradeInformations = 0;
