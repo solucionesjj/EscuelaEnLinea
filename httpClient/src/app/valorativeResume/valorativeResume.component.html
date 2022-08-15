@@ -12,7 +12,7 @@
     <div class="form-group">
       <label for="selectedCourse">Curso</label>
       <select class="form-control" name="selectedCourse" id="selectedCourse" [(ngModel)]="selectedCourse"
-        (ngModelChange)="loadValorativeResumen()">
+        (ngModelChange)="loadValorativeResumenNew()">
         <option *ngFor="let course of courseLists" value="{{course.value}}">{{course.text}}</option>
       </select>
     </div>
@@ -21,16 +21,119 @@
     <div class="form-group">
         <label for="">&nbsp;</label>
         <button type="button" 
-        [useExistingCss]="true"
-        [printStyle]="{'.':{'font-family': 'Verdana, Geneva, Tahoma, sans-serif','font-size': 'small'},'table ':{'border': '1px solid black', 'border-spacing': '0'},'th ':{'border': '1px solid black'},'td ':{'border': '1px solid black'},'tr ':{'border': '1px solid black'}}"
+        [useExistingCss]="false"
+        [printStyle]="{'@media print':{'@page': {'size': 'landscape'}},'.':{'font-family': 'Verdana, Geneva, Tahoma, sans-serif','font-size': 'small'},'table ':{'border': '1px solid black', 'border-spacing': '0'},'th ':{'border': '1px solid black'},'td ':{'border': '1px solid black'},'tr ':{'border': '1px solid black'}}"
         class="btn btn-success form-control" printTitle="Informe Valorativo Resumido" printSectionId="printReportObject" ngxPrint><i class="fas fa-print"></i></button> 
-    </div>
+
+      </div>
+
+
   </div> 
+  <div class="col-1">
+        <div class="form-group">
+      <label for="">&nbsp;</label>
+      <button type="button" class="btn btn-success form-control" (click)="exportToExcel()"  ><i class="fas fa-file-excel"></i></button>    
+  </div> 
+  </div>
+
 </div>
 
 <ng-container *ngIf="showData" >
 
+
 <div class="row" id="printReportObject">
+
+  <div class="col-12">
+    <table class="table table-striped table-inverse table-responsive table-hover">
+      <tr><td colspan="6">&nbsp;</td></tr>
+      <tr><td>Año:</td>
+      <td><b>{{this.selectedYear}}</b></td>
+      <td>Curso:</td>
+      <td><b>{{getCourseName()}}</b></td>
+      <td>Fecha generaci&oacute;n:</td>
+      <td><b>{{getDate()}}</b></td>
+      </tr>
+      <tr><td colspan="6">&nbsp;</td></tr>
+    </table>
+  </div>
+
+  <div class="col-12">
+    <table class="table table-striped table-inverse table-responsive table-hover">
+      <thead class="thead-inverse">
+        <tr>
+          <th class="align-middle">
+            <p class="text-primary">Estudiante</p>
+          </th>
+          <th class="align-middle">
+            <p class="text-primary">Periodo</p>
+          </th>
+          <th class="align-middle">
+            <p class="text-primary">Promedio general</p>
+          </th>
+          <th *ngFor="let matter of areasAndMattersData" class="text-center align-middle">
+            <p class="text-secondary">{{matter.area}}</p>
+            <p class="text-primary">{{matter.matter}} </p>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <ng-container *ngFor="let student of studentsData" >
+          <tr>
+            <td class="align-middle font-weight-bold studentDivisor" rowspan="5" >
+              {{student.name}} {{student.surname}}</td>
+            <td class="text-center align-middle">1
+            </td>
+            <td class="text-center align-middle font-weight-bold {{(getAverageByPeriod(1,student.idStudent) > 3.5) ? 'text-success': 'text-danger' }}">{{getAverageByPeriod(1,student.idStudent)| number :'1.2-2'}}
+            </td>
+            <td *ngFor="let matter of areasAndMattersData" class="text-center align-middle font-weight-bold {{(getGradeNew(1,matter.idArea,matter.idMatter,student.idStudent) > 3.5) ? 'text-success': 'text-danger' }} " >
+              {{(getGradeNew(1,matter.idArea,matter.idMatter,student.idStudent) > 0) ? (getGradeNew(1,matter.idArea,matter.idMatter,student.idStudent) | number :'1.2-2') : ''}}
+            </td>
+
+          </tr>
+          <tr>
+            <td class="text-center align-middle">2
+            </td>
+            <td class="text-center align-middle font-weight-bold {{(getAverageByPeriod(2,student.idStudent) > 3.5) ? 'text-success': 'text-danger' }}">{{getAverageByPeriod(2,student.idStudent)| number :'1.2-2'}}
+            </td>
+            <td *ngFor="let matter of areasAndMattersData" class="text-center align-middle  font-weight-bold {{(getGradeNew(2,matter.idArea,matter.idMatter,student.idStudent) > 3.5) ? 'text-success': 'text-danger' }} ">
+              {{(getGradeNew(2,matter.idArea,matter.idMatter,student.idStudent) > 0) ? (getGradeNew(2,matter.idArea,matter.idMatter,student.idStudent) | number :'1.2-2') : ''}}
+            </td>
+          </tr>
+          <tr>
+            <td class="text-center align-middle">3
+            </td>
+            <td class="text-center align-middle font-weight-bold {{(getAverageByPeriod(3,student.idStudent) > 3.5) ? 'text-success': 'text-danger' }}">{{getAverageByPeriod(3,student.idStudent)| number :'1.2-2'}}
+            </td>
+            <td *ngFor="let matter of areasAndMattersData" class="text-center align-middle font-weight-bold {{(getGradeNew(3,matter.idArea,matter.idMatter,student.idStudent) > 3.5) ? 'text-success': 'text-danger' }} ">
+              {{(getGradeNew(3,matter.idArea,matter.idMatter,student.idStudent) > 0) ? (getGradeNew(3,matter.idArea,matter.idMatter,student.idStudent) | number :'1.2-2') : ''}}
+            </td>          
+          </tr>
+          <tr>
+            <td class="text-center align-middle">4
+            </td>
+            <td class="text-center align-middle font-weight-bold {{(getAverageByPeriod(4,student.idStudent) > 3.5) ? 'text-success': 'text-danger' }}">{{getAverageByPeriod(4,student.idStudent)| number :'1.2-2'}}
+            </td>
+            <td *ngFor="let matter of areasAndMattersData" class="text-center align-middle font-weight-bold {{(getGradeNew(4,matter.idArea,matter.idMatter,student.idStudent) > 3.5) ? 'text-success': 'text-danger' }} ">
+              {{(getGradeNew(4,matter.idArea,matter.idMatter,student.idStudent) > 0) ? (getGradeNew(4,matter.idArea,matter.idMatter,student.idStudent) | number :'1.2-2') : ''}}
+            </td>            
+          </tr>
+          <tr>
+            <td class="text-center align-middle studentDivisor">Final
+            </td>
+            <td class="text-center align-middle font-weight-bold studentDivisor {{(getFinalAverageByStudent(student.idStudent) > 3.5) ? 'text-success': 'text-danger' }}">{{getFinalAverageByStudent(student.idStudent)| number :'1.2-2'}}
+            </td>
+            <td *ngFor="let matter of areasAndMattersData" class="text-center align-middle text-success font-weight-bold studentDivisor {{getFinalAverageByMatter(matter.idArea,matter.idMatter,student.idStudent) > 3.5 ? 'text-success' : 'text-danger'}}">
+              {{getFinalAverageByMatter(matter.idArea,matter.idMatter,student.idStudent)| number :'1.2-2'}}
+            </td>             
+          </tr>                                        
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+
+<!-- 
+
   <div class="col-12">
     <table class="table table-striped table-inverse table-responsive table-hover">
       <thead class="thead-inverse">
@@ -65,7 +168,7 @@
         </tr>
       </tbody>
     </table>
-  </div>
+  </div> -->
 </div>
    
 </ng-container>

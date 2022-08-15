@@ -49,6 +49,7 @@ import { InformeConsolidadoFinalComponent } from './informe-consolidado-final/in
 import { CertificadoComponent } from './certificado/certificado.component';
 import { ConstanciaComponent } from './constancia/constancia.component';
 import { GradeDefinitionErrorComponent } from './grade-definition-error/grade-definition-error.component';
+import { DatePipe } from '@angular/common';
 
 
 // TODO definir scope para consultas a Google.
@@ -127,7 +128,7 @@ export function provideConfig() {
         closeButton: true
       }),
    ],
-   providers: [
+   providers: [DatePipe,
      {
        provide: AuthServiceConfig,
        useFactory: provideConfig
