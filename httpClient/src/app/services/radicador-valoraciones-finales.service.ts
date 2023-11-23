@@ -34,20 +34,7 @@ export class RadicadorValoracionesFinalesService {
                       on mt.id = al.idMatter  
                     inner join Areas as a  
                       on a.id = mt.idArea  
-                    inner join (select idStudent, idMatter, sum(average) / count(1) as finalGrade   
-                                from (  
-                                select gi.idStudent, gd.period, al.idMatter, avg(gi.grade) average  
-                                from AcademicLoads as al  
-                                inner join GradeDefinitions as gd  
-                                on al.id  = gd.idAcademicLoad   
-                                inner join GradeInformations as gi  
-                                on gi.idGradeDefinition = gd.id   
-                                and gi.period = gd.period
-                                where al.idCourse = `+idCourse+`  
-                                group by gd.period , al.idMatter , gi.idStudent   
-                                order by gd.period, al.idMatter, gi.idStudent  
-                                ) grades  
-                            group by idStudent, idMatter) grades  
+                    inner join (select idStudent, idMatter, yearGrade as finalGrade from vBoletinCompleteInfo where idCourse = `+idCourse+`) grades 
                       on grades.idStudent = u.id   
                       and grades.idMatter = mt.id   
                     left join Performances as p  
