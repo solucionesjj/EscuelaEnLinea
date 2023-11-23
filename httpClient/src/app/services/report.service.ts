@@ -256,10 +256,13 @@ export class ReportService {
   }
 
   async getBoletin (idCourse:string, idStudent: string) {
-    const sqlQuery = `select *
-                      from vBoletinCompleteInfo
+    const sqlQuery = `select v.*
+                      from vBoletinCompleteInfo as v
+                      inner join Areas as a
+                        on a.id = v.idArea
                       where idCourse = `+ idCourse + `
                         and idStudent = `+ idStudent + `
+                        order by a.order, v.matter
                     `;
     this.crudService.model = 'performanceDefinitions';
     const result = await this.crudService.getDynamicQuery(sqlQuery);
