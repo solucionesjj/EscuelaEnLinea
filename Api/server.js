@@ -4,8 +4,8 @@ var fs = require('fs')
 var http = require('http')
 var https = require('https')
 const options = {
-  key: fs.readFileSync('key.pem'),
-  cert: fs.readFileSync('cert.pem')
+    key: fs.readFileSync('key.pem'),
+    cert: fs.readFileSync('cert.pem')
 };
 
 const cors = require("cors");
@@ -19,7 +19,7 @@ app.options("*", cors());
 var applicationSettings = require('app-settings')('settings.json');
 process.env.NODE_ENV = applicationSettings.NODE_ENV;
 
-var middleware = function(req, res, next) {
+var middleware = function (req, res, next) {
     const dataReq = {
         user: req.headers.username,
         pass: req.headers.password,
@@ -67,7 +67,15 @@ app.get('/', (req, res) => {
     res.status(200).send(welcomePage)
 });
 
+console.log('Enviroment vars: '+process.env.NODE_ENV);
+if (process.env.NODE_ENV == 'production') {
+    https.createServer(options, app).listen(38001, () => {
+        console.log('Server has start at localhost on port 38001: https://ServerNameOrIp:38001');
+    });
+} else {
+    http.createServer(options, app).listen(38001, () => {
+        console.log('Server has start at localhost on port 38001: http://localhost:38001');
+    });
+}
 
-https.createServer(options, app).listen(38001, () => {
-    console.log('Server has start at localhost on port 38001: http://localhost:38001');
-});
+

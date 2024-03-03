@@ -9,8 +9,8 @@
     "logging":true
   },
 "development": {
-    "username": "escuelae_cliente",
-    "password": "xB5.VD=Sw#%s",
+    "username": "root",
+    "password": "Q4xvc6sc",
     "database": "notaenlinea",
     "host": "localhost",
     "dialect": "mysql",
