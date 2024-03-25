@@ -37,6 +37,9 @@ import { InformeConsolidadoFinalComponent } from './informe-consolidado-final/in
 import { CertificadoComponent } from './certificado/certificado.component';
 import { ConstanciaComponent } from './constancia/constancia.component';
 import { GradeDefinitionErrorComponent } from './grade-definition-error/grade-definition-error.component';
+import { LegalGuardianQualifyCatalogComponent } from './legal-guardian-qualify-catalog/legal-guardian-qualify-catalog.component';
+import { LegalGuardianQualifyComponent } from './legal-guardian-qualify/legal-guardian-qualify.component';
+import { AspectsComponent } from './aspects/aspects.component';
 
 
 const routes: Routes = [
@@ -224,7 +227,22 @@ const routes: Routes = [
         path: 'Constancia',
         component: ConstanciaComponent,
         canActivate: [AuthGuardService]
-      }
+      },
+      {
+        path: 'CatalogoCalificacionAcudientes',
+        component: LegalGuardianQualifyCatalogComponent,
+        canActivate: [AuthGuardService]
+      },
+      {
+        path: 'CalificacionAcudientes',
+        component: LegalGuardianQualifyComponent,
+        canActivate: [AuthGuardService]
+      },
+      {
+        path: 'Aspectos',
+        component: AspectsComponent,
+        canActivate: [AuthGuardService]
+      },
     ]
   },
   {

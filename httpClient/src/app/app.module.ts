@@ -50,6 +50,9 @@ import { CertificadoComponent } from './certificado/certificado.component';
 import { ConstanciaComponent } from './constancia/constancia.component';
 import { GradeDefinitionErrorComponent } from './grade-definition-error/grade-definition-error.component';
 import { DatePipe } from '@angular/common';
+import { LegalGuardianQualifyCatalogComponent } from './legal-guardian-qualify-catalog/legal-guardian-qualify-catalog.component';
+import { LegalGuardianQualifyComponent } from './legal-guardian-qualify/legal-guardian-qualify.component';
+import { AspectsComponent } from './aspects/aspects.component';
 
 
 // TODO definir scope para consultas a Google.
@@ -113,6 +116,9 @@ export function provideConfig() {
       CertificadoComponent,
       ConstanciaComponent,
       GradeDefinitionErrorComponent,
+      LegalGuardianQualifyCatalogComponent,
+      LegalGuardianQualifyComponent,
+      AspectsComponent
    ],
    imports: [
       BrowserModule,

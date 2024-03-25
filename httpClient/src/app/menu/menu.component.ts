@@ -45,7 +45,6 @@ export class MenuComponent implements OnInit {
       where ug.idUser = `+ this.idUser + `
       group by s.section, s.icon, c.menuTitle, c.description, c.icon
       order by s.order, c.menuOrder, c.menuTitle`;
-      console.log(sqlQuery);
       const result = await this.crudService.getDynamicQuery(sqlQuery);
       if (result.result) {
         if (result.data.length > 0) {
