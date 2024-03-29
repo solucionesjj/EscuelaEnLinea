@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
                 key: 'id'
             }
         },
-        period: {
+        bimestre: {
             allowNull: false,
             required: true,
             type: DataTypes.INTEGER
@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
             required: true,
             allowNull: false,
             references: {
-                model: 'LegalGuardianQualifyCatalog',
+                model: 'Aspects',
                 key: 'id'
             }
         },

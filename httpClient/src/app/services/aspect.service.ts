@@ -9,19 +9,14 @@ export class AspectService {
   constructor(private crudService: CrudService) { }
 
   async get() {
-    let result = await this.getAspects();
-    return result;
-  }
-
-  async getAspects() {
     this.crudService.model = 'Aspects';
-    const query = `SELECT id, aspect FROM Aspects order by aspect`;
+    const query = `SELECT id as id, aspect as value FROM Aspects order by aspect`;
     const result = await this.crudService.getDynamicQuery(query);
     if (result.result) {
-      if (result.data) {
-        this.aspects = result.data[0].value;
+      if (result.data.length > 0) {
+        this.aspects = result.data;
       } else {
-        console.log('No se encontraron datos.');
+        console.log('No se encontró datos en el catalogo de Aspectos.');
       }
     } else {
       console.log(result.message);

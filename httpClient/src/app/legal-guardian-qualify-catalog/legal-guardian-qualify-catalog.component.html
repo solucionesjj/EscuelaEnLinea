@@ -1,1 +1,2 @@
-<app-crud model="LegalGuardianQualifyCatalog" [canAdd]="true" [canDelete]="true" [canUpdate]="true" [canView]="false" [configCrudComponent]="configCrudComponent"></app-crud>
+<app-loading *ngIf="loading"></app-loading>
+<app-crud model="LegalGuardianQualifyCatalog" *ngIf="!loading" [canAdd]="true" [canDelete]="true" [canUpdate]="true" [canView]="false" [configCrudComponent]="configCrudComponent"></app-crud>

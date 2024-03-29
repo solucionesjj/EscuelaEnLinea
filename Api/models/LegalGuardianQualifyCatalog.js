@@ -6,6 +6,15 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       required: true
     },
+    idAspect: {
+      type: DataTypes.INTEGER,
+      required: true,
+      allowNull: false,
+      references: {
+          model: 'LegalGuardianQualifyCatalog',
+          key: 'id'
+      }
+  },
   }, {freezeTableName: true,});
   LegalGuardianQualifyCatalog.associate = function (models) {
     // associations can be defined here

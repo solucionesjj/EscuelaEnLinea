@@ -48,7 +48,8 @@ export class CourseService {
                       Users.name,
                       `+ fullName + ` as fullName,
                       Users.surname,                      
-                      Users.identificationDocument
+                      Users.identificationDocument,
+                      Matriculations.id as idMatriculation
                     from Matriculations
                       inner join Users
                       on Matriculations.idStudent = Users.id

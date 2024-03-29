@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { CrudService } from '../services/crud.service';
 import { environment } from 'src/environments/environment';
-import { FilterPipe } from '../pipes/filter.pipe';
 import { Router } from '@angular/router';
 
 declare var $: any;

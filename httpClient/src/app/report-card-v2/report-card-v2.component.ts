@@ -4,6 +4,7 @@ import { UserService } from '../services/user.service';
 import { PeriodService } from '../services/period.service';
 import { ReportService } from '../services/report.service';
 import { CourseService } from '../services/course.service';
+import { LegalGuardianQualifyService } from '../services/legal-guardian-qualify.service';
 
 @Component({
   selector: 'app-report-card-v2',
@@ -42,11 +43,14 @@ export class ReportCardV2Component implements OnInit {
 
   loadingReports: boolean = false;
 
+  legalGuardianQualifyData: any = [];
+
   constructor(private crudService: CrudService,
     private userService: UserService,
     private periodService: PeriodService,
     private reportService: ReportService,
-    private courseService: CourseService) {
+    private courseService: CourseService,
+    private legalGuardianQualifyService: LegalGuardianQualifyService) {
     let initialYear: number = this.currentYear - this.range;
     const finalYear = initialYear + (this.range * 2);
     for (let actualYear = initialYear; actualYear <= finalYear; actualYear++) {
@@ -120,6 +124,9 @@ export class ReportCardV2Component implements OnInit {
   }
 
   async generateReportList() {
+    this.legalGuardianQualifyData = [];
+    this.legalGuardianQualifyData = await this.legalGuardianQualifyService.getLegalGuardianQualify(parseInt(this.selectedCourse), parseInt(this.selectedPeriod));
+    this.legalGuardianQualifyData = this.legalGuardianQualifyData.data;
     this.footerInformation = await this.reportService.getFooterInformation(this.selectedCourse);
     this.boletinData = [];
     this.loadingReports = true;
@@ -161,6 +168,17 @@ export class ReportCardV2Component implements OnInit {
       alert('Por favor seleccione el año.')
     }
     this.loadingReports = false;
+  }
+
+  getQualificationData(idStudent: number) {
+    let qualificationData = [];
+    this.legalGuardianQualifyData.forEach(data => {
+      if(data.idStudent == idStudent) { 
+        qualificationData.push({idStudent: idStudent, aspect: data.aspect,qualify: data.qualify});
+      }
+    });
+    console.log(qualificationData);
+    return qualificationData;
   }
 
   ngOnInit() {

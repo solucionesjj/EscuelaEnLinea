@@ -192,10 +192,23 @@
     {{record.P4_gradeByArea}}&nbsp;
     {{record.P4_finalGrade}}&nbsp;
      -->
+    
   </ng-container>
 </table>
+<br>
 <div innerHTML="{{performanceInformation}}"></div>
-&nbsp;&nbsp;Observaciones del Director de grupo:
+<table>
+  <tr>
+    <td><b>Calificación del acudiente:</b></td>
+  </tr>
+  <tr *ngFor="let qualification of getQualificationData(boletin[0].idStudent)">
+    <td>
+      <b>{{qualification.aspect}}:</b> {{qualification.qualify}}
+    </td>
+  </tr>
+</table>
+<hr>
+&nbsp;&nbsp;<b>Observaciones del Director de grupo:</b>
 <hr width="90%">
 <hr width="90%">
 <br>
