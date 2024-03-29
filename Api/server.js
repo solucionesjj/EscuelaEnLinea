@@ -3,10 +3,22 @@ var express = require('express')
 var fs = require('fs')
 var http = require('http')
 var https = require('https')
-const options = {
-    key: fs.readFileSync('key.pem'),
-    cert: fs.readFileSync('cert.pem')
-};
+var options = {};
+
+var applicationSettings = require('app-settings')('settings.json');
+process.env.NODE_ENV = applicationSettings.NODE_ENV;
+
+if (process.env.NODE_ENV == 'production') {
+    options = {
+        key: fs.readFileSync('/etc/letsencrypt/live/mauxinotas.crenova.co/privkey.pem'),
+        cert: fs.readFileSync('/etc/letsencrypt/live/mauxinotas.crenova.co/cert.pem')
+    };
+} else {
+    options = {
+        key: fs.readFileSync('key.pem'),
+        cert: fs.readFileSync('cert.pem')
+    };
+}
 
 const cors = require("cors");
 var compression = require('compression');
@@ -15,9 +27,6 @@ app.use(compression()); // Enable compression for all request and responses.
 var helmet = require('helmet'); // enable protection for vulnerbilities
 app.use(cors()); // Restrict access for only authorized sources
 app.options("*", cors());
-
-var applicationSettings = require('app-settings')('settings.json');
-process.env.NODE_ENV = applicationSettings.NODE_ENV;
 
 var middleware = function (req, res, next) {
     const dataReq = {
@@ -67,7 +76,7 @@ app.get('/', (req, res) => {
     res.status(200).send(welcomePage)
 });
 
-console.log('Enviroment vars: '+process.env.NODE_ENV);
+console.log('Enviroment vars: ' + process.env.NODE_ENV);
 if (process.env.NODE_ENV == 'production') {
     https.createServer(options, app).listen(38001, () => {
         console.log('Server has start at localhost on port 38001: https://ServerNameOrIp:38001');
