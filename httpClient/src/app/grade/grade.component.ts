@@ -441,13 +441,25 @@ export class GradeComponent implements OnInit {
     this.actualGrades.forEach(gradeInformation => {
       if (gradeInformation.idStudent === idStudent) {
         gradesCount++;
-        sumOfGrades = sumOfGrades + parseFloat(gradeInformation.grade);
+        //sumOfGrades = sumOfGrades + parseFloat(gradeInformation.grade);
+        sumOfGrades = sumOfGrades + this.getGradeWeight(gradeInformation.idGradeDefinitions,parseFloat(gradeInformation.grade));
       }
     });
-    if (gradesCount > 0) {
-      average = sumOfGrades / gradesCount;
-    }
-    return average.toFixed(2);
+    // if (gradesCount > 0) {
+    //   average = sumOfGrades / gradesCount;
+    // }
+    // return average.toFixed(2);
+    return sumOfGrades.toFixed(2);
+  }
+
+  getGradeWeight(idGradeDefinition: number, grade: number) {
+    let gradeWeight = 0;
+    this.grades.forEach(gradeData => {
+      if (gradeData.id === idGradeDefinition) {
+        gradeWeight =  (grade/100) * gradeData.weight ;
+      }
+    });
+    return gradeWeight;
   }
 
   async applyGrade(idGradeDefinition: number, idStudent: number, grade: number) {
